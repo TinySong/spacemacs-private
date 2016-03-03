@@ -1,0 +1,13 @@
+* TinySong spacemacs 私有配置
+** emacs 系统要求
+   emacs 最好选用 24.5+版本
+** 使用方法
+#+BEGIN_SRC sh
+   # clone spacemacs 源码
+   git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d
+   cd .emacs.d
+   git checkout origin/devlop
+   # clone 私有配置
+   git clone https://github.com/TinySong/spacemeacs-private.git ~/.spacemacs.d
+#+END_SRC
+   然后运行 emacs 即可
