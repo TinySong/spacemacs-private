@@ -45,7 +45,6 @@ values."
      ;; (ruby :variables ruby-version-manager 'rvm)
      python
      lua
-     html
      go
      c-c++
      command-log
