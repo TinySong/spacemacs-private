@@ -347,10 +347,14 @@ layers configuration."
   (global-linum-mode t)
   (display-time-mode 1)
   (xterm-mouse-mode -1)
+  ;; (selectric-mode 1)
 
   ;;解决org表格里面中英文对齐的问题
+  ;;;###TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
-    (when (spacemacs/system-is-mac)
+    ;; (when (spacemacs/system-is-mac)
+    ;;   (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+    (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
 
   ;; (global-company-mode t)
