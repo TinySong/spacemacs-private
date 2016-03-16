@@ -81,9 +81,10 @@ values."
             c-c++-default-mode-for-headers 'c++-mode)
      (auto-completion :variables auto-completion-enable-sort-by-usage t)
      (shell :variables
-            shell-default-position 'full
+            shell-default-position 'bottom
             shell-default-shell 'ansi-term
-            shell-default-term-shell "/bin/zsh")
+            shell-default-term-shell "/bin/zsh"
+            shell-enable-smart-eshell t)
      zilongshanren
      guanghui)
    ;; List of additional packages that will be installed without being
