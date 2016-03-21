@@ -183,3 +183,7 @@ Single Capitals as you type."
 (add-hook 'c++-mode-hook
           '(lambda ()
              (add-hook 'write-contents-hooks 'zilongshanren/untabify-buffer nil t)))
+
+;; (add-hook 'go-mode-hook
+;;           '(lambda ()
+;;              (add-hook 'write-contents-hooks 'zilongshanren/untabify-buffer nil t)))
