@@ -130,17 +130,21 @@ Single Capitals as you type."
       (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
     (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
 
+;;  associate xml, xsd, etc with nxml-mode
 (add-to-list 'auto-mode-alist (cons (concat "\\." (regexp-opt '("xml" "xsd" "rng" "xslt" "xsl") t) "\\'") 'nxml-mode))
+;;;### et the automplete flag to true
 (setq nxml-slash-auto-complete-flag t)
 
 
 ;; cleanup recent files
 (add-hook 'kill-emacs-hook #'(lambda () (progn (and (fboundp 'recentf-cleanup) (recentf-cleanup))
-                                               (and (fboundp 'projectile-cleanup-known-projects) (projectile-cleanup-known-projects)))))
+                                           (and (fboundp 'projectile-cleanup-known-projects) (projectile-cleanup-known-projects)))))
 
 ;; change evil initial mode state
 (menu-bar-mode t)
 
+;;  add .c or .mm suffix file info c mode
+;; auto-mode-alist: https://www.emacswiki.org/emacs/AutoModeAlist
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 (add-to-list 'auto-mode-alist '("\\.c\\'" . c++-mode))
 
