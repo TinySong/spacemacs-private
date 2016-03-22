@@ -12,11 +12,12 @@
 (require 'ido)
 
 
+;; just for macOS
 (defun zilongshanren/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
   (insert (zilongshanren/retrieve-chrome-current-tab-url)))
-
+;; execute macOS AppleScript
 (defun zilongshanren/retrieve-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
