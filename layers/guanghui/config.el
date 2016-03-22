@@ -54,7 +54,7 @@
 ;;      (set-default 'semantic-case-fold t)
 ;;      ))
 
-
+;; https://www.emacswiki.org/emacs/AbbrevMode
 (define-abbrev-table 'global-abbrev-table '(
 
                                             ;; math/unicode symbols
@@ -67,7 +67,7 @@
                                             ("8zh" "@~chinese")
                                             ("8sp" "spacemacs")
                                             ;; email
-                                            ("8me" "guanghui8827@gmail.com")
+                                            ("8me" "TinySong1226@gmail.com")
 
                                             ;; computing tech
                                             ("8wp" "Wikipedia")
@@ -81,7 +81,7 @@
                                             ("82dx" "Cocos2D-X")
 
                                             ;; signature
-                                            ("8zl" "zilongshanren")
+                                            ("8ts" "TinySong")
                                             ;; emacs regex
                                             ("8d" "\\([0-9]+?\\)")
                                             ("8str" "\\([^\"]+?\\)\"")))
