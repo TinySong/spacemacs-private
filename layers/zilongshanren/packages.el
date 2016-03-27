@@ -71,6 +71,7 @@
         smartparens
         ))
 
+;; https://ebzzry.github.io/emacs-pairs.html
 (defun zilongshanren/post-init-smartparens ()
   (progn
     (defun wrap-sexp-with-new-round-parens ()
@@ -102,7 +103,8 @@
          )))
 
     (add-hook 'erc-text-matched-hook 'my-erc-hook)
-    (spaceline-toggle-erc-track-off)))
+    ;; (spaceline-toggle-erc-track-off)
+    ))
 
 (defun zilongshanren/post-init-whitespace ()
   (progn

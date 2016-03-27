@@ -86,7 +86,8 @@ values."
             shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      zilongshanren
-     guanghui)
+     guanghui
+     erc)
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -300,7 +301,8 @@ values."
    dotspacemacs-line-numbers nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   ;; dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -335,7 +337,8 @@ any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
-  (setq tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
   ;; ss proxy. But it will cause anacond-mode failed.
   (setq socks-server '("Default server" "127.0.0.1" 1080 5))
@@ -351,7 +354,7 @@ layers configuration."
   (xterm-mouse-mode -1)
   (global-hl-line-mode)
   ;; (selectric-mode 1)
-
+  (setq tab-width 4)
   ;;解决org表格里面中英文对齐的问题
 ;;;###TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
@@ -425,6 +428,8 @@ layers configuration."
   ;; (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
   ;; (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
+  ;; https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org
+  ;; include underscores in word motions
   ;; For python
   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; For ruby
@@ -435,4 +440,6 @@ layers configuration."
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
-
+;;TODO https://julien.danjou.info/blog/2012/erc-notifications
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Desktop-Notifications.html
+;;(add-to-list 'erc-modules 'notifications)
