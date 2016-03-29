@@ -66,7 +66,7 @@
         ;; so I use js-comit instead.
         (nodejs-repl-eval :location local)
         ;; plain-org-wiki
-        (whitespace :location built-in)
+        ;; (whitespace :location built-in)
         erc
         smartparens
         ))
@@ -91,62 +91,66 @@
 
     ))
 
-(defun zilongshanren/post-init-erc ()
-  (progn
-    (defun my-erc-hook (match-type nick message)
-      "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
-      (unless (posix-string-match "^\\** *Users on #" message)
-        (zilongshanren/growl-notification
-         (concat "ERC: : " (buffer-name (current-buffer)))
-         message
-         t
-         )))
+;;  erc for mac
+;; (defun zilongshanren/post-init-erc ()
+;;   (progn
+;;     (defun my-erc-hook (match-type nick message)
+;;       "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
+;;       (unless (posix-string-match "^\\** *Users on #" message)
+;;         (zilongshanren/growl-notification
+;;          (concat "ERC: : " (buffer-name (current-buffer)))
+;;          message
+;;          t
+;;          )))
 
-    (add-hook 'erc-text-matched-hook 'my-erc-hook)
-    ;; (spaceline-toggle-erc-track-off)
-    ))
+;;     (add-hook 'erc-text-matched-hook 'my-erc-hook)
+;;     ;; (spaceline-toggle-erc-track-off)
+;;     ))
 
-(defun zilongshanren/post-init-whitespace ()
-  (progn
-    ;; ;; http://emacsredux.com/blog/2013/05/31/highlight-lines-that-exceed-a-certain-length-limit/
-    (setq whitespace-line-column fill-column) ;; limit line length
-    ;;https://www.reddit.com/r/emacs/comments/2keh6u/show_tabs_and_trailing_whitespaces_only/
-    (setq whitespace-display-mappings
-          ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
-          '(
-            (space-mark 32 [183] [46])           ; 32 SPACE, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-            (newline-mark 10 [182 10])           ; 10 LINE FEED
-            (tab-mark 9 [187 9] [9655 9] [92 9]) ; 9 TAB, 9655 WHITE RIGHT-POINTING TRIANGLE 「▷」
-            ))
-    (setq whitespace-style '(face tabs trailing tab-mark ))
-    ;; (setq whitespace-style '(face lines-tail))
-    ;; show tab;  use untabify to convert tab to whitespace
-    ;; (setq spacemacs-show-trailing-whitespace nil)
+;; whitespace
+;; https://www.emacswiki.org/emacs/WhiteSpace
+;; (defun zilongshanren/post-init-whitespace ()
+;;   (progn
+;;     ;; ;; http://emacsredux.com/blog/2013/05/31/highlight-lines-that-exceed-a-certain-length-limit/
+;;     (setq whitespace-line-column fill-column) ;; limit line length
+;;     ;;https://www.reddit.com/r/emacs/comments/2keh6u/show_tabs_and_trailing_whitespaces_only/
+;;     (setq whitespace-display-mappings
+;;           ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
+;;           '(
+;;             (space-mark 32 [183] [46])           ; 32 SPACE, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+;;             (newline-mark 10 [182 10])           ; 10 LINE FEED
+;;             (tab-mark 9 [187 9] [9655 9] [92 9]) ; 9 TAB, 9655 WHITE RIGHT-POINTING TRIANGLE 「▷」
+;;             ))
+;;     (setq whitespace-style '(face tabs trailing tab-mark ))
+;;     ;; (setq whitespace-style '(face lines-tail))
+;;     ;; show tab;  use untabify to convert tab to whitespace
+;;     ;; (setq spacemacs-show-trailing-whitespace nil)
 
-    (setq-default tab-width 4)
-    ;; set-buffer-file-coding-system -> utf8 to convert dos to utf8
-    (setq inhibit-eol-conversion t)
-    (add-hook 'prog-mode-hook 'whitespace-mode)
-    ;; (global-whitespace-mode +1)
+;;     (setq-default tab-width 4)
+;;     ;; set-buffer-file-coding-system -> utf8 to convert dos to utf8
+;;     (setq inhibit-eol-conversion t)
+;;     (add-hook 'prog-mode-hook 'whitespace-mode)
+;;     ;; (global-whitespace-mode +1)
 
-    (with-eval-after-load 'whitespace
-      (progn
-        (set-face-attribute 'whitespace-tab nil
-                            :background "#Adff2f"
-                            :foreground "#00a8a8"
-                            :weight 'bold)
-        (set-face-attribute 'whitespace-trailing nil
-                            :background "#e4eeff"
-                            :foreground "#183bc8"
-                            :weight 'normal)))
+;; (with-eval-after-load 'whitespace
+;;   (progn
+;;     (set-face-attribute 'whitespace-tab nil
+;;                         :background "#Adff2f"
+;;                         :foreground "#00a8a8"
+;;                         :weight 'bold)
+;;     (set-face-attribute 'whitespace-trailing nil
+;;                         :background "#e4eeff"
+;;                         :foreground "#183bc8"
+;;                         :weight 'normal)))
 
-    (diminish 'whitespace-mode)))
+;; (diminish 'whitespace-mode)))
 
 (defun zilongshanren/post-init-js-doc ()
   (setq js-doc-mail-address "TinySong1226@gmail.com"
         js-doc-author (format "RongXiang Song <%s>" js-doc-mail-address)
-        js-doc-url "http://www.zilongshanren.com"
+        js-doc-url "http://www.TinySong.com"
         js-doc-license "MIT"))
+
 
 (defun zilongshanren/init-dired-mode ()
   (use-package dired-mode
@@ -168,6 +172,7 @@
               ("\\.\\(?:mp3\\|flac\\)\\'" "open")
               ("\\.html?\\'" "open")
               ("\\.md\\'" "open")))
+
 
       ;; always delete and copy recursively
       (setq dired-recursive-deletes 'always)
