@@ -31,7 +31,6 @@
 
 (defconst tinysong-packages
   '(
-    (hackernews :location build-in)
     ;; (hackernews :location build-in)
     js-doc
     smartparens
@@ -96,3 +95,5 @@ Each entry is either:
         (kbd "(<") 'sp-backward-slurp-sexp))
 
     ))
+
+(setq-default tab-width 4)
