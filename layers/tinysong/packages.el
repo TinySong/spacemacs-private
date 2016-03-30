@@ -97,3 +97,21 @@ Each entry is either:
     ))
 
 (setq-default tab-width 4)
+
+
+;; https://www.emacswiki.org/emacs/ERC
+;; TODO: erc linux notation
+(defun tinysong/post-init-erc ()
+  (progn
+    (defun my-erc-hook (match-type nick message)
+      "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
+      ;; (unless (posix-string-match "^\\** *Users on #" message)
+      ;;   (zilongshanren/growl-notification
+      ;;    (concat "ERC: : " (buffer-name (current-buffer)))
+      ;;    message
+      ;;    t
+      ;;    )))
+      (message "notation")
+      (add-hook 'erc-text-matched-hook 'my-erc-hook)
+      ;; (spaceline-toggle-erc-track-off)
+      )))
