@@ -145,11 +145,11 @@
 
 ;; (diminish 'whitespace-mode)))
 
-(defun zilongshanren/post-init-js-doc ()
-  (setq js-doc-mail-address "TinySong1226@gmail.com"
-        js-doc-author (format "RongXiang Song <%s>" js-doc-mail-address)
-        js-doc-url "http://www.TinySong.com"
-        js-doc-license "MIT"))
+;; (defun zilongshanren/post-init-js-doc ()
+;;   (setq js-doc-mail-address "TinySong1226@gmail.com"
+;;         js-doc-author (format "RongXiang Song <%s>" js-doc-mail-address)
+;;         js-doc-url "http://www.TinySong.com"
+;;         js-doc-license "MIT"))
 
 
 (defun zilongshanren/init-dired-mode ()
