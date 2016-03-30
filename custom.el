@@ -18,12 +18,14 @@
  '(evil-want-C-i-jump t)
  '(exec-path-from-shell-arguments (quote ("-l")))
  '(expand-region-contract-fast-key "V")
- '(expand-region-exclude-text-mode-expansions (quote (html-mode nxml-mode web-mode)))
+ ;; '(expand-region-exclude-text-mode-expansions (quote (html-mode nxml-mode web-mode)))
  '(expand-region-reset-fast-key "r")
  '(flycheck-display-errors-delay 0.4)
  '(golden-ratio-exclude-modes
    (quote
     ("bs-mode" "calc-mode" "ediff-mode" "dired-mode" "gud-mode" "gdb-locals-mode" "gdb-registers-mode" "gdb-breakpoints-mode" "gdb-threads-mode" "gdb-frames-mode" "gdb-inferior-io-mode" "gud-mode" "gdb-inferior-io-mode" "gdb-disassembly-mode" "gdb-memory-mode" "restclient-mode" "speedbar-mode" term-mode)))
+
+ ;; ==========================
  '(helm-ag-always-set-extra-option nil)
  '(helm-gtags-update-interval-second 35)
  '(helm-ls-git-fuzzy-match t)
@@ -53,16 +55,18 @@
  ;;    ((:name "BigDict-01" :file "/Users/guanghui/.emacs.d/pyim/dicts/pyim-bigdict.pyim" :coding utf-8-unix)
  ;;     (:name "BigDict-01" :file "/Users/guanghui/.emacs.d/.cache/pyim-bigdict.pyim" :coding utf-8-unix))))
  '(ring-bell-function (quote ignore) t)
- '(safe-local-variable-values
-   (quote
-    ((eval setenv "PYTHONPATH" "/Users/guanghui/cocos2d-x/tools/cocos2d-console/plugins:/Users/guanghui/cocos2d-x/tools/cocos2d-console/bin"))))
+ ;; '(safe-local-variable-values
+ ;;   (quote
+ ;;    ((eval setenv "PYTHONPATH" "/Users/guanghui/cocos2d-x/tools/cocos2d-console/plugins:/Users/guanghui/cocos2d-x/tools/cocos2d-console/bin"))))
  '(sp-show-pair-from-inside t)
  '(tags-add-tables nil)
  '(tags-revert-without-query t)
  '(vc-follow-symlinks t)
  '(web-mode-markup-indent-offset 2)
  '(ycmd-extra-conf-handler (quote load))
- '(ycmd-extra-conf-whitelist (quote ("~/cocos2d-x/*"))))
+ '(ycmd-extra-conf-whitelist (quote ("~/cocos2d-x/*")))
+ )
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

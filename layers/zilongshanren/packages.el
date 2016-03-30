@@ -25,7 +25,8 @@
         ;; counsel
         magit
         git-messenger
-        helm-flyspell
+        helm-f
+        lyspell
         helm
         helm-ls-git
         keyfreq
@@ -58,7 +59,8 @@
         beacon
         evil-visual-mark-mode
         (occur-mode :location built-in)
-        (dired-mode :location built-in)
+        ;; (dired-mode :location built-in)
+        dired-mode
         js-doc
         ;; post extension names go here
         (doxymacs :location local)
@@ -107,6 +109,7 @@
 ;;     ;; (spaceline-toggle-erc-track-off)
 ;;     ))
 
+
 ;; whitespace
 ;; https://www.emacswiki.org/emacs/WhiteSpace
 ;; (defun zilongshanren/post-init-whitespace ()
@@ -126,7 +129,7 @@
 ;;     ;; show tab;  use untabify to convert tab to whitespace
 ;;     ;; (setq spacemacs-show-trailing-whitespace nil)
 
-    ;; (setq-default tab-width 4)
+;; (setq-default tab-width 4)
 ;;     ;; set-buffer-file-coding-system -> utf8 to convert dos to utf8
 ;;     (setq inhibit-eol-conversion t)
 ;;     (add-hook 'prog-mode-hook 'whitespace-mode)
