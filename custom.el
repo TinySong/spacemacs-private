@@ -13,8 +13,10 @@
  '(beacon-blink-delay 0.3)
  '(cfs--current-profile-name "profile1" t)
  '(ctags-update-delay-seconds 1024)
+ ;; erc
  '(erc-nick "TinySong")
  '(erc-port 6666)
+ ;; TODO: auto insert github nick
  '(evil-want-C-i-jump t)
  '(exec-path-from-shell-arguments (quote ("-l")))
  '(expand-region-contract-fast-key "V")
