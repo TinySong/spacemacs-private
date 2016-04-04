@@ -24,74 +24,78 @@
         swiper
         ;; counsel
         magit
-        git-messenger
-        helm-f
-        lyspell
-        helm
-        helm-ls-git
-        keyfreq
+        ;; git-messenger
+
+        ;; helm-flyspell
+        ;; helm
+        ;; helm-ls-git
+        ;; keyfreq
         ;; worf
-        org-download
+        ;; org-download
         ;; flycheck-package
-        (org :location built-in)
+        ;; (org :location built-in)
         nodejs-repl
         js2-mode
         js2-refactor
-        visual-regexp
-        visual-regexp-steroids
-        helm-gtags
-        persp-mode
-        json-mode
-        racket-mode
+        ;; visual-regexp
+        ;; visual-regexp-steroids
+        ;; helm-gtags
+        ;; persp-mode
+        ;; json-mode
+        ;; DROP: not used
+        ;; racket-mode
         ;; yasnippet
-        helm-ag
-        hungry-delete
+        ;; helm-ag
+        ;; hungry-delete
         ;; flyspell
+        ;; TODO: https://www.emacswiki.org/emacs/FindFileInProject
         find-file-in-project
-        hl-anything
-        projectile
+        ;; hl-anything
+        ;; projectile
         wrap-region
+        ;; TODO: why web cannot auto company http://web-mode.org/  2, package-selected-packages http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
         web-mode
         ;; tagedit
         ;; js-comint
-        ctags-update
-        evil-vimish-fold
-        beacon
+        ;; ctags-update
+        ;; evil-vimish-fold
+        ;; beacon
         evil-visual-mark-mode
-        (occur-mode :location built-in)
-        ;; (dired-mode :location built-in)
-        dired-mode
-        js-doc
+        ;; (occur-mode :location built-in)
+        ;; http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
+        ;; https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
+        (dired-mode :location built-in)
+        ;; js-doc
         ;; post extension names go here
-        (doxymacs :location local)
         ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
         ;; so I use js-comit instead.
-        (nodejs-repl-eval :location local)
+        ;; (nodejs-repl-eval :location local)
         ;; plain-org-wiki
         ;; (whitespace :location built-in)
-        erc
-        smartparens
+        ;; erc
+        ;; smartparens
         ))
 
 ;; https://ebzzry.github.io/emacs-pairs.html
-(defun zilongshanren/post-init-smartparens ()
-  (progn
-    (defun wrap-sexp-with-new-round-parens ()
-      (interactive)
-      (insert "()")
-      (backward-char)
-      (sp-forward-slurp-sexp))
+;; (defun zilongshanren/post-init-smartparens ()
+;;   (progn
+;;     (defun wrap-sexp-with-new-round-parens ()
 
-    (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
+;;       (interactive)
+;;       (insert "()")
+;;       (backward-char)
+;;       (sp-forward-slurp-sexp))
 
-    (with-eval-after-load 'smartparens
-      (evil-define-key 'normal sp-keymap
-        (kbd ")>") 'sp-forward-slurp-sexp
-        (kbd ")<") 'sp-forward-barf-sexp
-        (kbd "(>") 'sp-backward-barf-sexp
-        (kbd "(<") 'sp-backward-slurp-sexp))
+;;     (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
 
-    ))
+;;     (with-eval-after-load 'smartparens
+;;       (evil-define-key 'normal sp-keymap
+;;         (kbd ")>") 'sp-forward-slurp-sexp
+;;         (kbd ")<") 'sp-forward-barf-sexp
+;;         (kbd "(>") 'sp-backward-barf-sexp
+;;         (kbd "(<") 'sp-backward-slurp-sexp))
+
+;;     ))
 
 ;;  erc for mac
 ;; (defun zilongshanren/post-init-erc ()
@@ -178,7 +182,7 @@
 
 
       ;; always delete and copy recursively
-      (setq dired-recursive-deletes 'always)
+      (setq dired-re)
       (setq dired-recursive-copies 'always)
 
       (defvar dired-filelist-cmd
@@ -318,20 +322,24 @@ open and unsaved."
         :off (beacon-mode -1)
         :documentation "Enable point highlighting after scrolling"
         :evil-leader "otb")
-
+      ;; (setq beacon-push-mark 60)
+      ;; (setq beacon-color "#666600")
+      ;; (setq beacon-color "#990099")
+      (setq beacon-color "#FF9900")
       (spacemacs/toggle-beacon-on))
     :config (spacemacs|hide-lighter beacon-mode)))
 
-(defun zilongshanren/init-evil-vimish-fold ()
-  (use-package evil-vimish-fold
-    :init
-    (vimish-fold-global-mode 1)))
+;; (defun zilongshanren/init-evil-vimish-fold ()
+;;   (use-package evil-vimish-fold
+;;     :init
+;;     (vimish-fold-global-mode 1)))
 
 (defun zilongshanren/init-ctags-update ()
   (use-package ctags-update
     :init
     (progn
-      ;; (add-hook 'js2-mode-hook 'turn-on-ctags-auto-update-mode)
+      (add-hook 'c++-mode-hook 'turn-on-ctags-auto-update-mode)
+      (add-hook 'c-mode-hook 'turn-on-ctags-auto-update-mode)
       (define-key evil-normal-state-map (kbd "gf")
         (lambda () (interactive) (find-tag (find-tag-default-as-regexp))))
 
@@ -1211,23 +1219,8 @@ be global."
 
 ;; For each extension, define a function zilongshanren/init-<extension-name>
 ;;
-(defun zilongshanren/init-doxymacs ()
-  "Initialize doxymacs"
-  (use-package doxymacs
-    :init
-    (add-hook 'c-mode-common-hook 'doxymacs-mode)
-    :config
-    (progn
-      (defun my-doxymacs-font-lock-hook ()
-        (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-            (doxymacs-font-lock)))
-      (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
-      (spacemacs|hide-lighter doxymacs-mode))))
 
-;; https://atlanis.net/blog/posts/nodejs-repl-eval.html
-(defun zilongshanren/init-nodejs-repl-eval ()
-  (use-package nodejs-repl-eval
-    :init))
+
 
 (defun zilongshanren/init-plain-org-wiki ()
   (use-package plain-org-wiki

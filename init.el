@@ -55,7 +55,7 @@ values."
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
      ;; dash
-     ;; emoji
+     emoji
      ;; ycmd
      ;; fasd
      ;; deft
