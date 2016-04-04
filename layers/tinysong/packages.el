@@ -13,6 +13,8 @@
 
 ;; See the Spacemacs documentation and FAQs for instructions on how to implement
 ;; a new layer:
+
+
 ;;
 ;;   SPC h SPC layers RET
 ;;
@@ -51,6 +53,10 @@
     ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
     visual-regexp-steroids
+    flycheck
+    cmake-font-lock
+    cmake-mode
+    google-c-style
     ;; TODO find out what is persp-mode https://libraries.io/emacs/persp-mode https://github.com/Bad-ptr/persp-mode.el
     ;; persp-mode
     org-download
@@ -607,6 +613,7 @@ be global."
       (keyfreq-mode t)
       (keyfreq-autosave-mode 1))))
 
+;; https://github.com/syohex/emacs-git-messenger
 (defun tinysong/post-init-git-messenger ()
   (use-package git-messenger
     :defer t
@@ -625,5 +632,44 @@ be global."
                             commit)))
           (github-browse--save-and-view url)
           (git-messenger:popup-close)))
-      (message "Tinysong commit %s" url)
       (define-key git-messenger-map (kbd "f") 'zilong/github-browse-commit))))
+
+
+(defun tinysong/post-init-flycheck ()
+  (with-eval-after-load 'flycheck
+    (progn
+      ;; (setq flycheck-display-errors-function 'flycheck-display-error-messages)
+      (setq flycheck-display-errors-delay 0.1)
+      ;; (remove-hook 'c-mode-hook 'flycheck-mode)
+      ;; (remove-hook 'c++-mode-hook 'flycheck-mode)
+      ;; (evilify flycheck-error-list-mode flycheck-error-list-mode-map)
+      )))
+
+;; cmake https://www.ibm.com/developerworks/cn/linux/l-cn-cmake/
+(defun tinysong/post-init-cmake-mode ()
+  (progn
+    (spacemacs/declare-prefix-for-mode 'cmake-mode
+                                       "mh" "docs")
+    (spacemacs/set-leader-keys-for-major-mode 'cmake-mode
+      "hd" 'cmake-help)
+    (defun cmake-rename-buffer ()
+      "Renames a CMakeLists.txt buffer to cmake-<directory name>."
+      (interactive)
+      (when (and (buffer-file-name)
+                 (string-match "CMakeLists.txt" (buffer-name)))
+        (setq parent-dir (file-name-nondirectory
+                          (directory-file-name
+                           (file-name-directory (buffer-file-name)))))
+        (setq new-buffer-name (concat "cmake-" parent-dir))
+        (rename-buffer new-buffer-name t)))
+
+    (add-hook 'cmake-mode-hook (function cmake-rename-buffer))))
+
+(defun tinysong/init-cmake-font-lock ()
+  (use-package cmake-font-lock
+    :defer t))
+
+;; http://blog.csdn.net/csfreebird/article/details/9250989
+(defun zilongshanren/init-google-c-style ()
+  (use-package google-c-style
+    :init (add-hook 'c-mode-common-hook 'google-set-c-style)))

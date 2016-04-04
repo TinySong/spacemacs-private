@@ -1,4 +1,4 @@
-;;; config.el --- zilongshanren Layer packages File for Spacemacs
+;; Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2015-2016 zilongshanren
 ;;
@@ -16,7 +16,7 @@
 (spacemacs|defvar-company-backends sh-mode)
 (spacemacs|add-company-hook sh-mode)
 
-(spacemacs/declare-prefix "ot" "Toggle")
+;;(spacemacs/declare-prefix "ot" "Toggle")
 
 (spacemacs|add-toggle iimage
   :status iimage-mode
@@ -175,15 +175,15 @@ Single Capitals as you type."
             kill-buffer-query-functions))
 
 ;; return nil to write content to file
-(defun zilongshanren/untabify-buffer ()
-  (interactive)
-  (save-excursion
-    (untabify (point-min) (point-max)) nil))
-
-(add-hook 'c++-mode-hook
-          '(lambda ()
-             (add-hook 'write-contents-hooks 'zilongshanren/untabify-buffer nil t)))
-
+;;(defun zilongshanren/untabify-buffer ()
+;;  (interactive)
+;;  (save-excursion
+;;    (untabify (point-min) (point-max)) nil))
+;;
+;;(add-hook 'c++-mode-hook
+;;          '(lambda ()
+;;             (add-hook 'write-contents-hooks 'zilongshanren/untabify-buffer nil t)))
+;;
 ;; (add-hook 'go-mode-hook
 ;;           '(lambda ()
 ;;              (add-hook 'write-contents-hooks 'zilongshanren/untabify-buffer nil t)))

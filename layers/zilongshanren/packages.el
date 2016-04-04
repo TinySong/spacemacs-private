@@ -16,9 +16,9 @@
         css-mode
         lispy
         company
-        cmake-font-lock
-        cmake-mode
-        flycheck
+        ;; cmake-font-lock
+        ;; cmake-mode
+        ;; flycheck
         markdown-mode
         impatient-mode
         swiper
@@ -555,7 +555,7 @@ open and unsaved."
   (with-eval-after-load 'flycheck
     (progn
       ;; (setq flycheck-display-errors-function 'flycheck-display-error-messages)
-      (setq flycheck-display-errors-delay 0.2)
+      (setq flycheck-display-errors-delay 0.1)
       ;; (remove-hook 'c-mode-hook 'flycheck-mode)
       ;; (remove-hook 'c++-mode-hook 'flycheck-mode)
       ;; (evilify flycheck-error-list-mode flycheck-error-list-mode-map)

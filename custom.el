@@ -57,9 +57,9 @@
  ;;    ((:name "BigDict-01" :file "/Users/guanghui/.emacs.d/pyim/dicts/pyim-bigdict.pyim" :coding utf-8-unix)
  ;;     (:name "BigDict-01" :file "/Users/guanghui/.emacs.d/.cache/pyim-bigdict.pyim" :coding utf-8-unix))))
  '(ring-bell-function (quote ignore) t)
- ;; '(safe-local-variable-values
- ;;   (quote
- ;;    ((eval setenv "PYTHONPATH" "/Users/guanghui/cocos2d-x/tools/cocos2d-console/plugins:/Users/guanghui/cocos2d-x/tools/cocos2d-console/bin"))))
+ '(safe-local-variable-values
+   (quote
+    ((eval setenv "PYTHONPATH" "$HOME/.local/lib/python2.7/site-packages/yapf"))))
  '(sp-show-pair-from-inside t)
  '(tags-add-tables nil)
  '(tags-revert-without-query t)
