@@ -85,8 +85,8 @@ values."
             shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
-     ;;zilongshanren
-     ;;guanghui
+     zilongshanren
+     guanghui
      erc
      tinysong
      )
