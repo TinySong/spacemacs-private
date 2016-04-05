@@ -57,6 +57,7 @@
     cmake-font-lock
     cmake-mode
     google-c-style
+    nodejs-repl
     ;; TODO find out what is persp-mode https://libraries.io/emacs/persp-mode https://github.com/Bad-ptr/persp-mode.el
     ;; persp-mode
     org-download
@@ -670,6 +671,12 @@ be global."
     :defer t))
 
 ;; http://blog.csdn.net/csfreebird/article/details/9250989
-(defun zilongshanren/init-google-c-style ()
+(defun tinysong/init-google-c-style ()
   (use-package google-c-style
     :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
+
+
+(defun tinysong/init-nodejs-repl ()
+  (use-package nodejs-repl
+    :init
+    :defer t))

@@ -34,7 +34,7 @@
         ;; org-download
         ;; flycheck-package
         ;; (org :location built-in)
-        nodejs-repl
+        ;; nodejs-repl
         js2-mode
         js2-refactor
         ;; visual-regexp
