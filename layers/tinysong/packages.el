@@ -58,6 +58,7 @@
     cmake-mode
     google-c-style
     nodejs-repl
+    yasnippet
     ;; TODO find out what is persp-mode https://libraries.io/emacs/persp-mode https://github.com/Bad-ptr/persp-mode.el
     ;; persp-mode
     org-download
@@ -680,3 +681,26 @@ be global."
   (use-package nodejs-repl
     :init
     :defer t))
+
+
+(defun tinysong/post-init-yasnippet ()
+  (progn
+    (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
+    (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
+                                                                       org-mode-hook
+                                                                       markdown-mode-hook))
+
+    (defun tinysong/load-yasnippet ()
+      (unless yas-global-mode
+        (progn
+          ;; (yas-global-mode 1)
+          (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+          (setq yas-snippet-dirs  my-snippet-dir)
+          (yas-load-directory my-snippet-dir)
+          (setq yas-wrap-around-region t)))
+      (yas-minor-mode 1))
+
+    (spacemacs/add-to-hooks 'tinysong/load-yasnippet '(prog-mode-hook
+                                                       markdown-mode-hook
+                                                       org-mode-hook))
+    ))

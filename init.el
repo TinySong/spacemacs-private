@@ -45,7 +45,7 @@ values."
      ;; (ruby :variables ruby-version-manager 'rvm)
      (python :variables python-enable-yapf-format-on-save t)
      lua
-     go
+     (go :variables go-tab-width 4)
      c-c++
      command-log
      html
@@ -79,12 +79,18 @@ values."
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode)
-     (auto-completion :variables auto-completion-enable-sort-by-usage t)
+     (auto-completion :variables auto-completion-enable-sort-by-usage t
+                      ;; for test
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t)
      (shell :variables
             shell-default-position 'bottom
             shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
+     (chinese :variables
+              chinese-enable-youdao-dict t
+              chinese-enable-fcitx t)
      zilongshanren
      guanghui
      erc
