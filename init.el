@@ -363,6 +363,9 @@ layers configuration."
   (global-hl-line-mode)
   ;; (selectric-mode 1)
   (setq tab-width 4)
+
+  (yas-global-mode 1)
+
   ;;解决org表格里面中英文对齐的问题
 ;;;###TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)

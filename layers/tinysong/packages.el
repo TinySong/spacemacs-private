@@ -683,6 +683,7 @@ be global."
     :defer t))
 
 
+;; https://github.com/capitaomorte/yasnippet
 (defun tinysong/post-init-yasnippet ()
   (progn
     (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))

@@ -6,8 +6,12 @@
    # clone spacemacs 源码
    git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d
    cd .emacs.d
-   git checkout origin/devlop
+   git checkout origin/develop
+
    # clone 私有配置
    git clone https://github.com/TinySong/spacemeacs-private.git ~/.spacemacs.d
+
+   # add yasnippet template
+   git clone https://github.com/AndreaCrotti/yasnippet-snippets.git ~/.spacemacs.d/snippets
 #+END_SRC
    然后运行 emacs 即可
