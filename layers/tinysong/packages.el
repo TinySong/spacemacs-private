@@ -285,6 +285,7 @@ Each entry is either:
       (require 'org-compat)
       (require 'org)
       ;; (add-to-list 'org-modules "org-habit")
+      ;; http://orgmode.org/manual/Tracking-your-habits.html
       (add-to-list 'org-modules 'org-habit)
       (require 'org-habit)
 
@@ -294,6 +295,7 @@ Each entry is either:
             '((nil :maxlevel . 4)
               (org-agenda-files :maxlevel . 4)))
       ;; config stuck project
+      ;; http://orgmode.org/manual/Stuck-projects.html#Stuck-projects
       (setq org-stuck-projects
             '("TODO={.+}/-DONE" nil nil "SCHEDULED:\\|DEADLINE:"))
 
@@ -304,6 +306,7 @@ Each entry is either:
 
       ;; 加密文章
       ;; "http://coldnew.github.io/blog/2013/07/13_5b094.html"
+      ;; https://www.emacswiki.org/emacs/EasyPG#toc5
       ;; org-mode 設定
       (require 'org-crypt)
 
@@ -367,6 +370,8 @@ Each entry is either:
                                   (local-set-key (kbd "C-c i s")
                                                  'tinysong/org-insert-src-block)
                                   ))
+
+      ;; http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
       (require 'ox-publish)
       (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}
                                         [NO-DEFAULT-PACKAGES]

@@ -89,8 +89,7 @@ values."
             shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      (chinese :variables
-              chinese-enable-youdao-dict t
-              chinese-enable-fcitx t)
+              chinese-enable-youdao-dict t)
      zilongshanren
      guanghui
      erc
@@ -363,8 +362,11 @@ layers configuration."
   (global-hl-line-mode)
   ;; (selectric-mode 1)
   (setq tab-width 4)
-
+  ;; (delete-selection-mode t)
   (yas-global-mode 1)
+  (global-company-mode t)
+  ;;  auto save by extral app edit
+  (global-auto-revert-mode t)
 
   ;;解决org表格里面中英文对齐的问题
 ;;;###TODO:cannot create org table when tap TAB or RET

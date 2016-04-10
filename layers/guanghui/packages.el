@@ -20,7 +20,8 @@
         org-tree-slide
         js2-mode
         find-file-in-project
-        org-bullets
+        ;;  for mac is ok, ubuntu display mass code
+        ;; org-bullets
         ;; evil-escape
         (cc-mode :location built-in)
         youdao-dictionary
@@ -177,6 +178,7 @@
       "gs" 'helm-gtags-find-symbol
       "gf" 'helm-gtags-find-files)))
 
+;; https://github.com/skeeto/elfeed
 (defun guanghui/post-init-elfeed ()
   (use-package elfeed
     :init
@@ -518,8 +520,8 @@
 (defun guanghui/post-init-evil-escape ()
   (setq evil-escape-delay 0.2))
 
-(defun guanghui/post-init-org-bullets ()
-  (setq org-bullets-bullet-list '("🐉" "🐠" "🐬" "🐤")))
+;; (defun guanghui/post-init-org-bullets ()
+;;   (setq org-bullets-bullet-list '("🐉" "🐠" "🐬" "🐤")))
 
 (defun guanghui/post-init-find-file-in-project ()
   (progn

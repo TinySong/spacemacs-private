@@ -15,3 +15,7 @@
    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git ~/.spacemacs.d/snippets
 #+END_SRC
    然后运行 emacs 即可
+
+   #+BEGIN_SRC
+
+   #+END_SRC
