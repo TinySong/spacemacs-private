@@ -107,7 +107,7 @@ values."
                                     org-plus-contrib
                                     skewer-mode
                                     vi-tilde-fringe
-                                    emmet-mode
+                                    ;; emmet-mode
                                     smooth-scrolling
                                     chinese-wbim
                                     chinese-pyim
