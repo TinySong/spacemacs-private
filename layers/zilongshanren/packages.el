@@ -16,148 +16,29 @@
         css-mode
         lispy
         company
-        ;; cmake-font-lock
-        ;; cmake-mode
         ;; flycheck
         markdown-mode
         impatient-mode
         swiper
-        ;; counsel
         magit
-        ;; git-messenger
-
-        ;; helm-flyspell
-        ;; helm
-        ;; helm-ls-git
-        ;; keyfreq
-        ;; worf
-        ;; org-download
         ;; flycheck-package
-        ;; (org :location built-in)
         ;; nodejs-repl
         js2-mode
         js2-refactor
-        ;; visual-regexp
-        ;; visual-regexp-steroids
-        ;; helm-gtags
-        ;; persp-mode
-        ;; json-mode
         ;; DROP: not used
-        ;; racket-mode
-        ;; yasnippet
-        ;; helm-ag
-        ;; hungry-delete
-        ;; flyspell
         ;; TODO: https://www.emacswiki.org/emacs/FindFileInProject
         find-file-in-project
-        ;; hl-anything
-        ;; projectile
-        wrap-region
         ;; TODO: why web cannot auto company http://web-mode.org/  2, package-selected-packages http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
         web-mode
         ;; tagedit
         ;; js-comint
-        ;; ctags-update
-        ;; evil-vimish-fold
-        ;; beacon
         evil-visual-mark-mode
-        ;; (occur-mode :location built-in)
         ;; http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
         ;; https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
         (dired-mode :location built-in)
-        ;; js-doc
-        ;; post extension names go here
-        ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
-        ;; so I use js-comit instead.
-        ;; (nodejs-repl-eval :location local)
-        ;; plain-org-wiki
-        ;; (whitespace :location built-in)
-        ;; erc
-        ;; smartparens
         ))
 
 ;; https://ebzzry.github.io/emacs-pairs.html
-;; (defun zilongshanren/post-init-smartparens ()
-;;   (progn
-;;     (defun wrap-sexp-with-new-round-parens ()
-
-;;       (interactive)
-;;       (insert "()")
-;;       (backward-char)
-;;       (sp-forward-slurp-sexp))
-
-;;     (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
-
-;;     (with-eval-after-load 'smartparens
-;;       (evil-define-key 'normal sp-keymap
-;;         (kbd ")>") 'sp-forward-slurp-sexp
-;;         (kbd ")<") 'sp-forward-barf-sexp
-;;         (kbd "(>") 'sp-backward-barf-sexp
-;;         (kbd "(<") 'sp-backward-slurp-sexp))
-
-;;     ))
-
-;;  erc for mac
-;; (defun zilongshanren/post-init-erc ()
-;;   (progn
-;;     (defun my-erc-hook (match-type nick message)
-;;       "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
-;;       (unless (posix-string-match "^\\** *Users on #" message)
-;;         (zilongshanren/growl-notification
-;;          (concat "ERC: : " (buffer-name (current-buffer)))
-;;          message
-;;          t
-;;          )))
-
-;;     (add-hook 'erc-text-matched-hook 'my-erc-hook)
-;;     ;; (spaceline-toggle-erc-track-off)
-;;     ))
-
-
-;; whitespace
-;; https://www.emacswiki.org/emacs/WhiteSpace
-;; (defun zilongshanren/post-init-whitespace ()
-;;   (progn
-;;     ;; ;; http://emacsredux.com/blog/2013/05/31/highlight-lines-that-exceed-a-certain-length-limit/
-;;     (setq whitespace-line-column fill-column) ;; limit line length
-;;     ;;https://www.reddit.com/r/emacs/comments/2keh6u/show_tabs_and_trailing_whitespaces_only/
-;;     (setq whitespace-display-mappings
-;;           ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
-;;           '(
-;;             (space-mark 32 [183] [46])           ; 32 SPACE, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-;;             (newline-mark 10 [182 10])           ; 10 LINE FEED
-;;             (tab-mark 9 [187 9] [9655 9] [92 9]) ; 9 TAB, 9655 WHITE RIGHT-POINTING TRIANGLE 「▷」
-;;             ))
-;;     (setq whitespace-style '(face tabs trailing tab-mark ))
-;;     ;; (setq whitespace-style '(face lines-tail))
-;;     ;; show tab;  use untabify to convert tab to whitespace
-;;     ;; (setq spacemacs-show-trailing-whitespace nil)
-
-;; (setq-default tab-width 4)
-;;     ;; set-buffer-file-coding-system -> utf8 to convert dos to utf8
-;;     (setq inhibit-eol-conversion t)
-;;     (add-hook 'prog-mode-hook 'whitespace-mode)
-;;     ;; (global-whitespace-mode +1)
-
-;; (with-eval-after-load 'whitespace
-;;   (progn
-;;     (set-face-attribute 'whitespace-tab nil
-;;                         :background "#Adff2f"
-;;                         :foreground "#00a8a8"
-;;                         :weight 'bold)
-;;     (set-face-attribute 'whitespace-trailing nil
-;;                         :background "#e4eeff"
-;;                         :foreground "#183bc8"
-;;                         :weight 'normal)))
-
-;; (diminish 'whitespace-mode)))
-
-;; (defun zilongshanren/post-init-js-doc ()
-;;   (setq js-doc-mail-address "TinySong1226@gmail.com"
-;;         js-doc-author (format "RongXiang Song <%s>" js-doc-mail-address)
-;;         js-doc-url "http://www.TinySong.com"
-;;         js-doc-license "MIT"))
-
 
 (defun zilongshanren/init-dired-mode ()
   (use-package dired-mode
@@ -282,23 +163,6 @@ open and unsaved."
     )
   )
 
-(defun zilongshanren/init-occur-mode ()
-  (defun occur-dwim ()
-    "Call `occur' with a sane default."
-    (interactive)
-    (push (if (region-active-p)
-              (buffer-substring-no-properties
-               (region-beginning)
-               (region-end))
-            (let ((sym (thing-at-point 'symbol)))
-              (when (stringp sym)
-                (regexp-quote sym))))
-          regexp-history)
-    (call-interactively 'occur))
-  (bind-key* "M-s o" 'occur-dwim)
-  (evilified-state-evilify occur-mode occur-mode-map
-    "RET" 'occur-mode-goto-occurrence))
-
 (defun zilongshanren/init-evil-visual-mark-mode ()
   (use-package evil-visual-mark-mode
     :init
@@ -312,27 +176,6 @@ open and unsaved."
 
       (evil-visual-mark-mode))))
 
-(defun zilongshanren/init-beacon ()
-  (use-package beacon
-    :init
-    (progn
-      (spacemacs|add-toggle beacon
-        :status beacon-mode
-        :on (beacon-mode)
-        :off (beacon-mode -1)
-        :documentation "Enable point highlighting after scrolling"
-        :evil-leader "otb")
-      ;; (setq beacon-push-mark 60)
-      ;; (setq beacon-color "#666600")
-      ;; (setq beacon-color "#990099")
-      (setq beacon-color "#FF9900")
-      (spacemacs/toggle-beacon-on))
-    :config (spacemacs|hide-lighter beacon-mode)))
-
-;; (defun zilongshanren/init-evil-vimish-fold ()
-;;   (use-package evil-vimish-fold
-;;     :init
-;;     (vimish-fold-global-mode 1)))
 
 (defun zilongshanren/init-ctags-update ()
   (use-package ctags-update
@@ -377,90 +220,10 @@ open and unsaved."
 
 
 
-(defun zilongshanren/init-wrap-region ()
-  (use-package wrap-region
-    :init
-    (progn
-      (wrap-region-global-mode t)
-      (wrap-region-add-wrappers
-       '(("$" "$")
-         ("{-" "-}" "#")
-         ("/" "/" nil ruby-mode)
-         ("/* " " */" "#" (java-mode javascript-mode css-mode js2-mode))
-         ("`" "`" nil (markdown-mode ruby-mode))))
-      (add-to-list 'wrap-region-except-modes 'dired-mode)
-      (add-to-list 'wrap-region-except-modes 'web-mode)
-      )
-    :defer t
-    :config
-    (spacemacs|hide-lighter wrap-region-mode)))
-
-(defun zilongshanren/post-init-projectile ()
-  (with-eval-after-load 'projectile
-    (progn
-      (setq projectile-completion-system 'ivy)
-      (add-to-list 'projectile-other-file-alist '("html" "js")) ;; switch from html -> js
-      (add-to-list 'projectile-other-file-alist '("js" "html")) ;; switch from js -> html
-      )))
-
-;; spacemacs distribution disabled this package, because it has overlay bug.
-;; I hack the implementation here. on default, the hl-highlight-mode is disabled.
-(defun zilongshanren/post-init-hl-anything ()
-  (progn
-    (hl-highlight-mode -1)
-    (spacemacs|add-toggle toggle-hl-anything
-      :status hl-highlight-mode
-      :on (hl-highlight-mode)
-      :off (hl-highlight-mode -1)
-      :documentation "Toggle highlight anything mode."
-      :evil-leader "ths")))
-
 (defun zilongshanren/init-find-file-in-project ()
   (use-package find-file-in-project
     :defer t
     :init))
-
-
-
-(defun zilongshanren/post-init-hungry-delete ()
-  ;; (add-hook 'prog-mode-hook 'hungry-delete-mode)
-  (global-hungry-delete-mode t)
-  )
-
-
-(defun zilongshanren/post-init-helm-ag ()
-  (progn
-    (setq helm-ag-use-agignore t)
-    ;; This settings use .agignore file to ignore items, and it don't respect to .hgignore, .gitignore
-    ;; when there are some git repositories are in .gitignore file, this options is very useful.
-    ;;And the .agignore file while be searched at PROJECT_ROOT/.agignore and ~/.agignore
-    ;; Thanks to 'man ag' and 'customize-group<RET> helm-ag' for finding the solution... Always RTFM.
-    (setq helm-ag-command-option " -U" ))
-  )
-
-
-
-(defun zilongshanren/post-init-yasnippet ()
-  (progn
-    (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
-    (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
-                                                                      org-mode-hook
-                                                                      markdown-mode-hook))
-
-    (defun zilongshanren/load-yasnippet ()
-      (unless yas-global-mode
-        (progn
-          (yas-global-mode 1)
-          (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
-          (setq yas-snippet-dirs  my-snippet-dir)
-          (yas-load-directory my-snippet-dir)
-          (setq yas-wrap-around-region t)))
-      (yas-minor-mode 1))
-
-    (spacemacs/add-to-hooks 'zilongshanren/load-yasnippet '(prog-mode-hook
-                                                            markdown-mode-hook
-                                                            org-mode-hook))
-    ))
 
 (defun zilongshanren/post-init-racket-mode ()
   (progn
@@ -474,23 +237,6 @@ open and unsaved."
     (add-hook 'racket-repl-mode-hook #'(lambda () (smartparens-mode t)))
     ))
 
-(defun zilongshanren/post-init-json-mode ()
-  (add-to-list 'auto-mode-alist '("\\.tern-project\\'" . json-mode)))
-
-
-(defun zilongshanren/post-init-helm-gtags ()
-  (with-eval-after-load 'helm-gtags
-    (progn
-      (evil-make-overriding-map helm-gtags-mode-map 'normal)
-      (add-hook 'helm-gtags-mode-hook #'evil-normalize-keymaps))))
-
-(defun zilongshanren/init-visual-regexp-steroids ()
-  (use-package visual-regexp-steroids
-    :init))
-
-(defun zilongshanren/init-visual-regexp ()
-  (use-package visual-regexp
-    :init))
 
 (defun zilongshanren/init-nodejs-repl ()
   (use-package nodejs-repl
@@ -522,10 +268,6 @@ open and unsaved."
     (when (configuration-layer/package-usedp 'company)
       (spacemacs|add-company-hook lua-mode)
       (spacemacs|add-company-hook nxml-mode))))
-
-(defun zilongshanren/init-cmake-font-lock ()
-  (use-package cmake-font-lock
-    :defer t))
 
 (defun zilongshanren/init-google-c-style ()
   (use-package google-c-style
@@ -603,13 +345,6 @@ open and unsaved."
         "p" 'imp-visit-buffer)
       )))
 
-
-(defun zilongshanren/init-keyfreq ()
-  (use-package keyfreq
-    :init
-    (progn
-      (keyfreq-mode t)
-      (keyfreq-autosave-mode 1))))
 
 (defun zilongshanren/post-init-swiper ()
   "Initialize my package"
@@ -698,161 +433,7 @@ open and unsaved."
 
     (setq magit-process-popup-time 10)))
 
-(defun zilongshanren/post-init-git-messenger ()
-  (use-package git-messenger
-    :defer t
-    :config
-    (progn
-      (defun zilong/github-browse-commit ()
-        "Show the GitHub page for the current commit."
-        (interactive)
-        (use-package github-browse-file
-          :commands (github-browse-file--relative-url))
 
-        (let* ((commit git-messenger:last-commit-id)
-               (url (concat "https://github.com/"
-                            (github-browse-file--relative-url)
-                            "/commit/"
-                            commit)))
-          (github-browse--save-and-view url)
-          (git-messenger:popup-close)))
-
-      (define-key git-messenger-map (kbd "f") 'zilong/github-browse-commit))))
-
-(defun zilongshanren/post-init-helm-flyspell ()
-  (progn
-    ;; "http://emacs.stackexchange.com/questions/14909/how-to-use-flyspell-to-efficiently-correct-previous-word/14912#14912"
-    (defun zilongshanren/flyspell-goto-previous-error (arg)
-      "Go to arg previous spelling error."
-      (interactive "p")
-      (while (not (= 0 arg))
-        (let ((pos (point))
-              (min (point-min)))
-          (if (and (eq (current-buffer) flyspell-old-buffer-error)
-                   (eq pos flyspell-old-pos-error))
-              (progn
-                (if (= flyspell-old-pos-error min)
-                    ;; goto beginning of buffer
-                    (progn
-                      (message "Restarting from end of buffer")
-                      (goto-char (point-max)))
-                  (backward-word 1))
-                (setq pos (point))))
-          ;; seek the next error
-          (while (and (> pos min)
-                      (let ((ovs (overlays-at pos))
-                            (r '()))
-                        (while (and (not r) (consp ovs))
-                          (if (flyspell-overlay-p (car ovs))
-                              (setq r t)
-                            (setq ovs (cdr ovs))))
-                        (not r)))
-            (backward-word 1)
-            (setq pos (point)))
-          ;; save the current location for next invocation
-          (setq arg (1- arg))
-          (setq flyspell-old-pos-error pos)
-          (setq flyspell-old-buffer-error (current-buffer))
-          (goto-char pos)
-          (call-interactively 'helm-flyspell-correct)
-          (if (= pos min)
-              (progn
-                (message "No more miss-spelled word!")
-                (setq arg 0))))))
-
-    ;; http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html#comment-2440958792
-    (define-key ctl-x-map "\C-i"
-      #'endless/ispell-word-then-abbrev)
-
-    (defun endless/ispell-word-then-abbrev (p)
-      "Call `ispell-word', then create an abbrev for it.
-With prefix P, create local abbrev. Otherwise it will
-be global."
-      (interactive "P")
-      (let (bef aft)
-        (save-excursion
-          (while (progn
-                   (backward-word)
-                   (and (setq bef (thing-at-point 'word))
-                        (not (ispell-word nil 'quiet)))))
-          (setq aft (thing-at-point 'word)))
-        (when (and aft bef (not (equal aft bef)))
-          (setq aft (downcase aft))
-          (setq bef (downcase bef))
-          (define-abbrev
-            (if p local-abbrev-table global-abbrev-table)
-            bef aft)
-          (message "\"%s\" now expands to \"%s\" %sally"
-                   bef aft (if p "loc" "glob")))))
-
-    (setq save-abbrevs 'silently)
-    (setq-default abbrev-mode t)
-
-    (bind-key* "C-;" 'zilongshanren/flyspell-goto-previous-error)
-    (global-set-key (kbd "C-c s") 'helm-flyspell-correct)))
-
-(defun zilongshanren/post-init-helm ()
-  (progn
-    (global-set-key (kbd "C-s-y") 'helm-show-kill-ring)
-    ;; See https://github.com/bbatsov/prelude/pull/670 for a detailed
-    ;; discussion of these options.
-    (setq helm-split-window-in-side-p t
-          helm-move-to-line-cycle-in-source t
-          helm-ff-search-library-in-sexp t
-          helm-ff-file-name-history-use-recentf t
-          helm-buffer-max-length 45)
-
-    (setq helm-completing-read-handlers-alist
-          '((describe-function . ido)
-            (describe-variable . ido)
-            (debug-on-entry . helm-completing-read-symbols)
-            (find-function . helm-completing-read-symbols)
-            (find-tag . helm-completing-read-with-cands-in-buffer)
-            (ffap-alternate-file . nil)
-            (tmm-menubar . nil)
-            (dired-do-copy . nil)
-            (dired-do-rename . nil)
-            (dired-create-directory . nil)
-            (find-file . ido)
-            (copy-file-and-rename-buffer . nil)
-            (rename-file-and-buffer . nil)
-            (w3m-goto-url . nil)
-            (ido-find-file . nil)
-            (ido-edit-input . nil)
-            (mml-attach-file . ido)
-            (read-file-name . nil)
-            (yas/compile-directory . ido)
-            (execute-extended-command . ido)
-            (minibuffer-completion-help . nil)
-            (minibuffer-complete . nil)
-            (c-set-offset . nil)
-            (wg-load . ido)
-            (rgrep . nil)
-            (read-directory-name . ido)))))
-
-
-(defun zilongshanren/init-helm-ls-git ()
-  (use-package helm-ls-git
-    :init
-    (progn
-      ;;beautify-helm buffer when long file name is present
-      (setq helm-ls-git-show-abs-or-relative 'relative))))
-
-
-;;configs for EVIL mode
-
-
-(defun zilongshanren/init-worf ()
-  (use-package worf
-    :defer t
-    :init
-    (add-hook 'org-mode-hook 'worf-mode)))
-
-(defun zilongshanren/init-org-download ()
-  (use-package org-download
-    :defer t
-    :init
-    (org-download-enable)))
 
 
 ;;In order to export pdf to support Chinese, I should install Latex at here: https://www.tug.org/mactex/

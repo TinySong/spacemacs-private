@@ -57,8 +57,13 @@
     cmake-font-lock
     cmake-mode
     google-c-style
+    ;; post extension names go here
+    ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
+    ;; so I use js-comit instead.
     nodejs-repl
     yasnippet
+    worf
+    wrap-region
     ;; TODO find out what is persp-mode https://libraries.io/emacs/persp-mode https://github.com/Bad-ptr/persp-mode.el
     ;; persp-mode
     org-download
@@ -66,6 +71,7 @@
     (org :location built-in)
     helm-flyspell
     helm
+    occur-mode
     helm-ls-git
     )
   "The list of Lisp packages required by the TinySong layer.
@@ -469,9 +475,9 @@ Each entry is either:
 
       (add-hook 'org-after-todo-state-change-hook 'org-subtask-reset)
 
-      (setq org-plantuml-jar-path
-            (expand-file-name "~/.spacemacs.d/plantuml.jar"))
-      (setq org-ditaa-jar-path "~/.spacemacs.d/ditaa.jar")
+      ;; (setq org-plantuml-jar-path
+      ;;       (expand-file-name "~/.spacemacs.d/plantuml.jar"))
+      ;; (setq org-ditaa-jar-path "~/.spacemacs.d/ditaa.jar")
 
 
       (org-babel-do-load-languages
@@ -711,3 +717,45 @@ be global."
                                                        markdown-mode-hook
                                                        org-mode-hook))
     ))
+
+(defun tinysong/init-worf ()
+  (use-package worf
+    :defer t
+    :init
+    (add-hook 'org-mode-hook 'worf-mode)))
+
+;; TODO : SPC o
+(defun tinysong/init-occur-mode ()
+  (defun occur-dwim ()
+    "Call `occur' with a sane default."
+    (interactive)
+    (push (if (region-active-p)
+              (buffer-substring-no-properties
+               (region-beginning)
+               (region-end))
+            (let ((sym (thing-at-point 'symbol)))
+              (when (stringp sym)
+                (regexp-quote sym))))
+          regexp-history)
+    (call-interactively 'occur))
+  (bind-key* "M-s o" 'occur-dwim)
+  (evilified-state-evilify occur-mode occur-mode-map
+    "RET" 'occur-mode-goto-occurrence))
+
+(defun tinysong/init-wrap-region ()
+  (use-package wrap-region
+    :init
+    (progn
+      (wrap-region-global-mode t)
+      (wrap-region-add-wrappers
+       '(("$" "$")
+         ("{-" "-}" "#")
+         ("/" "/" nil ruby-mode)
+         ("/* " " */" "#" (java-mode javascript-mode css-mode js2-mode))
+         ("`" "`" nil (markdown-mode ruby-mode))))
+      (add-to-list 'wrap-region-except-modes 'dired-mode)
+      (add-to-list 'wrap-region-except-modes 'web-mode)
+      )
+    :defer t
+    :config
+    (spacemacs|hide-lighter wrap-region-mode)))
