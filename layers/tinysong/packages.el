@@ -71,7 +71,7 @@
     (org :location built-in)
     helm-flyspell
     helm
-    occur-mode
+    ;; occur-mode
     helm-ls-git
     )
   "The list of Lisp packages required by the TinySong layer.
