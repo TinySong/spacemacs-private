@@ -78,10 +78,10 @@
                                             ("8win" "Windows")
                                             ("8ie" "Internet Explorer")
                                             ("8ahk" "AutoHotkey")
-                                            ("82dx" "Cocos2D-X")
+                                            ;; ("82dx" "Cocos2D-X")
 
                                             ;; signature
-                                            ("8ts" "TinySong")
+                                            ("8ts" "tinysong")
                                             ;; emacs regex
                                             ("8d" "\\([0-9]+?\\)")
                                             ("8str" "\\([^\"]+?\\)\"")))
