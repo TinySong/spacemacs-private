@@ -299,7 +299,7 @@
     (evil-define-key 'emacs term-raw-map (kbd "C-w")
       'evil-delete-backward-word)
 
-    (spacemacs/set-leader-keys "fR" 'zilongshanren/rename-file-and-buffer)
+    (spacemacs/set-leader-keys "fR" 'tinysong/rename-file-and-buffer)
     (spacemacs/set-leader-keys "bms" 'bookmark-set)
     (spacemacs/set-leader-keys "bmr" 'bookmark-rename)
     (spacemacs/set-leader-keys "bmd" 'bookmark-delete)
@@ -602,7 +602,7 @@
 
 
 (defun guanghui/post-init-projectile ()
-  (spacemacs/set-leader-keys "pf" 'zilongshanren/open-file-with-projectile-or-lsgit))
+  (spacemacs/set-leader-keys "pf" 'tinysong/open-file-with-projectile-or-lsgit))
 
 (defun guanghui/post-init-org ()
   (with-eval-after-load 'org
