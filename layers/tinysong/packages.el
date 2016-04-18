@@ -73,6 +73,7 @@
     helm
     ;; occur-mode
     helm-ls-git
+    notifications
     )
   "The list of Lisp packages required by the TinySong layer.
 
