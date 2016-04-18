@@ -627,7 +627,7 @@
               ("b" "Blog Ideas" entry (file+headline "~/org-notes/notes.org" "Blog Ideas")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
-              ("w" "work" entry (file+headline "~/org-notes/gtd.org" "Cocos2D-X")
+              ("w" "work" entry (file+headline "~/org-notes/gtd.org" "ISMS_Kernel")
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)
               ("c" "Chrome" entry (file+headline "~/org-notes/notes.org" "Quick notes")
