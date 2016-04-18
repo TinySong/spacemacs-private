@@ -431,16 +431,16 @@ With PREFIX, cd to project root."
 
 ;;  ================= erc for macos =======================
 ;; http://blog.lojic.com/2009/08/06/send-growl-notifications-from-carbon-emacs-on-osx/
-;; (defun tinysong/growl-notification (title message &optional sticky)
-;;   "Send a Growl notification"
-;;   (do-applescript
-;;    (format "tell application \"GrowlHelperApp\" \n
-;;               notify with name \"Emacs Notification\" title \"%s\" description \"%s\" application name \"Emacs.app\" sticky \"%s\"
-;;               end tell
-;;               "
-;;            title
-;;            message
-;;            (if sticky "yes" "no"))))
+(defun tinysong/growl-notification (title message &optional sticky)
+  "Send a Growl notification"
+  (do-applescript
+   (format "tell application \"GrowlHelperApp\" \n
+              notify with name \"Emacs Notification\" title \"%s\" description \"%s\" application name \"Emacs.app\" sticky \"%s\"
+              end tell
+              "
+           title
+           message
+           (if sticky "yes" "no"))))
 
 ;; TODO tinysong send notification for linux
 (defun tinysong/growl-timer (minutes message)
@@ -464,3 +464,4 @@ With PREFIX, cd to project root."
         ((looking-at "[\]\)\}]") (forward-char) (evil-jump-item))
         ((looking-back "[\[\(\{]" 1) (backward-char) (evil-jump-item))
         (t nil)))
+

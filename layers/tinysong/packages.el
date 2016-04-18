@@ -36,7 +36,7 @@
     ;; (hackernews :location build-in)
     js-doc
     smartparens
-    erc
+    ;; erc
     ;; document create
     (doxymacs :location local)
     evil-vimish-fold
@@ -73,7 +73,9 @@
     helm
     ;; occur-mode
     helm-ls-git
-    notifications
+    ;; notifications
+    ;; ercn
+    youdao-dictionary
     )
   "The list of Lisp packages required by the TinySong layer.
 
@@ -141,20 +143,33 @@ Each entry is either:
 
 ;; https://www.emacswiki.org/emacs/ERC
 ;; TODO: erc linux notation
+
+;; (defun do-notify (nickname message)
+;;   (let* ((channel (buffer-name))
+;;          ;; using https://github.com/leathekd/erc-hl-nicks
+;;          (nick (erc-hl-nicks-trim-irc-nick nickname))
+;;          (title (if (string-match-p (concat "^" nickname) channel)
+;;                     nick
+;;                   (concat nick " (" channel ")")))
+;;          ;; Using https://github.com/magnars/s.el
+;;          (msg (s-trim (s-collapse-whitespace message))))
+;;     ;; call the system notifier here
+;;     ))
+
 (defun tinysong/post-init-erc ()
   (progn
     (defun my-erc-hook (match-type nick message)
       "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
-      ;; (unless (posix-string-match "^\\** *Users on #" message)
-      ;;   (tinysong/growl-notification
-      ;;    (concat "ERC: : " (buffer-name (current-buffer)))
-      ;;    message
-      ;;    t
-      ;;    )))
-      (message "notation")
-      (add-hook 'erc-text-matched-hook 'my-erc-hook)
-      ;; (spaceline-toggle-erc-track-off)
-      )))
+      (unless (posix-string-match "^\\** *Users on #" message)
+        (tinysong/growl-notification
+         (concat "ERC: : " (buffer-name (current-buffer)))
+         message
+         t
+         )))
+    (message "notation")
+    (add-hook 'erc-text-matched-hook 'my-erc-hook)
+    ;; (spaceline-toggle-erc-track-off)
+    ))
 
 
 ;; https://www.ibm.com/developerworks/cn/aix/library/au-learningdoxygen/
@@ -345,7 +360,6 @@ Each entry is either:
 
       ;; Change task state to STARTED when clocking in
       (setq org-clock-in-switch-to-state "STARTED")
-      ;; Save clock data and notes in the LOGBOOK drawer
       (setq org-clock-into-drawer t)
       ;; Removes clocked tasks with 0:00 duration
       (setq org-clock-out-remove-zero-time-clocks t) ;; Show the clocked-in task - if any - in the header line
@@ -760,3 +774,6 @@ be global."
     :defer t
     :config
     (spacemacs|hide-lighter wrap-region-mode)))
+
+(defun guanghui/post-init-youdao-dictionary ()
+  (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))

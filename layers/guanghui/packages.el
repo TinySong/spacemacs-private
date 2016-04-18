@@ -24,7 +24,7 @@
         ;; org-bullets
         ;; evil-escape
         (cc-mode :location built-in)
-        youdao-dictionary
+        ;; youdao-dictionary
         ;; chinese-wbim
         multiple-cursors
         visual-regexp-steroids
@@ -487,8 +487,6 @@
                   (define-key map "=" 'chinese-wbim-next-page))))
     ))
 
-(defun guanghui/post-init-youdao-dictionary ()
-  (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
 
 (defun guanghui/post-init-cc-mode ()
   (progn
@@ -761,6 +759,7 @@
       (setq org-mobile-directory "~/org-notes/org")
       )))
 
+;; http://rejeep.github.io/emacs/2013/12/14/prodigy-emacs-service-manager.html
 (defun guanghui/post-init-prodigy ()
   (progn
     (prodigy-define-tag
