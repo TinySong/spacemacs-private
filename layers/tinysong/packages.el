@@ -2,6 +2,7 @@
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
+
 ;; Author: song <song@GE60-SHADOW-Walker.lan>
 ;; URL: https://github.com/TinySong/spacemacs
 ;;
@@ -775,5 +776,5 @@ be global."
     :config
     (spacemacs|hide-lighter wrap-region-mode)))
 
-(defun guanghui/post-init-youdao-dictionary ()
+(defun tinysong/post-init-youdao-dictionary ()
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
