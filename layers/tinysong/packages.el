@@ -309,8 +309,8 @@ Each entry is either:
       (require 'org)
       ;; (add-to-list 'org-modules "org-habit")
       ;; http://orgmode.org/manual/Tracking-your-habits.html
-      (add-to-list 'org-modules 'org-habit)
       (require 'org-habit)
+      (add-to-list 'org-modules 'org-habit)
 
       (setq org-refile-use-outline-path 'file)
       (setq org-outline-path-complete-in-steps nil)
