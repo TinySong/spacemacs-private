@@ -77,6 +77,7 @@
     ;; notifications
     ;; ercn
     youdao-dictionary
+    ;; (unicad :location local)
     )
   "The list of Lisp packages required by the TinySong layer.
 
@@ -778,3 +779,7 @@ be global."
 
 (defun tinysong/post-init-youdao-dictionary ()
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
+
+(defun tinysong/init-unicad ()
+  (use-package unicad
+    :init))
