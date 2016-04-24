@@ -49,7 +49,7 @@
         ace-window
         avy
         4clojure
-        persp-mode
+        ;; persp-mode
         (gulpjs :location (recipe :fetcher github :repo "zilongshanren/emacs-gulpjs"))
         osx-dictionary
         litable
@@ -462,14 +462,14 @@
       (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
       )))
 
-(defun guanghui/post-init-persp-mode ()
-  (when (fboundp 'spacemacs|define-custom-layout)
-    (spacemacs|define-custom-layout "@Cocos2D-X"
-      :binding "c"
-      :body
-      (find-file "~/cocos2d-x/cocos/ui/UIWidget.cpp")
-      (split-window-right)
-      (find-file "~/cocos2d-x/cocos/cocos2d.cpp"))))
+;; (defun guanghui/post-init-persp-mode ()
+;;   (when (fboundp 'spacemacs|define-custom-layout)
+;;     (spacemacs|define-custom-layout "@Cocos2D-X"
+;;       :binding "c"
+;;       :body
+;;       (find-file "~/cocos2d-x/cocos/ui/UIWidget.cpp")
+;;       (split-window-right)
+;;       (find-file "~/cocos2d-x/cocos/cocos2d.cpp"))))
 
 (defun guanghui/post-init-chinese-wbim ()
   (progn
@@ -523,10 +523,10 @@
 
 (defun guanghui/post-init-find-file-in-project ()
   (progn
-    (defun zilongshanren/search-in-fireball ()
-      (interactive)
-      (helm-do-ag (expand-file-name "~/Github/fireball/")))
-    (spacemacs/set-leader-keys "os" 'zilongshanren/search-in-fireball)
+    ;; (defun zilongshanren/search-in-fireball ()
+    ;;   (interactive)
+    ;;   (helm-do-ag (expand-file-name "~/Github/fireball/")))
+    ;; (spacemacs/set-leader-keys "os" 'zilongshanren/search-in-fireball)
 
     ;; If you use other VCS (subversion, for example), enable the following option
     ;;(setq ffip-project-file ".svn")
@@ -564,9 +564,12 @@
 
 (defun guanghui/post-init-org-pomodoro ()
   (progn
-    (add-hook 'org-pomodoro-finished-hook '(lambda () (zilongshanren/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
-    (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (zilongshanren/growl-notification "Short Break" "🐝 Ready to Go?" t)))
-    (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (zilongshanren/growl-notification "Long Break" " 💪 Ready to Go?" t)))
+    ;; (add-hook 'org-pomodoro-finished-hook '(lambda () (zilongshanren/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
+    ;; (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (zilongshanren/growl-notification "Short Break" "🐝 Ready to Go?" t)))
+    ;; (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (zilongshanren/growl-notification "Long Break" " 💪 Ready to Go?" t)))
+    (add-hook 'org-pomodoro-finished-hook '(lambda () (zilongshanren/growl-notification "Pomodoro Finished" "* Have a break!" t)))
+    (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (zilongshanren/growl-notification "Short Break" "* Ready to Go?" t)))
+    (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (zilongshanren/growl-notification "Long Break" " * Ready to Go?" t)))
     ))
 
 (defun guanghui/post-init-js2-mode ()

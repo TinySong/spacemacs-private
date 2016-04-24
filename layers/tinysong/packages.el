@@ -77,6 +77,7 @@
     ;; notifications
     ;; ercn
     youdao-dictionary
+    persp-mode
     )
   "The list of Lisp packages required by the TinySong layer.
 
@@ -778,3 +779,13 @@ be global."
 
 (defun tinysong/post-init-youdao-dictionary ()
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
+
+(defun guanghui/post-init-persp-mode ()
+  (when (fboundp 'spacemacs|define-custom-layout)
+    (spacemacs|define-custom-layout "@Kernel"
+      :binding "k"
+      :body
+      (find-file "~/kernel-2.6.11.12/Makefile")
+      ;; (split-window-right)
+      ;; (find-file "~/cocos2d-x/cocos/cocos2d.cpp")
+      )))
