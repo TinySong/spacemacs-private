@@ -78,6 +78,7 @@
     ;; ercn
     youdao-dictionary
     persp-mode
+    ;; (unicad :location local)
     )
   "The list of Lisp packages required by the TinySong layer.
 
@@ -717,8 +718,8 @@ be global."
   (progn
     (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
     (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
-                                                                       org-mode-hook
-                                                                       markdown-mode-hook))
+                                                                           org-mode-hook
+                                                                           markdown-mode-hook))
 
     (defun tinysong/load-yasnippet ()
       (unless yas-global-mode
@@ -780,7 +781,7 @@ be global."
 (defun tinysong/post-init-youdao-dictionary ()
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
 
-(defun guanghui/post-init-persp-mode ()
+(defun tinysong/post-init-persp-mode ()
   (when (fboundp 'spacemacs|define-custom-layout)
     (spacemacs|define-custom-layout "@Kernel"
       :binding "k"
@@ -789,3 +790,6 @@ be global."
       ;; (split-window-right)
       ;; (find-file "~/cocos2d-x/cocos/cocos2d.cpp")
       )))
+(defun tinysong/init-unicad ()
+  (use-package unicad
+    :init))
