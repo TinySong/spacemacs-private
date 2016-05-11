@@ -633,9 +633,10 @@
               ("d" "Dev Driver" entry (file+headline "~/org-notes/net_driver.org" "Net Driver")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
-              ("k" "Kernel" entry (file+headline "~/org-notes/kernel.org" "Kernel")
-               "* TODO [#B] %?\n  %i\n %U"
-               :empty-lines 1)
+              ("k" "Kernel" entry (file+headline "~/org-notes/kernel.org" "Kernel Quick Note")
+               ;; "* TODO [#B] %?\n  %i\n %U"
+               ;; :empty-lines 1
+               )
               ("w" "work" entry (file+headline "~/org-notes/gtd.org" "ISMS_Kernel")
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)

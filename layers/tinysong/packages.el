@@ -78,6 +78,7 @@
     ;; ercn
     youdao-dictionary
     persp-mode
+    ;; header2
     ;; (unicad :location local)
     )
   "The list of Lisp packages required by the TinySong layer.
@@ -718,8 +719,8 @@ be global."
   (progn
     (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
     (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
-                                                                           org-mode-hook
-                                                                           markdown-mode-hook))
+                                                                       org-mode-hook
+                                                                       markdown-mode-hook))
 
     (defun tinysong/load-yasnippet ()
       (unless yas-global-mode
@@ -793,3 +794,14 @@ be global."
 (defun tinysong/init-unicad ()
   (use-package unicad
     :init))
+
+;; (defun tinysong/init-header2
+;;     (interactive "p")
+;;   (use-package header2
+;;     :init
+;;     (autoload 'auto-make-header "header2")
+;;     (add-hook 'write-file-hooks 'auto-update-file-header)
+;;     (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
+;;     (add-hook 'c-mode-common-hook 'auto-make-header)
+;;     (add-hook 'tex-mode-hook 'auto-make-header)
+;;     ))
