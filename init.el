@@ -26,8 +26,8 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     spacemacs-helm
-     spacemacs-ivy
+     ;; spacemacs-helm
+     ;; spacemacs-ivy
      better-defaults
      github
      (version-control :variables version-control-diff-tool 'git-gutter+
@@ -459,3 +459,5 @@ layers configuration."
 ;;TODO https://julien.danjou.info/blog/2012/erc-notifications
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Desktop-Notifications.html
 ;;(add-to-list 'erc-modules 'notifications)
+;; for c-c++ #if 0 #endif
+(hide-ifdef-mode t)
