@@ -32,7 +32,7 @@
         web-mode
         ;; tagedit
         ;; js-comint
-        evil-visual-mark-mode
+        ;; evil-visual-mark-mode
         ;; http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
         ;; https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
         (dired-mode :location built-in)

@@ -90,10 +90,10 @@ values."
             shell-enable-smart-eshell t)
      (chinese :variables
               chinese-enable-youdao-dict t)
+     tinysong
      zilongshanren
      guanghui
      erc
-     tinysong
      ;; pdf-tools
      )
    ;; List of additional packages that will be installed without being
@@ -372,10 +372,10 @@ layers configuration."
   ;;解决org表格里面中英文对齐的问题
 ;;;###TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
-    ;; (when (spacemacs/system-is-mac)
-    ;;   (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
-    (when (spacemacs/system-is-linux)
+    (when (spacemacs/system-is-mac)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+  ;; (when (spacemacs/system-is-linux)
+  ;;   (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
   ;; TODO https://github.com/et2010/Han
   ;; (spacemacs//set-monospaced-font "Source Code Pro" "BabelStone Han" 14 16)
 
@@ -388,15 +388,15 @@ layers configuration."
     (while bindings
       (define-key keymap (pop bindings) (pop bindings))))
   (bb/define-key evil-normal-state-map
-                 "+" 'spacemacs/evil-numbers-increase
-                 "_" 'spacemacs/evil-numbers-decrease
-                 "\\" 'evil-repeat-find-char-reverse
-                 "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
-                 "]s" (lambda (n) (interactive "p")
-                        (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
+    "+" 'spacemacs/evil-numbers-increase
+    "_" 'spacemacs/evil-numbers-decrease
+    "\\" 'evil-repeat-find-char-reverse
+    "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
+    "]s" (lambda (n) (interactive "p")
+           (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
 
   (bb/define-key company-active-map
-                 (kbd "C-w") 'evil-delete-backward-word)
+    (kbd "C-w") 'evil-delete-backward-word)
 
   (with-eval-after-load 'helm
     (define-key helm-map (kbd "C-w") 'evil-delete-backward-word))
