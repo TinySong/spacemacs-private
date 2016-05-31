@@ -755,6 +755,7 @@ be global."
     (spacemacs|hide-lighter wrap-region-mode)))
 
 (defun tinysong/post-init-youdao-dictionary ()
+  ;; ((interactive "P"))
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
 
 (defun tinysong/post-init-persp-mode ()

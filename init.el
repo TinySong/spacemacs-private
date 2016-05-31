@@ -78,7 +78,8 @@ values."
           magit-revision-show-gravatars nil)
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode)
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-default-mode-for-headers 'c-mode)
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       ;; for test
                       auto-completion-enable-help-tooltip t
@@ -94,6 +95,7 @@ values."
      zilongshanren
      guanghui
      erc
+     scheme
      ;; pdf-tools
      )
    ;; List of additional packages that will be installed without being
