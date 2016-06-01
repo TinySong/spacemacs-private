@@ -50,7 +50,6 @@ values."
      command-log
      html
      javascript
-     git
      ;; restclient
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
@@ -69,7 +68,7 @@ values."
      (colors :variables
              colors-enable-nyan-cat-progress-bar t)
      (git :variables
-          git-magit-status-fullscreen t
+          ;; git-magit-status-fullscreen nil
           magit-push-always-verify nil
           magit-save-repository-buffers 'dontask
           magit-revert-buffers 'silent
@@ -104,8 +103,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(magit-gh-pulls
-                                    magit-gitflow
+   dotspacemacs-excluded-packages '(
                                     evil-mc
                                     org-plus-contrib
                                     skewer-mode
@@ -119,8 +117,6 @@ values."
                                     org-download
                                     org-timer
                                     org-tree-slide
-                                    git-gutter
-                                    git-gutter-fringe
                                     ;; disable it for lispy-mode
                                     ;;https://github.com/abo-abo/lispy/issues/137
                                     evil-escape

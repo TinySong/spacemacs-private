@@ -14,7 +14,7 @@
  '(cfs--current-profile-name "profile1" t)
  '(ctags-update-delay-seconds 1024)
  '(erc-nick "TinySong")
- '(erc-port 6666)
+ '(erc-port 6667)
  '(evil-want-C-i-jump t)
  '(exec-path-from-shell-arguments (quote ("-l")))
  '(expand-region-contract-fast-key "V")
