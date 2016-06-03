@@ -280,7 +280,7 @@
   (with-eval-after-load 'org
     (progn
       ;; https://github.com/syl20bnr/spacemacs/issues/2994#issuecomment-139737911
-      ;; (spacemacs|disable-company org-mode)
+      (spacemacs|disable-company org-mode)
       ;; set org-priority major-mode leader key
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "," 'org-priority)

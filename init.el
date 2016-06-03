@@ -83,7 +83,8 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
-                      auto-completion-enable-snippets-in-popup t)
+                      auto-completion-enable-snippets-in-popup t
+                      :disabled-for org)
      (shell :variables
             shell-default-position 'bottom
             shell-default-shell 'ansi-term
