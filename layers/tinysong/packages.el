@@ -23,6 +23,7 @@
 ;; Briefly, each package to be installed or configured by this layer should be
 ;; added to `TinySong-packages'. Then, for each package PACKAGE:
 ;;
+
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
 ;;   function `TinySong/init-PACKAGE' to load and initialize the package.
 
@@ -63,14 +64,15 @@
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
     nodejs-repl
-    yasnippet
+    ;; yasnippet
     worf
     wrap-region
     ;; TODO find out what is persp-mode https://libraries.io/emacs/persp-mode https://github.com/Bad-ptr/persp-mode.el
     ;; persp-mode
     ;; org-download
     ;; flycheck-package
-    (org :location built-in)
+    ;; (org :location built-in)
+    org
     helm-flyspell
     helm
     ;; occur-mode
@@ -278,14 +280,11 @@
   (with-eval-after-load 'org
     (progn
       ;; https://github.com/syl20bnr/spacemacs/issues/2994#issuecomment-139737911
-      ;; (when (configuration-layer/package-usedp 'company)
-      ;;   (spacemacs|add-company-hook org-mode))
-      (spacemacs|disable-company org-mode)
+      ;; (spacemacs|disable-company org-mode)
+      ;; set org-priority major-mode leader key
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "," 'org-priority)
-      (require 'org-compat)
-      (require 'org)
-      ;; (add-to-list 'org-modules "org-habit")
+      ;; (require 'org-compat)
       ;; http://orgmode.org/manual/Tracking-your-habits.html
       (require 'org-habit)
       (add-to-list 'org-modules 'org-habit)
@@ -689,28 +688,28 @@ be global."
     :defer t))
 
 
-;; https://github.com/capitaomorte/yasnippet
-(defun tinysong/post-init-yasnippet ()
-  (progn
-    (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
-    (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
-                                                                       org-mode-hook
-                                                                       markdown-mode-hook))
+;; ;; https://github.com/capitaomorte/yasnippet
+;; (defun tinysong/post-init-yasnippet ()
+;;   (progn
+;;     (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
+;;     (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
+;;                                                                        org-mode-hook
+;;                                                                        markdown-mode-hook))
 
-    (defun tinysong/load-yasnippet ()
-      (unless yas-global-mode
-        (progn
-          ;; (yas-global-mode 1)
-          (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
-          (setq yas-snippet-dirs  my-snippet-dir)
-          (yas-load-directory my-snippet-dir)
-          (setq yas-wrap-around-region t)))
-      (yas-minor-mode 1))
+;;     (defun tinysong/load-yasnippet ()
+;;       (unless yas-global-mode
+;;         (progn
+;;           ;; (yas-global-mode 1)
+;;           (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+;;           (setq yas-snippet-dirs  my-snippet-dir)
+;;           (yas-load-directory my-snippet-dir)
+;;           (setq yas-wrap-around-region t)))
+;;       (yas-minor-mode 1))
 
-    (spacemacs/add-to-hooks 'tinysong/load-yasnippet '(prog-mode-hook
-                                                       markdown-mode-hook
-                                                       org-mode-hook))
-    ))
+;;     (spacemacs/add-to-hooks 'tinysong/load-yasnippet '(prog-mode-hook
+;;                                                        markdown-mode-hook
+;;                                                        org-mode-hook))
+;;     ))
 
 (defun tinysong/init-worf ()
   (use-package worf

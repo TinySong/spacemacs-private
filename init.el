@@ -36,7 +36,7 @@ values."
      semantic                           ; too slow
      markdown
      (vinegar :variables vinegar-reuse-dired-buffer t)
-     org
+     (org :variables org-enable-github-support t)
      prodigy
      search-engine
      (syntax-checking :variables syntax-checking-enable-by-default nil)
@@ -80,8 +80,9 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-default-mode-for-headers 'c-mode)
      (auto-completion :variables auto-completion-enable-sort-by-usage t
-                      ;; for test
                       auto-completion-enable-help-tooltip t
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-snippets-in-popup t)
      (shell :variables
             shell-default-position 'bottom
@@ -104,34 +105,34 @@ values."
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
-                                    evil-mc
-                                    org-plus-contrib
-                                    skewer-mode
-                                    vi-tilde-fringe
-                                    ;; emmet-mode
-                                    smooth-scrolling
+                                    solarized-theme
                                     chinese-wbim
                                     chinese-pyim
-                                    yasnippet
-                                    srefactor
-                                    org-download
-                                    org-timer
-                                    org-tree-slide
-                                    ;; disable it for lispy-mode
                                     ;;https://github.com/abo-abo/lispy/issues/137
-                                    evil-escape
-                                    ;;At first, I should disable hydra in zilongshanren layer and install clj-refactor, after it is installed.
-                                    ;; I could re-enable it again in zilongshanren layer.
-                                    ;; clj-refactor
-                                    ;;remove from spacemacs distribution
-                                    ;; neotree
-                                    leuven-theme
-                                    gh-md
-                                    evil-lisp-state
-                                    spray
-                                    doc-view
-                                    lorem-ipsum
-                                    solarized-theme
+                                    ;; evil-escape
+                                    ;; evil-mc
+                                    ;; org-plus-contrib
+                                    ;; skewer-mode
+                                    ;; vi-tilde-fringe
+                                    ;; ;; emmet-mode
+                                    ;; smooth-scrolling
+                                    ;; yasnippet
+                                    ;; srefactor
+                                    ;; org-download
+                                    ;; org-timer
+                                    ;; org-tree-slide
+                                    ;; ;; disable it for lispy-mode
+                                    ;; ;;At first, I should disable hydra in zilongshanren layer and install clj-refactor, after it is installed.
+                                    ;; ;; I could re-enable it again in zilongshanren layer.
+                                    ;; ;; clj-refactor
+                                    ;; ;;remove from spacemacs distribution
+                                    ;; ;; neotree
+                                    ;; leuven-theme
+                                    ;; gh-md
+                                    ;; evil-lisp-state
+                                    ;; spray
+                                    ;; doc-view
+                                    ;; lorem-ipsum
                                     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
