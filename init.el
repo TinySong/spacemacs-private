@@ -32,7 +32,7 @@ values."
      github
      (version-control :variables version-control-diff-tool 'git-gutter+
                       version-control-global-margin t)
-     ;; osx
+     osx
      semantic                           ; too slow
      markdown
      (vinegar :variables vinegar-reuse-dired-buffer t)
@@ -45,7 +45,8 @@ values."
      ;; (ruby :variables ruby-version-manager 'rvm)
      (python :variables python-enable-yapf-format-on-save t)
      lua
-     (go :variables go-tab-width 4)
+     (go :variables go-tab-width 4
+         gofmt-command "goimports")
      c-c++
      command-log
      html
@@ -53,12 +54,10 @@ values."
      ;; restclient
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
-     ;; dash
+     dash
      emoji
      ;; ycmd
      ;; fasd
-     ;; deft
-     ;; elfeed
      ranger
      ;; racket
      gtags
@@ -97,6 +96,8 @@ values."
      guanghui
      erc
      scheme
+     games
+     latex
      ;; pdf-tools
      )
    ;; List of additional packages that will be installed without being
@@ -146,6 +147,7 @@ This function is called at the very startup of Spacemacs initialization
 before layers configuration.
 You should not put any user code in there besides modifying the variable
 values."
+  ;; (setenv "GOPATH" "$HOME/development/golang")
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
@@ -203,7 +205,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 11
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -368,14 +370,29 @@ layers configuration."
   (global-company-mode t)
   ;;  auto save by extral app edit
   (global-auto-revert-mode t)
-
+  ;; (setenv "GOROOT"
+  ;;         (concat
+  ;;          "/Users/song/development/go"
+  ;;          ))
+  ;; (setenv "GOPATH"
+  ;;         (concat
+  ;;          "/Users/song/development/golang"
+  ;;          ))
+  (setenv "PATH"
+          (concat
+           (concat (getenv "GOROOT") "/bin:")
+           (concat (getenv"GOPATH") "/bin:")
+           (concat (getenv "PATH"))
+           ))
+  ;; (add-to-list 'exec-path "~/.local/bin/")
   ;;解决org表格里面中英文对齐的问题
 ;;;###TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
     (when (spacemacs/system-is-mac)
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 11 12))
+    ;; )
+    (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
-  ;; (when (spacemacs/system-is-linux)
-  ;;   (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
   ;; TODO https://github.com/et2010/Han
   ;; (spacemacs//set-monospaced-font "Source Code Pro" "BabelStone Han" 14 16)
 
@@ -460,4 +477,5 @@ layers configuration."
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Desktop-Notifications.html
 ;;(add-to-list 'erc-modules 'notifications)
 ;; for c-c++ #if 0 #endif
+
 (hide-ifdef-mode t)
