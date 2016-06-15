@@ -4,7 +4,7 @@
 ;;
 
 ;; Author: song <song@GE60-SHADOW-Walker.lan>
-;; URL: https://github.com/TinySong/spacemacs
+;; URL: https://github.com/TinySong/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -39,7 +39,7 @@
     ;; (hackernews :location build-in)
     js-doc
     smartparens
-    ;; erc
+    erc
     ;; document create
     (doxymacs :location local)
     evil-vimish-fold
@@ -47,11 +47,10 @@
     ctags-update
     projectile
     hl-anything
-    hungry-delete
     helm-ag
     helm-gtags
     keyfreq
-    ;; magit
+    ;; git-messenger for github
     git-messenger
     ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
@@ -64,25 +63,16 @@
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
     nodejs-repl
-    ;; yasnippet
-    worf
     wrap-region
-    ;; TODO find out what is persp-mode https://libraries.io/emacs/persp-mode https://github.com/Bad-ptr/persp-mode.el
-    ;; persp-mode
-    ;; org-download
-    ;; flycheck-package
-    ;; (org :location built-in)
     org
     helm-flyspell
     helm
-    ;; occur-mode
+    occur-mode
     helm-ls-git
-    ;; notifications
-    ;; ercn
     youdao-dictionary
-    persp-mode
     ;; header2
     ;; (unicad :location local)
+    ;; worf
     ))
 
 
@@ -109,7 +99,6 @@
       (sp-forward-slurp-sexp))
 
     (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
-
     (with-eval-after-load 'smartparens
       (evil-define-key 'normal sp-keymap
         (kbd ")>") 'sp-forward-slurp-sexp
@@ -156,7 +145,7 @@
 ;; https://www.ibm.com/developerworks/cn/aix/library/au-learningdoxygen/
 ;; http://emacser.com/doxymacs.htm
 (defun tinysong/init-doxymacs ()
-  "Initialize doxymacs"
+  "Initialize doxymacs, create document from souce-code"
   (use-package doxymacs
     :init
     (add-hook 'c-mode-common-hook 'doxymacs-mode)
@@ -238,12 +227,6 @@
       :off (hl-highlight-mode -1)
       :documentation "Toggle highlight anything mode."
       :evil-leader "ths")))
-;; ------   000000
-;; https://www.emacswiki.org/emacs/hungry-delete
-(defun tinysong/post-init-hungry-delete ()
-  ;; (add-hook 'prog-mode-hook 'hungry-delete-mode)
-  (global-hungry-delete-mode t)
-  )
 
 ;; https://github.com/syohex/emacs-helm-ag
 (defun tinysong/post-init-helm-ag ()
@@ -486,12 +469,6 @@
          (ditaa . t)))
       )))
 
-(defun tinysong/init-org-download ()
-  (use-package org-download
-    :defer t
-    :init
-    (org-download-enable)))
-
 
 (defun tinysong/post-init-helm-flyspell ()
   (progn
@@ -626,7 +603,7 @@ be global."
     :defer t
     :config
     (progn
-      (defun zilong/github-browse-commit ()
+      (defun song/github-browse-commit ()
         "Show the GitHub page for the current commit."
         (interactive)
         (use-package github-browse-file
@@ -639,7 +616,7 @@ be global."
                             commit)))
           (github-browse--save-and-view url)
           (git-messenger:popup-close)))
-      (define-key git-messenger-map (kbd "f") 'zilong/github-browse-commit))))
+      (define-key git-messenger-map (kbd "f") '/github-browse-commit))))
 
 
 (defun tinysong/post-init-flycheck ()

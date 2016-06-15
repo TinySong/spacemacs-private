@@ -34,3 +34,4 @@
 ;;; Code:
 
 (bind-key* "C-c l" 'tinysong/insert-chrome-current-tab-url)
+(spacemacs/set-leader-keys "oil" 'tinysong/insert-chrome-current-tab-url)
