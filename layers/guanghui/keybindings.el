@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(bind-key* "C-c l" 'zilongshanren/insert-chrome-current-tab-url)
+;; (bind-key* "C-c l" 'zilongshanren/insert-chrome-current-tab-url)
 
 (global-set-key (kbd "s-/") 'hippie-expand)
 

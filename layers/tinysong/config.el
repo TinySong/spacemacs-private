@@ -181,3 +181,42 @@ Single Capitals as you type."
 ;; (add-hook 'go-mode-hook
 ;;           '(lambda ()
 ;;              (add-hook 'write-contents-hooks 'tinysong/untabify-buffer nil t)))
+
+;; more useful frame title, that show either a file or a
+;; buffer name (if the buffer isn't visiting a file)
+(setq frame-title-format
+      '("" " TinySong - "
+        (:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name)) "%b"))))
+
+;; https://www.emacswiki.org/emacs/AbbrevMode
+(define-abbrev-table 'global-abbrev-table '(
+
+                                            ;; math/unicode symbols
+                                            ("8in" "∈")
+                                            ("8nin" "∉")
+                                            ("8inf" "∞")
+                                            ("8luv" "♥")
+                                            ("8smly" "☺")
+                                            ("8en" "@~english")
+                                            ("8zh" "@~chinese")
+                                            ("8sp" "spacemacs")
+                                            ;; email
+                                            ("8me" "TinySong1226@gmail.com")
+
+                                            ;; computing tech
+                                            ("8wp" "Wikipedia")
+                                            ("8ms" "Microsoft")
+                                            ("8g" "Google")
+                                            ("8it" "IntelliType")
+                                            ("8msw" "Microsoft Windows")
+                                            ("8win" "Windows")
+                                            ("8ie" "Internet Explorer")
+                                            ("8ahk" "AutoHotkey")
+                                            ;; ("82dx" "Cocos2D-X")
+
+                                            ;; signature
+                                            ("8ts" "tinysong")
+                                            ;; emacs regex
+                                            ("8d" "\\([0-9]+?\\)")
+                                            ("8str" "\\([^\"]+?\\)\"")))

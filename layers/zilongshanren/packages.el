@@ -17,7 +17,7 @@
         lispy
         company
         ;; flycheck
-        markdown-mode
+        ;; markdown-mode
         impatient-mode
         swiper
         magit
