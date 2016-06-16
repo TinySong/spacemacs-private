@@ -39,6 +39,7 @@
     ;; (hackernews :location build-in)
     js-doc
     smartparens
+    markdown-mode
     erc
     ;; document create
     (doxymacs :location local)
@@ -938,3 +939,26 @@ be global."
     (spacemacs/set-leader-keys-for-major-mode 'deft-mode "q" 'quit-window)
     (setq deft-extension "org")
     (setq deft-directory "~/org-notes")))
+
+(defun zilongshanren/post-init-markdown-mode ()
+  (progn
+    (add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
+
+    (with-eval-after-load 'markdown-mode
+      (progn
+        (when (configuration-layer/package-usedp 'company)
+          (spacemacs|add-company-hook markdown-mode))
+
+        (defun zilongshanren/markdown-to-html ()
+          (interactive)
+          (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name))
+          (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))
+
+        (spacemacs/set-leader-keys-for-major-mode 'gfm-mode-map
+          "p" 'zilongshanren/markdown-to-html)
+        (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+          "p" 'zilongshanren/markdown-to-html)
+
+        (evil-define-key 'normal markdown-mode-map (kbd "TAB") 'markdown-cycle)
+        ))
+    ))
