@@ -27,7 +27,7 @@
         js2-refactor
         ;; DROP: not used
         ;; TODO: https://www.emacswiki.org/emacs/FindFileInProject
-        find-file-in-project
+        ;; find-file-in-project
         ;; TODO: why web cannot auto company http://web-mode.org/  2, package-selected-packages http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
         web-mode
         ;; tagedit
@@ -223,7 +223,9 @@ open and unsaved."
 (defun zilongshanren/init-find-file-in-project ()
   (use-package find-file-in-project
     :defer t
-    :init))
+    :init)
+
+  )
 
 (defun zilongshanren/post-init-racket-mode ()
   (progn

@@ -98,6 +98,8 @@ values."
      scheme
      games
      latex
+     ts-org
+     ts-helm
      ;; pdf-tools
      )
    ;; List of additional packages that will be installed without being
@@ -362,7 +364,7 @@ layers configuration."
   (display-time-mode 1)
   (xterm-mouse-mode -1)
   (global-hl-line-mode)
-  ;; (selectric-mode 1)
+  (selectric-mode 1)
   (setq tab-width 4)
   (hide-ifdef-mode t)
   ;; (delete-selection-mode t)
