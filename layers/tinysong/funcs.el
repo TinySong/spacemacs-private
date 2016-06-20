@@ -36,27 +36,6 @@
 
 
 ;; "https://github.com/vhallac/.emacs.d/blob/master/config/customize-org-agenda.el"
-(defun bh/skip-non-stuck-projects ()
-  "Skip trees that are not stuck projects"
-  (bh/list-sublevels-for-projects-indented)
-  (save-restriction
-    (widen)
-    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
-      ;; VH: I changed this line from
-      ;; (if (bh/is-project-p)
-      (if (and (eq (point) (bh/find-project-task))
-               (bh/is-project-p))
-          (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
-                 (has-next ))
-            (save-excursion
-              (forward-line 1)
-              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT " subtree-end t))
-                (unless (member "WAITING" (org-get-tags-at))
-                  (setq has-next t))))
-            (if has-next
-                next-headline
-              nil)) ; a stuck project, has subtasks but no next task
-        next-headline))))
 
 
 ;; remove all the duplicated emplies in current buffer
@@ -369,12 +348,6 @@ With PREFIX, cd to project root."
   end tell
   " cmd))))
 
-(defun tinysong/project-root ()
-  "Return the project root for current buffer."
-  (let ((directory default-directory))
-    (or (locate-dominating-file directory ".git")
-        (locate-dominating-file directory ".svn")
-        (locate-dominating-file directory ".hg"))))
 
 ;; just for maxcos
 ;; https://github.com/syohex/emacs-browser-refresh/blob/master/browser-refresh.el
@@ -405,12 +378,6 @@ With PREFIX, cd to project root."
   :group 'shadowsocks-proxy)
 
 
-(defun tinysong/open-file-with-projectile-or-lsgit ()
-  "open file in current projectfile"
-  (interactive)
-  (if (tinysong/project-root)
-      (counsel-git)
-    (helm-projectile-find-file)))
 
 ;;  ================= erc for macos =======================
 ;; http://blog.lojic.com/2009/08/06/send-growl-notifications-from-carbon-emacs-on-osx/

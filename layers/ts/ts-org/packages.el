@@ -1,6 +1,8 @@
 (defconst ts-org-packages
   '(
     org
+    org-tree-slide
+    org-octopress
     ))
 
 (defun ts-org/post-init-org ()
@@ -369,4 +371,31 @@
         "owh" 'plain-org-wiki-helm
         "owf" 'plain-org-wiki)
       (setq org-mobile-directory "~/org-notes/org")
+      )))
+
+(defun ts-org/init-org-tree-slide ()
+  (use-package org-tree-slide
+    :init
+    (spacemacs/set-leader-keys "oto" 'org-tree-slide-mode)))
+
+(defun ts-org/init-org-octopress ()
+  (use-package org-octopress
+    :init
+    (progn
+      (evilified-state-evilify org-octopress-summary-mode org-octopress-summary-mode-map)
+      (add-hook 'org-octopress-summary-mode-hook
+                #'(lambda () (local-set-key (kbd "q") 'bury-buffer)))
+      (setq org-blog-dir "~/4gamers.cn/")
+      (setq org-octopress-directory-top org-blog-dir)
+      (setq org-octopress-directory-posts (concat org-blog-dir "source/_posts"))
+      (setq org-octopress-directory-org-top org-blog-dir)
+      (setq org-octopress-directory-org-posts (concat org-blog-dir "blog"))
+      (setq org-octopress-setup-file (concat org-blog-dir "setupfile.org"))
+
+      (defun ts-org/org-save-and-export ()
+        (interactive)
+        (org-octopress-setup-publish-project)
+        (org-publish-project "octopress" t))
+
+      (spacemacs/set-leader-keys "op" 'ts-org/org-save-and-export)
       )))

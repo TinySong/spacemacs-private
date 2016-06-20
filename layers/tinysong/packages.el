@@ -45,18 +45,12 @@
     (doxymacs :location local)
     evil-vimish-fold
     beacon
-    ctags-update
-    projectile
     hl-anything
     keyfreq
-    ;; git-messenger for github
-    git-messenger
     ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
     visual-regexp-steroids
     flycheck
-    cmake-font-lock
-    cmake-mode
     google-c-style
     ;; post extension names go here
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
@@ -64,12 +58,13 @@
     nodejs-repl
     wrap-region
     youdao-dictionary
-    ;; TODO: https://www.emacswiki.org/emacs/FindFileInProject
-    find-file-in-project
     deft
-    ;; header2
-    ;; (unicad :location local)
-    ;; worf
+    swiper
+    command-log
+    ;; hydra
+    ;; elfeed
+    osx-dictionary
+    org-mac-link
     ))
 
 
@@ -179,42 +174,6 @@
       (spacemacs/toggle-beacon-on))
     :config (spacemacs|hide-lighter beacon-mode)))
 
-;; http://blog.binchen.org/posts/how-to-use-ctags-in-emacs-effectively-3.html
-(defun tinysong/init-ctags-update ()
-  (use-package ctags-update
-    :init
-    (progn
-      (add-hook 'c++-mode-hook 'turn-on-ctags-auto-update-mode)
-      (add-hook 'c-mode-hook 'turn-on-ctags-auto-update-mode)
-      (define-key evil-normal-state-map (kbd "gf")
-        (lambda () (interactive) (find-tag (find-tag-default-as-regexp))))
-
-      (define-key evil-normal-state-map (kbd "gb") 'pop-tag-mark)
-
-      (define-key evil-normal-state-map (kbd "gn")
-        (lambda () (interactive) (find-tag last-tag t)))
-      )
-    :defer t
-    :config
-    (spacemacs|hide-lighter ctags-auto-update-mode)))
-
-
-;; https://github.com/bbatsov/projectile
-(defun tinysong/post-init-projectile ()
-  (with-eval-after-load 'projectile
-    (progn
-      (setq projectile-completion-system 'ivy)
-      (projectile-global-mode)
-      (setq projectile-indexing-method 'native)
-      ;; to disable remote file exists cache that use this snippet of code
-      (setq projectile-file-exists-remote-cache-expire nil)
-      ;; to change the remote file exists ache expire to 30 second use the snippet of code
-      (setq projectile-file-exists-remote-cache-expire (* 1 20))
-      (add-to-list 'projectile-other-file-alist '("html" "js")) ;; switch from html -> js
-      (add-to-list 'projectile-other-file-alist '("js" "html")) ;; switch from js -> html
-      (spacemacs/set-leader-keys "pf" 'tinysong/open-file-with-projectile-or-lsgit) ;;
-      )))
-
 
 (defun tinysong/post-init-hl-anything ()
   (progn
@@ -233,12 +192,11 @@
 
 (defun tinysong/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
-    :init))
-
-;;In order to export pdf to support Chinese, I should install Latex at here: https://www.tug.org/mactex/
-;; http://freizl.github.io/posts/2012-04-06-export-orgmode-file-in-Chinese.html
-;;http://stackoverflow.com/questions/21005885/export-org-mode-code-block-and-result-with-different-styles
-
+    :init
+    (progn
+      (define-key global-map (kbd "C-c r") 'vr/replace)
+      (define-key global-map (kbd "C-c q") 'vr/query-replace))
+    ))
 
 
 
@@ -248,28 +206,6 @@
     (progn
       (keyfreq-mode t)
       (keyfreq-autosave-mode 1))))
-
-;; https://github.com/syohex/emacs-git-messenger
-(defun tinysong/post-init-git-messenger ()
-  (use-package git-messenger
-    :defer t
-    :config
-    (progn
-      (defun song/github-browse-commit ()
-        "Show the GitHub page for the current commit."
-        (interactive)
-        (use-package github-browse-file
-          :commands (github-browse-file--relative-url))
-
-        (let* ((commit git-messenger:last-commit-id)
-               (url (concat "https://github.com/"
-                            (github-browse-file--relative-url)
-                            "/commit/"
-                            commit)))
-          (github-browse--save-and-view url)
-          (git-messenger:popup-close)))
-      (define-key git-messenger-map (kbd "f") '/github-browse-commit))))
-
 
 (defun tinysong/post-init-flycheck ()
   (with-eval-after-load 'flycheck
@@ -281,29 +217,7 @@
       ;; (evilify flycheck-error-list-mode flycheck-error-list-mode-map)
       )))
 
-;; cmake https://www.ibm.com/developerworks/cn/linux/l-cn-cmake/
-(defun tinysong/post-init-cmake-mode ()
-  (progn
-    (spacemacs/declare-prefix-for-mode 'cmake-mode
-                                       "mh" "docs")
-    (spacemacs/set-leader-keys-for-major-mode 'cmake-mode
-      "hd" 'cmake-help)
-    (defun cmake-rename-buffer ()
-      "Renames a CMakeLists.txt buffer to cmake-<directory name>."
-      (interactive)
-      (when (and (buffer-file-name)
-                 (string-match "CMakeLists.txt" (buffer-name)))
-        (setq parent-dir (file-name-nondirectory
-                          (directory-file-name
-                           (file-name-directory (buffer-file-name)))))
-        (setq new-buffer-name (concat "cmake-" parent-dir))
-        (rename-buffer new-buffer-name t)))
 
-    (add-hook 'cmake-mode-hook (function cmake-rename-buffer))))
-
-(defun tinysong/init-cmake-font-lock ()
-  (use-package cmake-font-lock
-    :defer t))
 
 ;; http://blog.csdn.net/csfreebird/article/details/9250989
 (defun tinysong/init-google-c-style ()
@@ -410,22 +324,6 @@
 ;;     (add-hook 'tex-mode-hook 'auto-make-header)
 ;;     ))
 
-(defun tinysong/post-init-find-file-in-project ()
-  (use-package find-file-in-project
-    :defer t
-    :init
-    (progn
-      ;; If you use other VCS (subversion, for example), enable the following option
-      ;;(setq ffip-project-file ".svn")
-      ;; in MacOS X, the search file command is CMD+p
-      (bind-key* "s-p" 'find-file-in-project)
-      (setq-local ffip-find-options "-not -size +64k -not -iwholename '*/bin/*'")
-      ;; for this project, I'm only interested certain types of files
-      ;; (setq-default ffip-patterns '("*.html" "*.js" "*.css" "*.java" "*.xml" "*.js"))
-      ;; if the full path of current file is under SUBPROJECT1 or SUBPROJECT2
-      ;; OR if I'm reading my personal issue track document,
-      )))
-
 (defun tinysong/post-init-deft ()
   (progn
     (setq deft-use-filter-string-for-filename t)
@@ -442,16 +340,178 @@
         (when (configuration-layer/package-usedp 'company)
           (spacemacs|add-company-hook markdown-mode))
 
-        (defun zilongshanren/markdown-to-html ()
+        (defun tinysong/markdown-to-html ()
           (interactive)
           (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name))
           (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))
 
         (spacemacs/set-leader-keys-for-major-mode 'gfm-mode-map
-          "p" 'zilongshanren/markdown-to-html)
+          "p" 'tinysong/markdown-to-html)
         (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-          "p" 'zilongshanren/markdown-to-html)
+          "p" 'tinysong/markdown-to-html)
 
         (evil-define-key 'normal markdown-mode-map (kbd "TAB") 'markdown-cycle)
         ))
     ))
+
+(defun tinysong/post-init-swiper ()
+  "Initialize my package"
+  (progn
+    (defun my-swiper-search (p)
+      (interactive "P")
+      (let ((current-prefix-arg nil))
+        (call-interactively
+         (if p #'spacemacs/swiper-region-or-symbol
+           #'swiper))))
+
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-display-style 'fancy)
+
+    (use-package recentf
+      :config
+      (setq recentf-exclude
+            '("COMMIT_MSG" "COMMIT_EDITMSG" "github.*txt$"
+              ".*png$"))
+      (setq recentf-max-saved-items 60))
+    (evilified-state-evilify ivy-occur-mode ivy-occur-mode-map)
+
+    (use-package ivy
+      :defer t
+      :config
+      (progn
+        (spacemacs|hide-lighter ivy-mode)
+        (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
+        (define-key ivy-minibuffer-map (kbd "s-o") 'ivy-dispatching-done)
+        (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+        (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)))
+
+    (define-key global-map (kbd "C-s") 'my-swiper-search)
+    ))
+
+(defun tinysong/post-init-command-log ()
+  (with-eval-after-load 'command-log-mode
+    (setq clm/log-command-exceptions* (append clm/log-command-exceptions*
+                                              '(evil-next-visual-line
+                                                evil-previous-visual-line)))))
+
+(defun tinysong/init-hydra ()
+  (use-package hydra
+    :init
+    (progn
+      ;; major mode hydra is really cool, don't need to switch mode anymore
+      ;; C-c [a-z] and s-[a-z] is very quick to pressed even in emacs-state and F1-F9 is also the same
+      ;; If the command will change the buffer, they should be put in these groups.
+      ;; otherwise, use which-key + spacems + user defined key mappings in evil normal mode
+      (defhydra hydra-yasnippet (:color blue :hint nil)
+        "
+              ^YASnippets^
+--------------------------------------------
+  Modes:    Load/Visit:    Actions:
+
+ _g_lobal  _d_irectory    _i_nsert
+ _m_inor   _f_ile         _t_ryout
+ _e_xtra   _l_ist         _n_ew
+         _a_ll
+"
+        ("d" yas-load-directory)
+        ("e" yas-activate-extra-mode)
+        ("i" yas-insert-snippet)
+        ("f" yas-visit-snippet-file :color blue)
+        ("n" yas-new-snippet)
+        ("t" yas-tryout-snippet)
+        ("l" yas-describe-tables)
+        ("g" yas/global-mode)
+        ("m" yas/minor-mode)
+        ("a" yas-reload-all))
+
+      ;; (bin-key* "<f3>" 'hydra-yasnippet/body)
+
+      (defhydra hydra-apropos (:color blue)
+        "Apropos"
+        ("a" apropos "apropos")
+        ("c" apropos-command "cmd")
+        ("d" apropos-documentation "doc")
+        ("e" apropos-value "val")
+        ("l" apropos-library "lib")
+        ("o" apropos-user-option "option")
+        ("u" apropos-user-option "option")
+        ("v" apropos-variable "var")
+        ("i" info-apropos "info")
+        ("t" tags-apropos "tags")
+        ("z" hydra-customize-apropos/body "customize"))
+
+      (defhydra hydra-customize-apropos (:color blue)
+        "Apropos (customize)"
+        ("a" customize-apropos "apropos")
+        ("f" customize-apropos-faces "faces")
+        ("g" customize-apropos-groups "groups")
+        ("o" customize-apropos-options "options"))
+
+      (bind-key*  "<f4>" 'hydra-apropos/body)
+      )))
+
+;; https://github.com/skeeto/elfeed
+(defun tinysong/init-elfeed ()
+  (use-package elfeed
+    :init
+    (global-set-key (kbd "C-x w") 'elfeed)
+    :defer t
+    :config
+    (progn
+
+      (setq elfeed-feeds
+            '("http://nullprogram.com/feed/"
+              "http://z.caudate.me/rss/"
+              "http://irreal.org/blog/?feed=rss2"
+              "http://feeds.feedburner.com/LostInTheTriangles"
+              "http://tonybai.com/feed/"
+              "http://planet.emacsen.org/atom.xml"
+              "http://feeds.feedburner.com/emacsblog"
+              "http://blog.binchen.org/rss.xml"
+              "http://oremacs.com/atom.xml"
+              "http://blog.gemserk.com/feed/"
+              "http://www.masteringemacs.org/feed/"
+              "http://t-machine.org/index.php/feed/"
+              "http://gameenginebook.blogspot.com/feeds/posts/default"
+              "http://feeds.feedburner.com/ruanyifeng"
+              "http://coolshell.cn/feed"
+              "http://blog.devtang.com/atom.xml"
+              "http://emacsist.com/rss"
+              "http://puntoblogspot.blogspot.com/feeds/2507074905876002529/comments/default"
+              "http://angelic-sedition.github.io/atom.xml"))
+
+      ;; (evilify elfeed-search-mode elfeed-search-mode-map)
+      (evilified-state-evilify-map elfeed-search-mode-map
+        :mode elfeed-search-mode
+        :bindings
+        "G" 'elfeed-update
+        "g" 'elfeed-search-update--force)
+
+      (defun elfeed-mark-all-as-read ()
+        (interactive)
+        (mark-whole-buffer)
+        (elfeed-search-untag-all-unread))
+
+      (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
+
+      (defadvice elfeed-show-yank (after elfeed-show-yank-to-kill-ring activate compile)
+        "Insert the yanked text from x-selection to kill ring"
+        (kill-new (x-get-selection)))
+
+      (ad-activate 'elfeed-show-yank))))
+
+(defun tinysong/init-osx-dictionary ()
+  (use-package osx-dictionary
+    :init
+    (progn
+      (evilified-state-evilify osx-dictionary-mode osx-dictionary-mode-map)
+      (setq osx-dictionary-use-chinese-text-segmentation t)
+      (global-set-key (kbd "C-c d") 'osx-dictionary-search-pointer)
+      )))
+
+(defun tinysong/init-org-mac-link ()
+  (use-package org-mac-link
+    :init
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))))

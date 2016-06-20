@@ -1,7 +1,9 @@
 (defconst ts-lang-packages
   '(
     (cc-mode :location built-in)
+    company-c-headers
     lispy
+    lua-mode
     ))
 
 (defun ts-lang/post-init-cc-mode ()
@@ -52,4 +54,29 @@
       (add-hook 'spacemacs-mode-hook (lambda () (lispy-mode 1)))
       (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
       (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
-      (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1))))))
+      (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1)))
+      )
+    (with-eval-after-load 'lispy
+      (progn
+        (define-key lispy-mode-map (kbd "s-1") 'lispy-describe-inline)
+        (define-key lispy-mode-map (kbd "s-2") 'lispy-arglist-inline)
+
+        ))
+
+    ))
+
+(defun ts-lang/post-init-lua-mode ()
+  (progn
+    (when (configuration-layer/package-usedp 'company)
+      (push 'company-dabbrev company-backends-lua-mode)
+      (push 'company-etags company-backends-lua-mode))
+    (add-hook 'lua-mode-hook 'evil-matchit-mode)
+    (add-hook 'lua-mode-hook 'smartparens-mode)
+    (setq lua-indent-level 4)
+
+    (spacemacs/set-leader-keys-for-major-mode 'lua-mode
+      "<tab>" 'hs-toggle-hiding
+      "gg" 'helm-gtags-dwim
+      "gr" 'helm-gtags-find-rtag
+      "gs" 'helm-gtags-find-symbol
+      "gf" 'helm-gtags-find-files)))

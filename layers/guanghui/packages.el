@@ -14,39 +14,33 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq guanghui-packages
       '(
-        prodigy
-        org-tree-slide
-        js2-mode
-        ;; find-file-in-project
-        ;;  for mac is ok, ubuntu display mass code
         ;; org-bullets
+        ;; org-tree-slide
         ;; evil-escape
-        (cc-mode :location built-in)
-        multiple-cursors
-        visual-regexp-steroids
-        nodejs-repl
-        company-c-headers
-        ;; hydra
-        lispy
-        org-octopress
-        helm-github-stars
-        command-log
-        evil
-        elfeed
-        lua-mode
-        ycmd
-        ;; mwe-log-commands
+        ;; (cc-mode :location built-in)
+        ;; visual-regexp-steroids
+        ;; command-log
+        ;; company-c-headers
         ;; org-pomodoro
+        ;; hydra
+        ;; lua-mode
+        ;; elfeed
+        ;; osx-dictionary
+        ;; org-mac-link
+        prodigy
+        js2-mode
+        multiple-cursors
+        nodejs-repl
+        evil
+        ycmd
         discover-my-major
         popwin
-        ox-reveal
-        org-mac-link
+        ;; ox-reveal
         ace-window
         avy
         4clojure
         ;; persp-mode
         (gulpjs :location (recipe :fetcher github :repo "zilongshanren/emacs-gulpjs"))
-        osx-dictionary
         litable
         pangu-spacing
         ))
@@ -319,33 +313,14 @@
       (setq helm-github-stars-username "zilongshanren")
       (setq helm-github-stars-cache-file "~/.emacs.d/.cache/hgs-cache"))))
 
-(defun guanghui/init-org-octopress ()
-  (use-package org-octopress
-    :init
-    (progn
-      (evilified-state-evilify org-octopress-summary-mode org-octopress-summary-mode-map)
-      (add-hook 'org-octopress-summary-mode-hook
-                #'(lambda () (local-set-key (kbd "q") 'bury-buffer)))
-      (setq org-blog-dir "~/4gamers.cn/")
-      (setq org-octopress-directory-top org-blog-dir)
-      (setq org-octopress-directory-posts (concat org-blog-dir "source/_posts"))
-      (setq org-octopress-directory-org-top org-blog-dir)
-      (setq org-octopress-directory-org-posts (concat org-blog-dir "blog"))
-      (setq org-octopress-setup-file (concat org-blog-dir "setupfile.org"))
-
-      (defun zilongshanren/org-save-and-export ()
-        (interactive)
-        (org-octopress-setup-publish-project)
-        (org-publish-project "octopress" t))
-
-      (spacemacs/set-leader-keys "op" 'zilongshanren/org-save-and-export)
-      )))
 
 (defun guanghui/post-init-lispy ()
   (with-eval-after-load 'lispy
     (progn
       (define-key lispy-mode-map (kbd "s-1") 'lispy-describe-inline)
-      (define-key lispy-mode-map (kbd "s-2") 'lispy-arglist-inline))))
+      (define-key lispy-mode-map (kbd "s-2") 'lispy-arglist-inline)
+
+      )))
 
 (defun guanghui/init-hydra ()
   (use-package hydra
@@ -403,14 +378,6 @@
       (bind-key*  "<f4>" 'hydra-apropos/body)
       )))
 
-(defun guanghui/post-init-company-c-headers ()
-  (progn
-    (setq company-c-headers-path-system
-          (quote
-           ("/usr/include/" "/usr/local/include/" "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1")))
-    (setq company-c-headers-path-user
-          (quote
-           ("/Users/guanghui/cocos2d-x/cocos/platform" "/Users/guanghui/cocos2d-x/cocos" "." "/Users/guanghui/cocos2d-x/cocos/audio/include/")))))
 
 (defun guanghui/post-init-nodejs-repl ()
   (progn
@@ -424,7 +391,8 @@
 (defun guanghui/post-init-visual-regexp-steroids ()
   (progn
     (define-key global-map (kbd "C-c r") 'vr/replace)
-    (define-key global-map (kbd "C-c q") 'vr/query-replace)))
+    (define-key global-map (kbd "C-c q") 'vr/query-replace))
+  )
 
 (defun guanghui/init-multiple-cursors ()
   (use-package multiple-cursors
@@ -483,31 +451,6 @@
     ))
 
 
-(defun guanghui/post-init-cc-mode ()
-  (progn
-
-    ;; http://stackoverflow.com/questions/23553881/emacs-indenting-of-c11-lambda-functions-cc-mode
-    (defadvice c-lineup-arglist (around my activate)
-      "Improve indentation of continued C++11 lambda function opened as argument."
-      (setq ad-return-value
-            (if (and (equal major-mode 'c++-mode)
-                     (ignore-errors
-                       (save-excursion
-                         (goto-char (c-langelem-pos langelem))
-                         ;; Detect "[...](" or "[...]{". preceded by "," or "(",
-                         ;;   and with unclosed brace.
-                         (looking-at ".*[(,][ \t]*\\[[^]]*\\][ \t]*[({][^}]*$"))))
-                0                       ; no additional indent
-              ad-do-it)))               ; default behavior
-
-
-    (setq c-default-style "linux") ;; set style to "linux"
-    (setq c-basic-offset 4)
-    (c-set-offset 'substatement-open 0)
-    (with-eval-after-load 'c++-mode
-      (define-key c++-mode-map (kbd "s-.") 'company-ycmd)))
-  ;; company backend should be grouped
-  )
 
 
 (defun guanghui/post-init-evil-escape ()
@@ -550,10 +493,6 @@
          (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
          (define-key js2-mode-map   (kbd "s-.") 'company-tern)))))
 
-(defun guanghui/init-org-tree-slide ()
-  (use-package org-tree-slide
-    :init
-    (spacemacs/set-leader-keys "oto" 'org-tree-slide-mode)))
 
 
 ;; http://rejeep.github.io/emacs/2013/12/14/prodigy-emacs-service-manager.html
