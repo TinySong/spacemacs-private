@@ -73,7 +73,7 @@
 
       ;; http://wenshanren.org/?p=327
       ;; change it to helm
-      (defun tinysong/org-insert-src-block (src-code-type)
+      (defun ts-org/org-insert-src-block (src-code-type)
         "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
         (interactive
          (let ((src-code-types
@@ -95,7 +95,7 @@
                                   ;; keybinding for editing source code blocks
                                   ;; keybinding for inserting code blocks
                                   (local-set-key (kbd "C-c i s")
-                                                 'tinysong/org-insert-src-block)
+                                                 'ts-org/org-insert-src-block)
                                   ))
 
       ;; http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
@@ -243,7 +243,7 @@
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)
               ("c" "Chrome" entry (file+headline "~/org-notes/notes.org" "Quick notes")
-               "* TODO [#C] %?\n %(tinysong/retrieve-chrome-current-tab-url)\n %i\n %U"
+               "* TODO [#C] %?\n %(ts-org/retrieve-chrome-current-tab-url)\n %i\n %U"
                :empty-lines 1)
               ("l" "links" entry (file+headline "~/org-notes/notes.org" "Quick notes")
                "* TODO [#C] %?\n  %i\n %a \n %U"

@@ -31,10 +31,10 @@
 
 
 
-(defun tinysong/post-init-helm-flyspell ()
+(defun ts-helm/post-init-helm-flyspell ()
   (progn
     ;; "http://emacs.stackexchange.com/questions/14909/how-to-use-flyspell-to-efficiently-correct-previous-word/14912#14912"
-    (defun tinysong/flyspell-goto-previous-error (arg)
+    (defun ts-helm/flyspell-goto-previous-error (arg)
       "Go to arg previous spelling error."
       (interactive "p")
       (while (not (= 0 arg))
@@ -100,10 +100,10 @@ be global."
     (setq save-abbrevs 'silently)
     (setq-default abbrev-mode t)
 
-    (bind-key* "C-;" 'tinysong/flyspell-goto-previous-error)
+    (bind-key* "C-;" 'ts-helm/flyspell-goto-previous-error)
     (global-set-key (kbd "C-c s") 'helm-flyspell-correct)))
 
-(defun tinysong/post-init-helm ()
+(defun ts-helm/post-init-helm ()
   (progn
     (global-set-key (kbd "C-s-y") 'helm-show-kill-ring)
     ;; See https://github.com/bbatsov/prelude/pull/670 for a detailed
@@ -143,7 +143,7 @@ be global."
             (read-directory-name . ido)))))
 
 
-(defun tinysong/init-helm-ls-git ()
+(defun ts-helm/init-helm-ls-git ()
   (use-package helm-ls-git
     :init
     (progn
