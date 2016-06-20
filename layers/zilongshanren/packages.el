@@ -13,155 +13,15 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq zilongshanren-packages
       '(
-        css-mode
-        lispy
-        company
-        ;; flycheck
-        ;; markdown-mode
-        impatient-mode
-        swiper
-        magit
-        ;; flycheck-package
-        ;; nodejs-repl
+        ;; css-mode
+        ;; lispy
+        ;; company
+        ;; impatient-mode
+        ;; swiper
         js2-mode
-        js2-refactor
-        ;; DROP: not used
-        ;; TODO: https://www.emacswiki.org/emacs/FindFileInProject
-        ;; find-file-in-project
-        ;; TODO: why web cannot auto company http://web-mode.org/  2, package-selected-packages http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
-        web-mode
-        ;; tagedit
-        ;; js-comint
-        ;; evil-visual-mark-mode
-        ;; http://endlessparentheses.com/new-in-package-el-in-emacs-25-1-user-selected-packages.html
-        ;; https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
-        (dired-mode :location built-in)
+        ;; js2-refactor
+        ;; web-mode
         ))
-
-;; https://ebzzry.github.io/emacs-pairs.html
-
-(defun zilongshanren/init-dired-mode ()
-  (use-package dired-mode
-    :init
-    (progn
-      (require 'dired-x)
-      (require 'dired-aux)
-      (setq dired-listing-switches "-alh")
-      (setq dired-guess-shell-alist-user
-            '(("\\.pdf\\'" "open")
-              ("\\.docx\\'" "open")
-              ("\\.\\(?:djvu\\|eps\\)\\'" "open")
-              ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "open")
-              ("\\.\\(?:xcf\\)\\'" "open")
-              ("\\.csv\\'" "open")
-              ("\\.tex\\'" "open")
-              ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|ogv\\)\\(?:\\.part\\)?\\'"
-               "open")
-              ("\\.\\(?:mp3\\|flac\\)\\'" "open")
-              ("\\.html?\\'" "open")
-              ("\\.md\\'" "open")))
-
-
-      ;; always delete and copy recursively
-      (setq dired-re)
-      (setq dired-recursive-copies 'always)
-
-      (defvar dired-filelist-cmd
-        '(("vlc" "-L")))
-
-      (defun dired-get-size ()
-        (interactive)
-        (let ((files (dired-get-marked-files)))
-          (with-temp-buffer
-            (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
-            (message
-             "Size of all marked files: %s"
-             (progn
-               (re-search-backward "\\(^[ 0-9.,]+[A-Za-z]+\\).*total$")
-               (match-string 1))))))
-
-      (defun dired-start-process (cmd &optional file-list)
-        (interactive
-         (let ((files (dired-get-marked-files
-                       t current-prefix-arg)))
-           (list
-            (dired-read-shell-command "& on %s: "
-                                      current-prefix-arg files)
-            files)))
-        (let (list-switch)
-          (start-process
-           cmd nil shell-file-name
-           shell-command-switch
-           (format
-            "nohup 1>/dev/null 2>/dev/null %s \"%s\""
-            (if (and (> (length file-list) 1)
-                     (setq list-switch
-                           (cadr (assoc cmd dired-filelist-cmd))))
-                (format "%s %s" cmd list-switch)
-              cmd)
-            (mapconcat #'expand-file-name file-list "\" \"")))))
-
-      (defun dired-open-term ()
-        "Open an `ansi-term' that corresponds to current directory."
-        (interactive)
-        (let* ((current-dir (dired-current-directory))
-               (buffer (if (get-buffer "*zshell*")
-                           (switch-to-buffer "*zshell*")
-                         (ansi-term "/bin/zsh" "zshell")))
-               (proc (get-buffer-process buffer)))
-          (term-send-string
-           proc
-           (if (file-remote-p current-dir)
-               (let ((v (tramp-dissect-file-name current-dir t)))
-                 (format "ssh %s@%s\n"
-                         (aref v 1) (aref v 2)))
-             (format "cd '%s'\n" current-dir)))))
-
-      (defun dired-copy-file-here (file)
-        (interactive "fCopy file: ")
-        (copy-file file default-directory))
-
-      ;;dired find alternate file in other buffer
-      (defun my-dired-find-file ()
-        "Open buffer in another window"
-        (interactive)
-        (let ((filename (dired-get-filename nil t)))
-          (if (car (file-attributes filename))
-              (dired-find-alternate-file)
-            (dired-find-file-other-window))))
-
-      ;; do command on all marked file in dired mode
-      (defun zilongshanren/dired-do-command (command)
-        "Run COMMAND on marked files. Any files not already open will be opened.
-After this command has been run, any buffers it's modified will remain
-open and unsaved."
-        (interactive "CRun on marked files M-x ")
-        (save-window-excursion
-          (mapc (lambda (filename)
-                  (find-file filename)
-                  (call-interactively command))
-                (dired-get-marked-files))))
-
-      (defun zilongshanren/dired-up-directory()
-        "goto up directory and resue buffer"
-        (interactive)
-        (find-alternate-file ".."))
-
-      (evilified-state-evilify-map dired-mode-map
-        :mode dired-mode
-        :bindings
-        (kbd "C-k") 'zilongshanren/dired-up-directory
-        "<RET>" 'dired-find-alternate-file
-        "E" 'dired-toggle-read-only
-        "C" 'dired-do-copy
-        "<mouse-2>" 'my-dired-find-file
-        "`" 'dired-open-term
-        "z" 'dired-get-size
-        "c" 'dired-copy-file-here)
-      )
-    :defer t
-    )
-  )
 
 (defun zilongshanren/init-evil-visual-mark-mode ()
   (use-package evil-visual-mark-mode
@@ -220,13 +80,6 @@ open and unsaved."
 
 
 
-(defun zilongshanren/init-find-file-in-project ()
-  (use-package find-file-in-project
-    :defer t
-    :init)
-
-  )
-
 (defun zilongshanren/post-init-racket-mode ()
   (progn
     (eval-after-load 'racket-repl-mode
@@ -245,22 +98,6 @@ open and unsaved."
     :init
     :defer t))
 
-(defun zilongshanren/init-flycheck-package ()
-  (use-package flycheck-package))
-
-(defun zilongshanren/init-lispy ()
-  "Initialize lispy"
-  (use-package lispy
-    :defer t
-    :diminish (lispy-mode)
-    :init
-    (progn
-      (add-hook 'lispy-mode-hook 'spacemacs/toggle-aggressive-indent-on)
-      (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-      (add-hook 'spacemacs-mode-hook (lambda () (lispy-mode 1)))
-      (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
-      (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
-      (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1))))))
 
 
 (defun zilongshanren/post-init-company ()
@@ -294,40 +131,6 @@ open and unsaved."
 
     (add-hook 'cmake-mode-hook (function cmake-rename-buffer))))
 
-
-(defun zilongshanren/post-init-flycheck ()
-  (with-eval-after-load 'flycheck
-    (progn
-      ;; (setq flycheck-display-errors-function 'flycheck-display-error-messages)
-      (setq flycheck-display-errors-delay 0.1)
-      ;; (remove-hook 'c-mode-hook 'flycheck-mode)
-      ;; (remove-hook 'c++-mode-hook 'flycheck-mode)
-      ;; (evilify flycheck-error-list-mode flycheck-error-list-mode-map)
-      )))
-
-;; configs for writing
-(defun zilongshanren/post-init-markdown-mode ()
-  (progn
-    (add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
-
-    (with-eval-after-load 'markdown-mode
-      (progn
-        (when (configuration-layer/package-usedp 'company)
-          (spacemacs|add-company-hook markdown-mode))
-
-        (defun zilongshanren/markdown-to-html ()
-          (interactive)
-          (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name))
-          (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))
-
-        (spacemacs/set-leader-keys-for-major-mode 'gfm-mode-map
-          "p" 'zilongshanren/markdown-to-html)
-        (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-          "p" 'zilongshanren/markdown-to-html)
-
-        (evil-define-key 'normal markdown-mode-map (kbd "TAB") 'markdown-cycle)
-        ))
-    ))
 
 (defun zilongshanren/init-impatient-mode ()
   "Initialize impatient mode"
@@ -381,61 +184,6 @@ open and unsaved."
 
     (define-key global-map (kbd "C-s") 'my-swiper-search)
     ))
-
-
-(defun zilongshanren/post-init-magit ()
-  (progn
-    (with-eval-after-load 'magit
-      (progn
-        (add-to-list 'magit-no-confirm 'stage-all-changes)
-        (define-key magit-log-mode-map (kbd "W") 'magit-copy-as-kill)
-        (define-key magit-status-mode-map (kbd "s-1") 'magit-jump-to-unstaged)
-        (define-key magit-status-mode-map (kbd "s-2") 'magit-jump-to-untracked)
-        (define-key magit-status-mode-map (kbd "s-3") 'magit-jump-to-staged)
-        (define-key magit-status-mode-map (kbd "s-4") 'magit-jump-to-stashes)
-        (setq magit-completing-read-function 'magit-builtin-completing-read)
-
-        ;; http://emacs.stackexchange.com/questions/6021/change-a-branchs-upstream-with-magit/6023#6023
-        (magit-define-popup-switch 'magit-push-popup ?u
-          "Set upstream" "--set-upstream")
-        ;; (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-        ;; (add-hook 'magit-section-set-visibility-hook '(lambda (section) (let ((section-type (magit-section-type section)))
-        ;;                                                              (if (or (eq 'untracked section-type)
-        ;;                                                                      (eq 'stashes section-type))
-        ;;                                                                  'hide))))
-        ))
-
-    ;; Githu PR settings
-    ;; "http://endlessparentheses.com/create-github-prs-from-emacs-with-magit.html"
-    (setq magit-repository-directories '("~/cocos2d-x/"))
-    (setq magit-push-always-verify nil)
-
-
-    (defun zilongshanren/magit-visit-pull-request ()
-      "Visit the current branch's PR on GitHub."
-      (interactive)
-      (let ((remote-branch (magit-get-current-branch)))
-        (cond
-         ((null remote-branch)
-          (message "No remote branch"))
-         (t
-          (browse-url
-           (format "https://github.com/%s/pull/new/%s"
-                   (replace-regexp-in-string
-                    "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
-                    (magit-get "remote"
-                               (magit-get-remote)
-                               "url"))
-                   remote-branch))))))
-
-    (eval-after-load 'magit
-      '(define-key magit-mode-map (kbd "s-g")
-         #'zilongshanren/magit-visit-pull-request))
-
-
-    (setq magit-process-popup-time 10)))
-
-
 
 
 ;;In order to export pdf to support Chinese, I should install Latex at here: https://www.tug.org/mactex/

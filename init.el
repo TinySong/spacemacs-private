@@ -92,7 +92,7 @@ values."
      (chinese :variables
               chinese-enable-youdao-dict t)
      tinysong
-     zilongshanren
+     ;; zilongshanren
      guanghui
      erc
      scheme
@@ -102,6 +102,7 @@ values."
      ts-helm
      ts-git
      ts-project
+     ts-lang
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
