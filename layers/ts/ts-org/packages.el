@@ -234,6 +234,9 @@
               ("b" "Blog Ideas" entry (file+headline "~/org-notes/notes.org" "Blog Ideas")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
+              ("C" "notes" entry (file+headline "~/org-notes/CD.org" "Quick notes")
+               "* TODO [#C] %?\n  %i\n %U"
+               :empty-lines 1)
               ("d" "Dev Driver" entry (file+headline "~/org-notes/net_driver.org" "Net Driver")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
@@ -241,7 +244,7 @@
                ;; "* TODO [#B] %?\n  %i\n %U"
                ;; :empty-lines 1
                )
-              ("w" "work" entry (file+headline "~/org-notes/gtd.org" "ISMS_Kernel")
+              ("w" "work" entry (file+headline "~/org-notes/CD.org" "CD_WORK")
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)
               ("c" "Chrome" entry (file+headline "~/org-notes/notes.org" "Quick notes")

@@ -54,6 +54,7 @@
  '(safe-local-variable-values
    (quote
     ((eval setenv "PYTHONPATH" "$HOME/.local/lib/python2.7/site-packages/yapf"))))
+ '(send-mail-function (quote smtpmail-send-it))
  '(sp-show-pair-from-inside t)
  '(tags-add-tables nil)
  '(tags-revert-without-query t)

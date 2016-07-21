@@ -28,7 +28,8 @@ values."
      ;; ----------------------------------------------------------------
      ;; spacemacs-helm
      ;; spacemacs-ivy
-     better-defaults
+     (better-defaults :variables
+                      better-defaults-move-to-end-of-code-first t)
      github
      (version-control :variables version-control-diff-tool 'git-gutter+
                       version-control-global-margin t)
@@ -91,6 +92,7 @@ values."
             shell-enable-smart-eshell t)
      (chinese :variables
               chinese-enable-youdao-dict t)
+     selectric
      tinysong
      ;; zilongshanren
      guanghui

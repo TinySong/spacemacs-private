@@ -51,7 +51,7 @@
     visual-regexp
     visual-regexp-steroids
     flycheck
-    google-c-style
+    ;; google-c-style
     ;; post extension names go here
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
@@ -65,6 +65,7 @@
     ;; elfeed
     osx-dictionary
     org-mac-link
+    ;; (auto-rsync :location local)
     ))
 
 
@@ -298,7 +299,7 @@
 
 (defun tinysong/post-init-youdao-dictionary ()
   ;; ((interactive "P"))
-  (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
+  (spacemacs/set-leader-keys "ody" 'youdao-dictionary-search-at-point+))
 
 (defun tinysong/post-init-persp-mode ()
   (when (fboundp 'spacemacs|define-custom-layout)
@@ -507,6 +508,7 @@
       (evilified-state-evilify osx-dictionary-mode osx-dictionary-mode-map)
       (setq osx-dictionary-use-chinese-text-segmentation t)
       (global-set-key (kbd "C-c d") 'osx-dictionary-search-pointer)
+      (spacemacs/set-leader-keys "odr" 'osx-dictionary-search-pointer)
       )))
 
 (defun tinysong/init-org-mac-link ()
@@ -515,3 +517,15 @@
     (add-hook 'org-mode-hook
               (lambda ()
                 (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))))
+
+;; (def tinysong/int-auto-rsync ()
+;;      (use-package auto-rsync
+;;        :init
+;;        :config
+;;        (progn
+;;          (auto-rsync-mode t)
+;;          (setq auto-rsync-dir-alist
+;;                (("/path/to/src1/" . "/path/to/dest1/")
+;;                 ("/path/to/src2/" . "username@hostname:/path/to/dest2/")))
+;;          )
+;;        ))

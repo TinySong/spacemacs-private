@@ -2,6 +2,7 @@
   '(
     (cc-mode :location built-in)
     company-c-headers
+    google-c-style
     lispy
     lua-mode
     ))
@@ -80,3 +81,8 @@
       "gr" 'helm-gtags-find-rtag
       "gs" 'helm-gtags-find-symbol
       "gf" 'helm-gtags-find-files)))
+
+;; http://blog.csdn.net/csfreebird/article/details/9250989
+(defun ts-lang/init-google-c-style ()
+  (use-package google-c-style
+    :init (add-hook 'c-mode-common-hook 'google-set-c-style)))

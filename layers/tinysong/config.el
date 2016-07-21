@@ -65,7 +65,9 @@
 ;; for profiling emacs --debug-init --timed-requires --profile
 ;; (require 'tramp)
 ;; keep in mind known issues with zsh - see emacs wiki
-;; (setq tramp-default-method "ssh")
+(setq tramp-default-method "scp")
+(setq tramp-default-user "root"
+      tramp-default-host "btsong")
 
 (set-default 'imenu-auto-rescan t)
 
