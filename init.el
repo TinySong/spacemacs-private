@@ -47,7 +47,8 @@ values."
      (python :variables python-enable-yapf-format-on-save t)
      lua
      (go :variables go-tab-width 4
-         gofmt-command "goimports")
+         gofmt-command "goimports"
+         go-use-gometalinter t)
      c-c++
      command-log
      html

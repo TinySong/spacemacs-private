@@ -27,9 +27,9 @@
         ;; elfeed
         ;; osx-dictionary
         ;; org-mac-link
+        ;; multiple-cursors
         prodigy
         js2-mode
-        multiple-cursors
         nodejs-repl
         evil
         ycmd

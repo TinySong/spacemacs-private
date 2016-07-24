@@ -66,6 +66,7 @@
     osx-dictionary
     org-mac-link
     ;; (auto-rsync :location local)
+    multiple-cursors
     ))
 
 
@@ -529,3 +530,34 @@
 ;;                 ("/path/to/src2/" . "username@hostname:/path/to/dest2/")))
 ;;          )
 ;;        ))
+
+(defun tinysong/init-multiple-cursors ()
+  (use-package multiple-cursors
+    :init
+    (progn
+      (bind-key* "C-s-l" 'mc/edit-lines)
+      (bind-key* "C-s-f" 'mc/mark-all-dwim)
+      (bind-key* "C-s-." 'mc/mark-next-like-this)
+      (bind-key* "C-s-," 'mc/mark-previous-like-this)
+      (bind-key* "s->" 'mc/unmark-next-like-this)
+      (bind-key* "s-<" 'mc/unmark-previous-like-this)
+      (bind-key* "C-c C-s-." 'mc/mark-all-like-this)
+
+      ;; http://endlessparentheses.com/multiple-cursors-keybinds.html?source=rss
+      (define-prefix-command 'endless/mc-map)
+      ;; C-x m is usually `compose-mail'. Bind it to something
+      ;; else if you use this command.
+      (define-key ctl-x-map "m" 'endless/mc-map)
+;;; Really really nice!
+      (define-key endless/mc-map "i" #'mc/insert-numbers)
+      (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
+      (define-key endless/mc-map "a" #'mc/mark-all-like-this)
+
+;;; Occasionally useful
+      (define-key endless/mc-map "d" #'mc/mark-all-symbols-like-this-in-defun)
+      (define-key endless/mc-map "r" #'mc/reverse-regions)
+      (define-key endless/mc-map "s" #'mc/sort-regions)
+      (define-key endless/mc-map "l" #'mc/edit-lines)
+      (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
+      (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
+      )))
