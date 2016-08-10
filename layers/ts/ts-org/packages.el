@@ -237,11 +237,14 @@
               ("C" "notes" entry (file+headline "~/org-notes/CD.org" "Quick notes")
                "* TODO [#C] %?\n  %i\n %U"
                :empty-lines 1)
-              ("d" "Dev Driver" entry (file+headline "~/org-notes/net_driver.org" "Net Driver")
-               "* TODO [#B] %?\n  %i\n %U"
-               :empty-lines 1)
+              ("s" "study" entry (file+headline "~/org-notes/CD.org" "Studynotes")
+               "* TODO [#C] %?\n  %i\n %U"
+               )
+              ;; ("d" "Dev Driver" entry (file+headline "~/org-notes/net_driver.org" "Net Driver")
+              ;;  "* TODO [#B] %?\n  %i\n %U"
+              ;;  :empty-lines 1)
               ("k" "Kernel" entry (file+headline "~/org-notes/kernel.org" "Kernel Quick Note")
-               ;; "* TODO [#B] %?\n  %i\n %U"
+               "* TODO [#B] %?\n  %i\n %U"
                ;; :empty-lines 1
                )
               ("w" "work" entry (file+headline "~/org-notes/CD.org" "CD_WORK")
