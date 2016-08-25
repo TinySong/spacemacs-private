@@ -237,7 +237,7 @@
               ("C" "notes" entry (file+headline "~/org-notes/CD.org" "Quick notes")
                "* TODO [#C] %?\n  %i\n %U"
                :empty-lines 1)
-              ("s" "study" entry (file+headline "~/org-notes/CD.org" "Studynotes")
+              ("s" "study" entry (file+headline "~/org-notes/studyNotes.org" "Studynotes")
                "* TODO [#C] %?\n  %i\n %U"
                )
               ;; ("d" "Dev Driver" entry (file+headline "~/org-notes/net_driver.org" "Net Driver")
