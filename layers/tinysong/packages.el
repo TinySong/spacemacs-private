@@ -62,7 +62,7 @@
     swiper
     command-log
     ;; hydra
-    ;; elfeed
+    elfeed
     osx-dictionary
     org-mac-link
     ;; (auto-rsync :location local)

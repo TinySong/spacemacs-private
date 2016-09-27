@@ -30,6 +30,7 @@
 
       (setq org-agenda-inhibit-startup t)       ;; ~50x speedup
       (setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
+      (setq org-agenda-include-diary t)
       (setq org-agenda-window-setup 'current-window)
       (setq org-log-done t)
 
@@ -53,13 +54,13 @@
       ;; 可以設定任何 ID 或是設成 nil 來使用對稱式加密 (symmetric encryption)
       (setq org-crypt-key nil)
 
-      (add-to-list 'auto-mode-alist '("\\.org\\’" . org-mode))
+      (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|text\\)\\’" . org-mode))
 
 
 
       (setq org-todo-keywords
-            (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-                    (sequence "WAITING(w@/!)" "SOMEDAY(S)"  "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
+            (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)" "|" "NEXT(n)")
+                    (sequence "HOLD(h)" "WAITING(w@/!)" "SOMEDAY(S)"  "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;; Org clock
@@ -70,7 +71,8 @@
       (setq org-clock-into-drawer t)
       ;; Removes clocked tasks with 0:00 duration
       (setq org-clock-out-remove-zero-time-clocks t) ;; Show the clocked-in task - if any - in the header line
-
+      (setq org-clock-persist 'history)
+      (org-clock-persistence-insinuate)
       (setq org-tags-match-list-sublevels nil)
 
       ;; http://wenshanren.org/?p=327
@@ -214,6 +216,7 @@
          (C . t)
          (ditaa . t)))
       (setq org-agenda-files (quote ("~/org-notes" )))
+      ;; (setq  org-default-notes-file (quote ("~/org-notes" )))
       (setq org-default-notes-file "~/org-notes/gtd.org")
 
       (with-eval-after-load 'org-agenda
@@ -226,12 +229,15 @@
       ;;add multi-file journal
       (setq org-capture-templates
             '(("t" "Todo" entry (file+headline "~/org-notes/gtd.org" "Workspace")
-               "* TODO [#B] %?\n  %i\n"
+               "* TODO [#B] %?\n  %i\n%U"
                :empty-lines 1)
               ("n" "notes" entry (file+headline "~/org-notes/notes.org" "Quick notes")
                "* TODO [#C] %?\n  %i\n %U"
                :empty-lines 1)
               ("b" "Blog Ideas" entry (file+headline "~/org-notes/notes.org" "Blog Ideas")
+               "* TODO [#B] %?\n  %i\n %U"
+               :empty-lines 1)
+              ("B" "Book" entry (file+headline "~/org-notes/booklist.org" "Book")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
               ("C" "notes" entry (file+headline "~/org-notes/CD.org" "Quick notes")
@@ -298,7 +304,7 @@
                :recursive t
                :html-head , tinysong-website-html-blog-head
                :publishing-function org-html-publish-to-html
-               :headline-levels 4           ; Just the default for this project.
+               :headline-levels 4       ; Just the default for this project.
                :auto-preamble t
                :exclude "gtd.org"
                :exclude-tags ("ol" "noexport")
@@ -323,7 +329,7 @@
 
       (defun org-summary-todo (n-done n-not-done)
         "Switch entry to DONE when all subentries are done, to TODO otherwise."
-        (let (org-log-done org-log-states)  ; turn off logging
+        (let (org-log-done org-log-states) ; turn off logging
           (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
       (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
