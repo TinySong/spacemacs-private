@@ -41,6 +41,7 @@
     smartparens
     markdown-mode
     erc
+    evil
     ;; document create
     (doxymacs :location local)
     evil-vimish-fold
@@ -561,3 +562,91 @@
       (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
       (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
       )))
+
+(defun tinysong/post-init-evil ()
+  (progn
+    (setcdr evil-insert-state-map nil)
+    (define-key evil-insert-state-map [escape] 'evil-normal-state)
+
+    (push "TAGS" spacemacs-useless-buffers-regexp)
+
+    ;; ;; change evil initial mode state
+    (loop for (mode . state) in
+          '((shell-mode . normal))
+          do (evil-set-initial-state mode state))
+
+    ;;mimic "nzz" behaviou in vim
+    (defadvice evil-ex-search-next (after advice-for-evil-search-next activate)
+      (evil-scroll-line-to-center (line-number-at-pos)))
+
+    (defadvice evil-ex-search-previous (after advice-for-evil-search-previous activate)
+      (evil-scroll-line-to-center (line-number-at-pos)))
+
+    (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+
+    (define-key evil-normal-state-map
+      (kbd "Y") 'tinysong/yank-to-end-of-line)
+
+    ;; rebind g,k to gj and gk
+    (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+    (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+
+    (define-key evil-normal-state-map (kbd "[ SPC") (lambda () (interactive) (evil-insert-newline-above) (forward-line)))
+    (define-key evil-normal-state-map (kbd "] SPC") (lambda () (interactive) (evil-insert-newline-below) (forward-line -1)))
+
+
+    (define-key evil-normal-state-map (kbd "[ b") 'spacemacs/previous-useful-buffer)
+    (define-key evil-normal-state-map (kbd "] b") 'spacemacs/next-useful-buffer)
+
+    ;; (define-key evil-insert-state-map "\C-e" 'end-of-line)
+    ;; (define-key evil-insert-state-map "\C-n" 'next-line)
+    ;; (define-key evil-insert-state-map "\C-k" 'kill-line)
+    (define-key evil-emacs-state-map (kbd "s-f") 'forward-word)
+    (define-key evil-insert-state-map (kbd "s-f") 'forward-word)
+    (define-key evil-emacs-state-map (kbd "s-b") 'backward-word)
+    (define-key evil-insert-state-map (kbd "s-b") 'backward-word)
+
+    (spacemacs/set-leader-keys "bi" 'ibuffer)
+    (define-key evil-ex-completion-map "\C-a" 'move-beginning-of-line)
+    (define-key evil-ex-completion-map "\C-b" 'backward-char)
+    (define-key evil-ex-completion-map "\C-k" 'kill-line)
+    (define-key minibuffer-local-map (kbd "C-w") 'evil-delete-backward-word)
+
+    (define-key evil-visual-state-map (kbd ">") 'prelude-shift-right-visual)
+    (define-key evil-visual-state-map (kbd "<") 'prelude-shift-left-visual)
+    (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+    ;; (define-key evil-visual-state-map (kbd "x") 'er/expand-region)
+    ;; (define-key evil-visual-state-map (kbd "X") 'er/contract-region)
+    (define-key evil-visual-state-map (kbd "C-r") 'tinysong/evil-quick-replace)
+
+    ;; in spacemacs, we always use evilify miscro state
+    (evil-add-hjkl-bindings package-menu-mode-map 'emacs)
+
+    ;; (define-key evil-emacs-state-map (kbd "C-w h") 'evil-window-left)
+    (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
+    ;; (define-key evil-emacs-state-map (kbd "C-w j") 'evil-window-down)
+    ;; (define-key evil-emacs-state-map (kbd "C-w k") 'evil-window-up)
+    ;; (define-key evil-emacs-state-map (kbd "C-w l") 'evil-window-right)
+
+    ;; for emacs shell mode
+    ;; (define-key evil-emacs-state-map (kbd "s-b") 'ido-switch-buffer)
+    ;; (define-key evil-emacs-state-map (kbd "s-f") 'ido-find-file)
+    (evil-define-key 'emacs term-raw-map (kbd "C-w")
+      'evil-delete-backward-word)
+
+    (spacemacs/set-leader-keys "fR" 'tinysong/rename-file-and-buffer)
+    (spacemacs/set-leader-keys "bms" 'bookmark-set)
+    (spacemacs/set-leader-keys "bmr" 'bookmark-rename)
+    (spacemacs/set-leader-keys "bmd" 'bookmark-delete)
+
+    ;; This will break visual column edit
+    ;; enable hybrid editing style
+    ;; (defadvice evil-insert-state (around zilongshanren/holy-mode activate)
+    ;;   "Preparing the holy water flasks."
+    ;;   (evil-emacs-state))
+    ;; disable c-[ temporally
+    ;; (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))
+    ;; (bind-keys ("<C-[>" . evil-normal-state))
+    ;; (setq evil-emacs-state-cursor '("chartreuse3" (bar . 2)))
+    ;; (define-key evil-emacs-state-map [escape] 'evil-normal-state)
+    ))

@@ -396,15 +396,15 @@ layers configuration."
     (while bindings
       (define-key keymap (pop bindings) (pop bindings))))
   (bb/define-key evil-normal-state-map
-                 "+" 'spacemacs/evil-numbers-increase
-                 "_" 'spacemacs/evil-numbers-decrease
-                 "\\" 'evil-repeat-find-char-reverse
-                 "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
-                 "]s" (lambda (n) (interactive "p")
-                        (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
+    "+" 'spacemacs/evil-numbers-increase
+    "_" 'spacemacs/evil-numbers-decrease
+    "\\" 'evil-repeat-find-char-reverse
+    "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
+    "]s" (lambda (n) (interactive "p")
+           (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
 
   (bb/define-key company-active-map
-                 (kbd "C-w") 'evil-delete-backward-word)
+    (kbd "C-w") 'evil-delete-backward-word)
 
   (with-eval-after-load 'helm
     (define-key helm-map (kbd "C-w") 'evil-delete-backward-word))

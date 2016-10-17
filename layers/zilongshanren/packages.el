@@ -388,12 +388,14 @@
        'org-babel-load-languages
        '((perl . t)
          (ruby . t)
+         (bash . t)
          (sh . t)
          (js . t)
          (python . t)
          (emacs-lisp . t)
          (plantuml . t)
          (C . t)
+         (plantuml . t)
          (ditaa . t)))
       )))
 

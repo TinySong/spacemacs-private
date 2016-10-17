@@ -3,6 +3,7 @@
     org
     org-tree-slide
     org-octopress
+    org-pomodoro
     ))
 
 (defun ts-org/post-init-org ()
@@ -199,9 +200,9 @@
 
       (add-hook 'org-after-todo-state-change-hook 'org-subtask-reset)
 
-      ;; (setq org-plantuml-jar-path
-      ;;       (expand-file-name "~/.spacemacs.d/plantuml.jar"))
-      ;; (setq org-ditaa-jar-path "~/.spacemacs.d/ditaa.jar")
+      (setq org-plantuml-jar-path
+            (expand-file-name "~/.spacemacs.d/plantuml.jar"))
+      (setq org-ditaa-jar-path "~/.spacemacs.d/ditaa.jar")
 
 
       (org-babel-do-load-languages
@@ -411,3 +412,10 @@
 
       (spacemacs/set-leader-keys "op" 'ts-org/org-save-and-export)
       )))
+
+(defun tinysong/post-init-org-pomodoro ()
+  (progn
+    (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
+    (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
+    (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))
+    ))

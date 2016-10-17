@@ -5,11 +5,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ahs-case-fold-search nil t)
- '(ahs-default-range (quote ahs-range-whole-buffer) t)
- '(ahs-idle-interval 0.25 t)
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil t)
+ '(ahs-inhibit-face-list nil)
  '(beacon-blink-delay 0.3)
  '(cfs--current-profile-name "profile1" t)
  '(ctags-update-delay-seconds 1024)
@@ -42,9 +42,11 @@
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-start-on-weekday nil)
  '(org-agenda-text-search-extra-files (quote (agenda-archives)))
+ '(org-clock-idle-time 15)
+ '(org-clock-sound t)
  '(org-deadline-warning-days 14)
  '(org-fast-tag-selection-single-key (quote expert))
- '(org-pomodoro-play-sounds nil)
+ '(org-pomodoro-play-sounds t)
  '(org-reverse-note-order t)
  '(package-selected-packages
    (quote
