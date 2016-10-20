@@ -68,6 +68,7 @@
     org-mac-link
     ;; (auto-rsync :location local)
     multiple-cursors
+    graphviz-dot-mode
     ))
 
 
@@ -650,3 +651,14 @@
     ;; (setq evil-emacs-state-cursor '("chartreuse3" (bar . 2)))
     ;; (define-key evil-emacs-state-map [escape] 'evil-normal-state)
     ))
+
+(defun tinysong/post-init-graphviz-dot-mode ()
+  (with-eval-after-load 'graphviz-dot-mode
+    (require 'company-keywords)
+    (progn
+      (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)
+      (when (configuration-layer/layer-usedp 'company)
+        (spacemacs|add-company-hook graphviz-dot-mode))
+      )
+    )
+  )

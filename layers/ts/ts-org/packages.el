@@ -167,7 +167,8 @@
 
       (setq org-latex-listings t)
 
-      ;;reset subtask
+      ;; =================== start ========================================================
+      ;;reset all subtask when finish the repeat task
       (setq org-default-properties (cons "RESET_SUBTASKS" org-default-properties))
 
       (defun org-reset-subtask-state-subtree ()
@@ -199,6 +200,7 @@
           (org-update-statistics-cookies t)))
 
       (add-hook 'org-after-todo-state-change-hook 'org-subtask-reset)
+      ;; =================== end ========================================================
 
       (setq org-plantuml-jar-path
             (expand-file-name "~/.spacemacs.d/plantuml.jar"))

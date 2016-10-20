@@ -106,6 +106,11 @@ values."
      ts-git
      ts-project
      ts-lang
+     docker
+     latex
+     graphviz
+     shaders
+     yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -460,6 +465,8 @@ layers configuration."
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; For Javascript
   (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (spacemacs|add-company-hook 'text-mode)
+
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))

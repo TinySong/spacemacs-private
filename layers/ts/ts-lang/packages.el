@@ -5,6 +5,7 @@
     google-c-style
     lispy
     lua-mode
+    python
     ))
 
 (defun ts-lang/post-init-cc-mode ()
@@ -86,3 +87,10 @@
 (defun ts-lang/init-google-c-style ()
   (use-package google-c-style
     :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
+
+(defun tinysong/init-python ()
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (setq python-shell-interpreter "python")
+              (setq anaconda-mode-server-script
+                    "/usr/local/lib/python2.7/site-packages/anaconda_mode.py"))))
