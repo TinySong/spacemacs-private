@@ -88,9 +88,12 @@
   (use-package google-c-style
     :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
 
-(defun tinysong/init-python ()
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (setq python-shell-interpreter "python")
-              (setq anaconda-mode-server-script
-                    "/usr/local/lib/python2.7/site-packages/anaconda_mode.py"))))
+(defun ts-lang/post-init-python ()
+  (use-package python
+    :init
+    (add-hook 'python-mode-hook
+              (lambda ()
+                (setq python-shell-interpreter "python")
+                (setq anaconda-mode-server-script
+                      "/usr/local/lib/python2.7/site-packages/anaconda_mode.py")))
+    ))

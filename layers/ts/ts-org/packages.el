@@ -223,7 +223,10 @@
       (setq org-default-notes-file "~/org-notes/gtd.org")
 
       (with-eval-after-load 'org-agenda
-        (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro)
+        (when (configuration-layer/package-usedp 'org-pomodoro)
+          ;; (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro)
+          )
+
         (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
           "." 'spacemacs/org-agenda-transient-state/body)
         )
@@ -415,9 +418,11 @@
       (spacemacs/set-leader-keys "op" 'ts-org/org-save-and-export)
       )))
 
-(defun tinysong/post-init-org-pomodoro ()
-  (progn
-    (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
-    (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
-    (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))
-    ))
+(defun ts-org/post-init-org-pomodoro ()
+  (use-package org-pomodoro
+    :init
+    (progn
+      (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
+      (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
+      (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))
+      )))
