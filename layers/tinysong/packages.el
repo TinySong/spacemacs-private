@@ -504,9 +504,9 @@
 
       (ad-activate 'elfeed-show-yank))))
 
-(defun tinysong/init-osx-dictionary ()
+(defun tinysong/post-init-osx-dictionary ()
   (use-package osx-dictionary
-    :init
+    :config
     (progn
       (evilified-state-evilify osx-dictionary-mode osx-dictionary-mode-map)
       (setq osx-dictionary-use-chinese-text-segmentation t)
@@ -656,7 +656,7 @@
   (with-eval-after-load 'graphviz-dot-mode
     (require 'company-keywords)
     (progn
-      (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)
+      (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record" "rankdir") company-keywords-alist)
       (when (configuration-layer/layer-usedp 'company)
         (spacemacs|add-company-hook graphviz-dot-mode))
       )
