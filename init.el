@@ -385,8 +385,8 @@ layers configuration."
   ;;解决org表格里面中英文对齐的问题
 ;;;###TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
-    (when (spacemacs/system-is-mac)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 11 12))
+    (when (and window-system (spacemacs/system-is-mac))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
   ;; TODO https://github.com/et2010/Han
