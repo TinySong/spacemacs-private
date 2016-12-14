@@ -14,20 +14,6 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq guanghui-packages
       '(
-        ;; org-bullets
-        ;; org-tree-slide
-        ;; evil-escape
-        ;; (cc-mode :location built-in)
-        ;; visual-regexp-steroids
-        ;; command-log
-        ;; company-c-headers
-        ;; org-pomodoro
-        ;; hydra
-        ;; lua-mode
-        ;; elfeed
-        ;; osx-dictionary
-        ;; org-mac-link
-        ;; multiple-cursors
         prodigy
         js2-mode
         nodejs-repl
