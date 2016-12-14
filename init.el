@@ -27,7 +27,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; spacemacs-helm
-     ;; spacemacs-ivy
+     ivy
      (better-defaults :variables
                       better-defaults-move-to-end-of-code-first t)
      github
@@ -95,7 +95,6 @@ values."
               chinese-enable-youdao-dict t)
      selectric
      tinysong
-     ;; zilongshanren
      guanghui
      erc
      scheme
@@ -111,6 +110,8 @@ values."
      graphviz
      shaders
      yaml
+     speed-reading
+     perl
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -216,7 +217,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 11
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -250,7 +251,7 @@ values."
    dotspacemacs-default-layout-name "Default"
    ;; If non nil the default layout name is displayed in the mode-line.
    ;; (default nil)
-   dotspacemacs-display-default-layout nil
+   dotspacemacs-display-default-layout t
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
    dotspacemacs-auto-resume-layouts nil
@@ -293,7 +294,7 @@ values."
    dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native nil
+   dotspacemacs-fullscreen-use-non-native t
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (Emacs 24.4+ only)
@@ -319,7 +320,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    ;; dotspacemacs-smartparens-strict-mode nil
@@ -338,7 +339,7 @@ values."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -358,20 +359,25 @@ any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+          ("org-cn"   . "https://elpa.emacs-china.org/org/")
+          ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+
+
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
   ;; ss proxy. But it will cause anacond-mode failed.
   (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   (setq evil-shift-round nil)
+  (setq byte-compile-warnings '(not obsolete))
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (global-linum-mode t)
-  (display-time-mode 1)
   (xterm-mouse-mode -1)
   (global-hl-line-mode)
   ;; (selectric-mode 1)
@@ -386,7 +392,7 @@ layers configuration."
 ;;;###TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and window-system (spacemacs/system-is-mac))
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 13))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
   ;; TODO https://github.com/et2010/Han
@@ -464,7 +470,7 @@ layers configuration."
   ;; For ruby
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; For Javascript
-  (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
   (spacemacs|add-company-hook 'text-mode)
 
   )
