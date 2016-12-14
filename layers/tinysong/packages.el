@@ -69,6 +69,7 @@
     ;; (auto-rsync :location local)
     multiple-cursors
     graphviz-dot-mode
+    persp-mode
     ))
 
 
@@ -306,13 +307,19 @@
 
 (defun tinysong/post-init-persp-mode ()
   (when (fboundp 'spacemacs|define-custom-layout)
-    (spacemacs|define-custom-layout "@Kernel"
-      :binding "k"
-      :body
-      (find-file "~/kernel-2.6.11.12/Makefile")
-      ;; (split-window-right)
-      ;; (find-file "~/cocos2d-x/cocos/cocos2d.cpp")
-      )))
+    (progn
+      (spacemacs|define-custom-layout "@Kernel"
+        :binding "k"
+        :body
+        ;; (split-window-right)
+        (find-file "~/development/kernel-2.6.11.12/Makefile"))
+      (spacemacs|define-custom-layout "@Docker"
+        :binding "d"
+        :body
+        ;; (split-window-right)
+        (find-file "~/development/golang/src/github.com/docker/docker/cmd/dockerd/daemon.go"))
+      )
+    ))
 (defun tinysong/init-unicad ()
   (use-package unicad
     :init))
