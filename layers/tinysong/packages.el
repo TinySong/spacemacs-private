@@ -70,6 +70,7 @@
     multiple-cursors
     graphviz-dot-mode
     persp-mode
+    fasd
     ))
 
 
@@ -575,7 +576,7 @@
   (progn
     (setcdr evil-insert-state-map nil)
     (define-key evil-insert-state-map [escape] 'evil-normal-state)
-
+    ;; (evil-move-cursor-back nil)
     (push "TAGS" spacemacs-useless-buffers-regexp)
 
     ;; ;; change evil initial mode state
@@ -669,3 +670,9 @@
       )
     )
   )
+
+(defun tinysong/init-fasd ()
+  (use-package fasd
+    :init
+    :config
+    ))

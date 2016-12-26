@@ -17,7 +17,7 @@
         prodigy
         js2-mode
         nodejs-repl
-        evil
+        ;; evil
         ycmd
         discover-my-major
         popwin

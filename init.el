@@ -28,6 +28,7 @@ values."
      ;; ----------------------------------------------------------------
      ;; spacemacs-helm
      ivy
+     ;; helm
      (better-defaults :variables
                       better-defaults-move-to-end-of-code-first t)
      github
@@ -111,7 +112,7 @@ values."
      shaders
      yaml
      speed-reading
-     perl
+     ;; perl
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -179,7 +180,11 @@ values."
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
    ;; unchanged. (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style '(hybrid :variables
+                                       hybrid-mode-enable-evilified-state t
+                                       hybrid-mode-enable-hjkl-bindings t
+                                       hybrid-mode-default-state 'normal
+                                       )
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -294,7 +299,7 @@ values."
    dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native t
+   dotspacemacs-fullscreen-use-non-native nil
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (Emacs 24.4+ only)
@@ -339,7 +344,7 @@ values."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -364,7 +369,6 @@ in `dotspacemacs/user-config'."
           ("org-cn"   . "https://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
 
-
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
@@ -379,24 +383,22 @@ in `dotspacemacs/user-config'."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
   (xterm-mouse-mode -1)
-  (global-hl-line-mode)
+  (global-hl-line-mode t)
   ;; (selectric-mode 1)
-  (setq tab-width 4)
-  (hide-ifdef-mode t)
-  ;; (delete-selection-mode t)
+  ;; (hide-ifdef-mode t)
+  (delete-selection-mode t)
   (yas-global-mode 1)
   (global-company-mode t)
   ;;  auto save by extral app edit
   (global-auto-revert-mode t)
-  ;;解决org表格里面中英文对齐的问题
-;;;###TODO:cannot create org table when tap TAB or RET
+  ;; 解决org表格里面中英文对齐的问题
+  ;; TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and window-system (spacemacs/system-is-mac))
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 13))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
-  ;; TODO https://github.com/et2010/Han
-  ;; (spacemacs//set-monospaced-font "Source Code Pro" "BabelStone Han" 14 16)
+  ;;;TODO https://github.com/et2010/Han
 
   ;; (global-company-mode t)
   (setq-default powerline-default-separator 'arrow)
@@ -481,3 +483,9 @@ layers configuration."
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Desktop-Notifications.html
 ;;(add-to-list 'erc-modules 'notifications)
 ;; for c-c++ #if 0 #endif
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+  )

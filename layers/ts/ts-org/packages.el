@@ -104,6 +104,8 @@
                                   ))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "iS" 'ts-org/org-insert-src-block)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "ie" 'org-edit-src-code)
       ;; http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
       (require 'ox-publish)
       (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}

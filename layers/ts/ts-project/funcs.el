@@ -2,8 +2,8 @@
   "open file in current projectfile"
   (interactive)
   (if (ts-project/project-root)
-      ;; (counsel-git)
-      (helm-projectile-find-file)))
+      (counsel-git)
+    ))
 
 (defun ts-project/project-root ()
   "Return the project root for current buffer."
@@ -34,12 +34,6 @@
               nil)) ; a stuck project, has subtasks but no next task
         next-headline))))
 
-(defun ts-project/project-root ()
-  "Return the project root for current buffer."
-  (let ((directory default-directory))
-    (or (locate-dominating-file directory ".git")
-        (locate-dominating-file directory ".svn")
-        (locate-dominating-file directory ".hg"))))
 
 (defun ts-project/skip-non-stuck-projects ()
   "Skip trees that are not stuck projects"

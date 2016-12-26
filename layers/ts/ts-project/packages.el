@@ -5,6 +5,7 @@
     cmake-mode
     find-file-in-project
     projectile
+    ivy
     ;; TODO: https://www.emacswiki.org/emacs/FindFileInProject
     ;; post extension names go here
     ))
@@ -42,7 +43,7 @@
       (setq projectile-file-exists-remote-cache-expire (* 1 20))
       (add-to-list 'projectile-other-file-alist '("html" "js")) ;; switch from html -> js
       (add-to-list 'projectile-other-file-alist '("js" "html")) ;; switch from js -> html
-      (spacemacs/set-leader-keys "pf" 'ts-project/open-file-with-projectile-or-lsgit)
+      ;; (spacemacs/set-leader-keys "pf" 'ts-project/open-file-with-projectile-or-lsgit)
       )))
 
 (defun ts-project/init-cmake-font-lock ()
@@ -77,10 +78,17 @@
       ;; If you use other VCS (subversion, for example), enable the following option
       ;;(setq ffip-project-file ".svn")
       ;; in MacOS X, the search file command is CMD+p
-      (bind-key* "s-p" 'find-file-in-project)
+      ;; (bind-key* "s-p" 'find-file-in-project)
       (setq-local ffip-find-options "-not -size +64k -not -iwholename '*/bin/*'")
       ;; for this project, I'm only interested certain types of files
       ;; (setq-default ffip-patterns '("*.html" "*.js" "*.css" "*.java" "*.xml" "*.js"))
       ;; if the full path of current file is under SUBPROJECT1 or SUBPROJECT2
       ;; OR if I'm reading my personal issue track document,
       )))
+
+(defun ts-project/post-init-ivy ()
+  (use-package ivy
+    :init
+    :config
+    (progn
+      (bind-key* "s-p" 'counsel-git))))
