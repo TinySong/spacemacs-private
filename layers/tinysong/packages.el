@@ -52,13 +52,13 @@
     visual-regexp
     visual-regexp-steroids
     flycheck
-    ;; google-c-style
     ;; post extension names go here
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
     nodejs-repl
     wrap-region
     youdao-dictionary
+    bing-dict
     deft
     swiper
     command-log
@@ -223,12 +223,6 @@
       ;; (evilify flycheck-error-list-mode flycheck-error-list-mode-map)
       )))
 
-
-
-;; http://blog.csdn.net/csfreebird/article/details/9250989
-(defun tinysong/init-google-c-style ()
-  (use-package google-c-style
-    :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
 
 
 (defun tinysong/init-nodejs-repl ()
@@ -675,4 +669,10 @@
   (use-package fasd
     :init
     :config
+    ))
+
+(defun tinysong/init-bing-dict ()
+  (use-package bing-dict
+    :init
+    (spacemacs/set-leader-keys "odb" 'bing-dict-brief)
     ))
