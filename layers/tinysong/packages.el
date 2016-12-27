@@ -638,9 +638,9 @@
       'evil-delete-backward-word)
 
     (spacemacs/set-leader-keys "fR" 'tinysong/rename-file-and-buffer)
-    (spacemacs/set-leader-keys "bms" 'bookmark-set)
-    (spacemacs/set-leader-keys "bmr" 'bookmark-rename)
-    (spacemacs/set-leader-keys "bmd" 'bookmark-delete)
+    (spacemacs/set-leader-keys "obs" 'bookmark-set)
+    (spacemacs/set-leader-keys "obr" 'bookmark-rename)
+    (spacemacs/set-leader-keys "obd" 'bookmark-delete)
 
     ;; This will break visual column edit
     ;; enable hybrid editing style
