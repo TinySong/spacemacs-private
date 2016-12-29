@@ -469,21 +469,14 @@
               "http://z.caudate.me/rss/"
               "http://irreal.org/blog/?feed=rss2"
               "http://feeds.feedburner.com/LostInTheTriangles"
-              "http://tonybai.com/feed/"
               "http://planet.emacsen.org/atom.xml"
               "http://feeds.feedburner.com/emacsblog"
               "http://blog.binchen.org/rss.xml"
               "http://oremacs.com/atom.xml"
-              "http://blog.gemserk.com/feed/"
               "http://www.masteringemacs.org/feed/"
-              "http://t-machine.org/index.php/feed/"
-              "http://gameenginebook.blogspot.com/feeds/posts/default"
-              "http://feeds.feedburner.com/ruanyifeng"
               "http://coolshell.cn/feed"
-              "http://blog.devtang.com/atom.xml"
               "http://emacsist.com/rss"
-              "http://puntoblogspot.blogspot.com/feeds/2507074905876002529/comments/default"
-              "http://angelic-sedition.github.io/atom.xml"))
+              ))
 
       ;; (evilify elfeed-search-mode elfeed-search-mode-map)
       (evilified-state-evilify-map elfeed-search-mode-map
