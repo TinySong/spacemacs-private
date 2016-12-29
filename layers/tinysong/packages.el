@@ -671,8 +671,10 @@
 
 
 (defun tinysong/post-init-bookmark ()
-  (spacemacs/declare-prefix "ob" "bookmark")
-  (spacemacs/set-leader-keys "obs" 'bookmark-set)
-  (spacemacs/set-leader-keys "obr" 'bookmark-rename)
-  (spacemacs/set-leader-keys "obd" 'bookmark-delete)
+  (progn
+    (spacemacs/declare-prefix "ob" "bookmark")
+    (spacemacs/set-leader-keys "obs" 'bookmark-set)
+    (spacemacs/set-leader-keys "obr" 'bookmark-rename)
+    (spacemacs/set-leader-keys "obd" 'bookmark-delete)
+    )
   )
