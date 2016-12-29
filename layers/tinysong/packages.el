@@ -58,7 +58,6 @@
     nodejs-repl
     wrap-region
     youdao-dictionary
-    bing-dict
     deft
     swiper
     command-log
@@ -671,8 +670,3 @@
     :config
     ))
 
-(defun tinysong/init-bing-dict ()
-  (use-package bing-dict
-    :init
-    (spacemacs/set-leader-keys "odb" 'bing-dict-brief)
-    ))
