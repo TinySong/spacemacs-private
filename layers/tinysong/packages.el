@@ -70,6 +70,7 @@
     graphviz-dot-mode
     persp-mode
     fasd
+    bookmark
     ))
 
 
@@ -297,6 +298,7 @@
 
 (defun tinysong/post-init-youdao-dictionary ()
   ;; ((interactive "P"))
+  (spacemacs/declare-prefix "od" "directory")
   (spacemacs/set-leader-keys "ody" 'youdao-dictionary-search-at-point+))
 
 (defun tinysong/post-init-persp-mode ()
@@ -456,16 +458,18 @@
       )))
 
 ;; https://github.com/skeeto/elfeed
+;; http://nullprogram.com/blog/2013/09/04/
 (defun tinysong/init-elfeed ()
   (use-package elfeed
     :init
     (global-set-key (kbd "C-x w") 'elfeed)
+    (spacemacs/set-leader-keys "of" 'elfeed)
     :defer t
     :config
     (progn
-
       (setq elfeed-feeds
-            '("http://nullprogram.com/feed/"
+            '(
+              "http://nullprogram.com/feed/"
               "http://z.caudate.me/rss/"
               "http://irreal.org/blog/?feed=rss2"
               "http://feeds.feedburner.com/LostInTheTriangles"
@@ -476,6 +480,11 @@
               "http://www.masteringemacs.org/feed/"
               "http://coolshell.cn/feed"
               "http://emacsist.com/rss"
+              "http://www.infoq.com/cn/feed/architecture-design"
+              "http://www.infoq.com/cn/feed/AI"
+              "http://www.infoq.com/cn/feed/ronqi"
+              "http://www.infoq.com/cn/feed/html-5/minibooks"
+              "http://www.masteringemacs.org/feed/"
               ))
 
       ;; (evilify elfeed-search-mode elfeed-search-mode-map)
@@ -630,9 +639,6 @@
       'evil-delete-backward-word)
 
     (spacemacs/set-leader-keys "fR" 'tinysong/rename-file-and-buffer)
-    (spacemacs/set-leader-keys "obs" 'bookmark-set)
-    (spacemacs/set-leader-keys "obr" 'bookmark-rename)
-    (spacemacs/set-leader-keys "obd" 'bookmark-delete)
 
     ;; This will break visual column edit
     ;; enable hybrid editing style
@@ -663,3 +669,10 @@
     :config
     ))
 
+
+(defun tinysong/post-init-bookmark ()
+  (spacemacs/declare-prefix "ob" "bookmark")
+  (spacemacs/set-leader-keys "obs" 'bookmark-set)
+  (spacemacs/set-leader-keys "obr" 'bookmark-rename)
+  (spacemacs/set-leader-keys "obd" 'bookmark-delete)
+  )
