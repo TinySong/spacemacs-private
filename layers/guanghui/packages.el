@@ -20,7 +20,6 @@
         ycmd
         discover-my-major
         popwin
-        ;; ox-reveal
         ace-window
         avy
         4clojure
@@ -240,65 +239,6 @@
     (define-key global-map (kbd "C-c r") 'vr/replace)
     (define-key global-map (kbd "C-c q") 'vr/query-replace))
   )
-
-(defun guanghui/init-multiple-cursors ()
-  (use-package multiple-cursors
-    :init
-    (progn
-      (bind-key* "C-s-l" 'mc/edit-lines)
-      (bind-key* "C-s-f" 'mc/mark-all-dwim)
-      (bind-key* "C-s-." 'mc/mark-next-like-this)
-      (bind-key* "C-s-," 'mc/mark-previous-like-this)
-      (bind-key* "s->" 'mc/unmark-next-like-this)
-      (bind-key* "s-<" 'mc/unmark-previous-like-this)
-      (bind-key* "C-c C-s-." 'mc/mark-all-like-this)
-
-      ;; http://endlessparentheses.com/multiple-cursors-keybinds.html?source=rss
-      (define-prefix-command 'endless/mc-map)
-      ;; C-x m is usually `compose-mail'. Bind it to something
-      ;; else if you use this command.
-      (define-key ctl-x-map "m" 'endless/mc-map)
-;;; Really really nice!
-      (define-key endless/mc-map "i" #'mc/insert-numbers)
-      (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
-      (define-key endless/mc-map "a" #'mc/mark-all-like-this)
-
-;;; Occasionally useful
-      (define-key endless/mc-map "d" #'mc/mark-all-symbols-like-this-in-defun)
-      (define-key endless/mc-map "r" #'mc/reverse-regions)
-      (define-key endless/mc-map "s" #'mc/sort-regions)
-      (define-key endless/mc-map "l" #'mc/edit-lines)
-      (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
-      (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
-      )))
-
-;; (defun guanghui/post-init-persp-mode ()
-;;   (when (fboundp 'spacemacs|define-custom-layout)
-;;     (spacemacs|define-custom-layout "@Cocos2D-X"
-;;       :binding "c"
-;;       :body
-;;       (find-file "~/cocos2d-x/cocos/ui/UIWidget.cpp")
-;;       (split-window-right)
-;;       (find-file "~/cocos2d-x/cocos/cocos2d.cpp"))))
-
-(defun guanghui/post-init-chinese-wbim ()
-  (progn
-    ;; [[http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings][keymap - How to override major mode bindings - Emacs Stack Exchange]]
-    (bind-key* ";" 'chinese-wbim-insert-ascii)
-    (setq chinese-wbim-punc-translate-p nil)
-    (spacemacs/declare-prefix "ot" "Toggle")
-    (spacemacs/set-leader-keys
-      "otp" 'chinese-wbim-punc-translate-toggle)
-    (setq chinese-wbim-wb-use-gbk t)
-    (add-hook 'chinese-wbim-wb-load-hook
-              (lambda ()
-                (let ((map (chinese-wbim-mode-map)))
-                  (define-key map "-" 'chinese-wbim-previous-page)
-                  (define-key map "=" 'chinese-wbim-next-page))))
-    ))
-
-
-
 
 (defun guanghui/post-init-evil-escape ()
   (setq evil-escape-delay 0.2))
