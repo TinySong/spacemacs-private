@@ -223,7 +223,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 12
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -396,7 +396,7 @@ layers configuration."
   ;; TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and window-system (spacemacs/system-is-mac))
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 13))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
   ;;;TODO https://github.com/et2010/Han
