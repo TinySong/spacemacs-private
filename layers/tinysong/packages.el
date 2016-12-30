@@ -674,6 +674,7 @@
   (progn
     (spacemacs/declare-prefix "ob" "bookmark")
     (spacemacs/set-leader-keys "obs" 'bookmark-set)
+    (spacemacs/set-leader-keys "obj" 'bookmark-jump)
     (spacemacs/set-leader-keys "obr" 'bookmark-rename)
     (spacemacs/set-leader-keys "obd" 'bookmark-delete)
     )
