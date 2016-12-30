@@ -83,7 +83,7 @@
 (defun tinysong/post-init-js-doc ()
   (setq js-doc-mail-address "TinySong1226@gmail.com"
         js-doc-author (format "RongXiang Song <%s>" js-doc-mail-address)
-        js-doc-url "http://www.TinySong.com"
+        js-doc-url "http://www.tinysong.com"
         js-doc-license "MIT"))
 
 
@@ -469,21 +469,22 @@
     (progn
       (setq elfeed-feeds
             '(
+              ("http://thenewstack.io/blog/feed/" docker)
               "http://nullprogram.com/feed/"
               "http://z.caudate.me/rss/"
               "http://irreal.org/blog/?feed=rss2"
-              "http://feeds.feedburner.com/LostInTheTriangles"
+              ("http://feeds.feedburner.com/LostInTheTriangles" emacs)
               "http://planet.emacsen.org/atom.xml"
-              "http://feeds.feedburner.com/emacsblog"
+              ("http://feeds.feedburner.com/emacsblog" emacs)
               "http://blog.binchen.org/rss.xml"
-              "http://oremacs.com/atom.xml"
               "http://www.masteringemacs.org/feed/"
               "http://coolshell.cn/feed"
               "http://emacsist.com/rss"
-              "http://www.infoq.com/cn/feed/architecture-design"
-              "http://www.infoq.com/cn/feed/AI"
-              "http://www.infoq.com/cn/feed/ronqi"
-              "http://www.infoq.com/cn/feed/html-5/minibooks"
+              "http://oremacs.com/atom.xml"
+              ("http://www.infoq.com/cn/feed/architecture-design" infoq)
+              ("http://www.infoq.com/cn/feed/AI" infoq)
+              ("http://www.infoq.com/cn/feed/ronqi" infoq)
+              ("http://www.infoq.com/cn/feed/html-5/minibooks" infoq)
               "http://www.masteringemacs.org/feed/"
               ))
 
@@ -536,36 +537,92 @@
 ;;          )
 ;;        ))
 
+;; (use-package multiple-cursors
+;;   :init
+;;   (progn
+;;     ;;       (bind-key* "C-s-l" 'mc/edit-lines)
+;;     (bind-key* "C-s-l" 'mc/edit-lines)
+;;     ;;       (bind-key* "C-s-f" 'mc/mark-all-dwim)
+;;     ;;       (bind-key* "C-s-." 'mc/mark-next-like-this)
+;;     ;;       (bind-key* "C-s-," 'mc/mark-previous-like-this)
+;;     ;;       (bind-key* "s->" 'mc/unmark-next-like-this)
+;;     ;;       (bind-key* "s-<" 'mc/unmark-previous-like-this)
+;;     ;;       (bind-key* "C-c C-s-." 'mc/mark-all-like-this)
+
+;;     ;;       ;; http://endlessparentheses.com/multiple-cursors-keybinds.html?source=rss
+;;     ;;       (define-prefix-command 'endless/mc-map)
+;;     ;;       ;; C-x m is usually `compose-mail'. Bind it to something
+;;     ;;       ;; else if you use this command.
+;;     ;;       (define-key ctl-x-map "m" 'endless/mc-map)
+;;     ;; ;;; Really really nice!
+;;     ;;       (define-key endless/mc-map "i" #'mc/insert-numbers)
+;;     ;;       (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
+;;     ;;       (define-key endless/mc-map "a" #'mc/mark-all-like-this)
+
+;;     ;; ;;; Occasionally useful
+;;     ;;       (define-key endless/mc-map "d" #'mc/mark-all-symbols-like-this-in-defun)
+;;     ;;       (define-key endless/mc-map "r" #'mc/reverse-regions)
+;;     ;;       (define-key endless/mc-map "s" #'mc/sort-regions)
+;;     ;;       (define-key endless/mc-map "l" #'mc/edit-lines)
+;;     ;;       (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
+;;     ;;       (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
+;;     ))
+
 (defun tinysong/init-multiple-cursors ()
   (use-package multiple-cursors
     :init
     (progn
-      (bind-key* "C-s-l" 'mc/edit-lines)
-      (bind-key* "C-s-f" 'mc/mark-all-dwim)
-      (bind-key* "C-s-." 'mc/mark-next-like-this)
-      (bind-key* "C-s-," 'mc/mark-previous-like-this)
-      (bind-key* "s->" 'mc/unmark-next-like-this)
-      (bind-key* "s-<" 'mc/unmark-previous-like-this)
-      (bind-key* "C-c C-s-." 'mc/mark-all-like-this)
+      (spacemacs/set-leader-keys "oml" 'mc/edit-lines)
+      (spacemacs/set-leader-keys "omb" 'mc/edit-beginnings-of-lines)
+      (spacemacs/set-leader-keys "ome" 'mc/edit-ends-of-lines)
 
-      ;; http://endlessparentheses.com/multiple-cursors-keybinds.html?source=rss
-      (define-prefix-command 'endless/mc-map)
-      ;; C-x m is usually `compose-mail'. Bind it to something
-      ;; else if you use this command.
-      (define-key ctl-x-map "m" 'endless/mc-map)
-;;; Really really nice!
-      (define-key endless/mc-map "i" #'mc/insert-numbers)
-      (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
-      (define-key endless/mc-map "a" #'mc/mark-all-like-this)
+      (spacemacs/set-leader-keys "oma" 'mc/mark-all-like-this)
+      (spacemacs/set-leader-keys "omA" 'mc/mark-all-dwim)
 
-;;; Occasionally useful
-      (define-key endless/mc-map "d" #'mc/mark-all-symbols-like-this-in-defun)
-      (define-key endless/mc-map "r" #'mc/reverse-regions)
-      (define-key endless/mc-map "s" #'mc/sort-regions)
-      (define-key endless/mc-map "l" #'mc/edit-lines)
-      (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
-      (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
-      )))
+      (spacemacs/set-leader-keys "omj" 'mc/mark-next-like-this)
+      (spacemacs/set-leader-keys "omJ" 'mc/unmark-next-like-this)
+      (spacemacs/set-leader-keys "omk" 'mc/mark-previous-like-this)
+      (spacemacs/set-leader-keys "omK" 'mc/unmark-previous-like-this)
+
+      (spacemacs/set-leader-keys "omi" 'mc/insert-numbers)
+      (spacemacs/set-leader-keys "omh" 'mc-hide-unmatched-lines-mode)
+      (spacemacs/set-leader-keys "omd" 'mc/mark-all-symbols-like-this-in-defun)
+      (spacemacs/set-leader-keys "omr" 'mc/reverse-regions)
+      (spacemacs/set-leader-keys "oms" 'mc/sort-regions)
+
+      (global-unset-key (kbd "M-<down-mouse-1>"))
+      (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click))
+    :config
+    (setq mc/cmds-to-run-for-all
+          '(
+            electric-newline-and-maybe-indent
+            hungry-delete-backward
+            spacemacs/backward-kill-word-or-region
+            spacemacs/smart-move-beginning-of-line
+            lispy-move-beginning-of-line
+            lispy-move-end-of-line
+            evil-exit-visual-state
+            evil-backward-char
+            evil-delete-char
+            evil-escape-emacs-state
+            evil-escape-insert-state
+            evil-exit-emacs-state
+            evil-previous-visual-line
+            evil-next-visual-line
+            evil-forward-char
+            evil-insert
+            evil-next-line
+            evil-normal-state
+            evil-previous-line
+            evil-append
+            evil-append-line
+            forward-sentence
+            kill-sentence
+            org-self-insert-command
+            sp-backward-delete-char
+            sp-delete-char
+            sp-remove-active-pair-overlay))))
+
 
 (defun tinysong/post-init-evil ()
   (progn
