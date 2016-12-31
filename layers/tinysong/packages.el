@@ -481,11 +481,12 @@
               "http://coolshell.cn/feed"
               "http://emacsist.com/rss"
               "http://oremacs.com/atom.xml"
+              "http://www.masteringemacs.org/feed/"
               ("http://www.infoq.com/cn/feed/architecture-design" infoq)
               ("http://www.infoq.com/cn/feed/AI" infoq)
               ("http://www.infoq.com/cn/feed/ronqi" infoq)
               ("http://www.infoq.com/cn/feed/html-5/minibooks" infoq)
-              "http://www.masteringemacs.org/feed/"
+              ("http://www.infoq.com/cn/feed/culture-methods" culture-method)
               ))
 
       ;; (evilify elfeed-search-mode elfeed-search-mode-map)
