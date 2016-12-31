@@ -63,6 +63,7 @@
     command-log
     ;; hydra
     elfeed
+    elfeed-org
     osx-dictionary
     org-mac-link
     ;; (auto-rsync :location local)
@@ -489,12 +490,19 @@
               ("http://www.infoq.com/cn/feed/culture-methods" culture-method)
               ))
 
-      ;; (evilify elfeed-search-mode elfeed-search-mode-map)
       (evilified-state-evilify-map elfeed-search-mode-map
         :mode elfeed-search-mode
         :bindings
         "G" 'elfeed-update
         "g" 'elfeed-search-update--force)
+
+      ;;insert space before elfeed filter
+      (defun elfeed-search-live-filter-space ()
+        "Insert space when running elfeed filter"
+        (interactive)
+        (let ((elfeed-search-filter (concat elfeed-search-filter " ")))
+          (elfeed-search-live-filter)))
+
 
       (defun elfeed-mark-all-as-read ()
         (interactive)
@@ -502,12 +510,21 @@
         (elfeed-search-untag-all-unread))
 
       (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
+      (define-key elfeed-search-mode-map (kbd "s") 'elfeed-search-live-filter-space)
 
       (defadvice elfeed-show-yank (after elfeed-show-yank-to-kill-ring activate compile)
         "Insert the yanked text from x-selection to kill ring"
         (kill-new (x-get-selection)))
 
       (ad-activate 'elfeed-show-yank))))
+
+(defun tinysong/init-elfeed-org ()
+  (use-package elfeed-org
+    :ensure t
+    :config
+    (setq rmh-elfeed-org-files (list "~/org-notes/elfeed.org"))
+    ))
+
 
 (defun tinysong/post-init-osx-dictionary ()
   (use-package osx-dictionary
@@ -538,41 +555,11 @@
 ;;          )
 ;;        ))
 
-;; (use-package multiple-cursors
-;;   :init
-;;   (progn
-;;     ;;       (bind-key* "C-s-l" 'mc/edit-lines)
-;;     (bind-key* "C-s-l" 'mc/edit-lines)
-;;     ;;       (bind-key* "C-s-f" 'mc/mark-all-dwim)
-;;     ;;       (bind-key* "C-s-." 'mc/mark-next-like-this)
-;;     ;;       (bind-key* "C-s-," 'mc/mark-previous-like-this)
-;;     ;;       (bind-key* "s->" 'mc/unmark-next-like-this)
-;;     ;;       (bind-key* "s-<" 'mc/unmark-previous-like-this)
-;;     ;;       (bind-key* "C-c C-s-." 'mc/mark-all-like-this)
-
-;;     ;;       ;; http://endlessparentheses.com/multiple-cursors-keybinds.html?source=rss
-;;     ;;       (define-prefix-command 'endless/mc-map)
-;;     ;;       ;; C-x m is usually `compose-mail'. Bind it to something
-;;     ;;       ;; else if you use this command.
-;;     ;;       (define-key ctl-x-map "m" 'endless/mc-map)
-;;     ;; ;;; Really really nice!
-;;     ;;       (define-key endless/mc-map "i" #'mc/insert-numbers)
-;;     ;;       (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
-;;     ;;       (define-key endless/mc-map "a" #'mc/mark-all-like-this)
-
-;;     ;; ;;; Occasionally useful
-;;     ;;       (define-key endless/mc-map "d" #'mc/mark-all-symbols-like-this-in-defun)
-;;     ;;       (define-key endless/mc-map "r" #'mc/reverse-regions)
-;;     ;;       (define-key endless/mc-map "s" #'mc/sort-regions)
-;;     ;;       (define-key endless/mc-map "l" #'mc/edit-lines)
-;;     ;;       (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
-;;     ;;       (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
-;;     ))
-
 (defun tinysong/init-multiple-cursors ()
   (use-package multiple-cursors
     :init
     (progn
+      (spacemacs/declare-prefix "om" "mc")
       (spacemacs/set-leader-keys "oml" 'mc/edit-lines)
       (spacemacs/set-leader-keys "omb" 'mc/edit-beginnings-of-lines)
       (spacemacs/set-leader-keys "ome" 'mc/edit-ends-of-lines)
