@@ -113,7 +113,8 @@ values."
      shaders
      yaml
      speed-reading
-     ;; perl
+     (mu4e :variables
+           mu4e-installation-path "/usr/share/emacs/site-lisp")
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
