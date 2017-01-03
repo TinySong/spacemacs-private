@@ -346,7 +346,8 @@
     (with-eval-after-load 'markdown-mode
       (progn
         (when (configuration-layer/package-usedp 'company)
-          (spacemacs|add-company-hook markdown-mode))
+          (spacemacs|add-company-backends markdown-mode)
+          )
 
         (defun tinysong/markdown-to-html ()
           (interactive)
@@ -703,7 +704,7 @@
     (progn
       (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record" "rankdir") company-keywords-alist)
       (when (configuration-layer/layer-usedp 'company)
-        (spacemacs|add-company-hook graphviz-dot-mode))
+        (spacemacs|add-company-backends graphviz-dot-mode))
       )
     )
   )

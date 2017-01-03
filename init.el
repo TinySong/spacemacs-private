@@ -113,8 +113,8 @@ values."
      shaders
      yaml
      speed-reading
-     (mu4e :variables
-           mu4e-installation-path "/usr/share/emacs/site-lisp")
+     ;; (mu4e :variables
+     ;;       mu4e-installation-path "/usr/share/emacs/site-lisp")
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -474,9 +474,7 @@ layers configuration."
   ;; For ruby
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; For Javascript
-
-  (spacemacs|add-company-hook 'text-mode)
-
+  (spacemacs|add-company-backends text-mode)
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
@@ -490,4 +488,4 @@ layers configuration."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  )
+)
