@@ -6,7 +6,19 @@
     lispy
     lua-mode
     python
+    ;; go
     ))
+;; (defun ts-lang/init-go-mode ()
+;;   (use-package go-mode
+;;     :defer t
+;;     :config
+;;     (progn
+;;       ;; for go-mode
+;;       (spacemacs/set-leader-keys "ob" 'beginning-of-defun)
+;;       (spacemacs/set-leader-keys "oe" 'end-of-defun)
+;;       (spacemacs/set-leader-keys "om" 'mark-defun)
+;;       (spacemacs/set-leader-keys "on" 'narrow-to-defun)
+;;       )))
 
 (defun ts-lang/post-init-cc-mode ()
   (progn
@@ -70,8 +82,11 @@
 (defun ts-lang/post-init-lua-mode ()
   (progn
     (when (configuration-layer/package-usedp 'company)
-      (push 'company-dabbrev company-backends-lua-mode)
-      (push 'company-etags company-backends-lua-mode))
+      (spacemacs|add-company-backends :backends company-dabbrev :modes lua-mode)
+      (spacemacs|add-company-backends :backends company-etags :modes lua-mode)
+      ;; (push 'company-dabbrev company-backends-lua-mode)
+      ;; (push 'company-etags company-backends-lua-mode)
+      )
     (add-hook 'lua-mode-hook 'evil-matchit-mode)
     (add-hook 'lua-mode-hook 'smartparens-mode)
     (setq lua-indent-level 4)

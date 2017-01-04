@@ -9,12 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|add-company-backends lua-mode)
-(spacemacs|add-company-backends markdown-mode)
-(spacemacs|add-company-backends org-mode)
-(spacemacs|add-company-backends nxml-mode)
-(spacemacs|add-company-backends sh-mode)
-(spacemacs|add-company-backends sh-mode)
+;; (spacemacs|add-company-backends lua-mode)
+(spacemacs|add-company-backends :backends company-capf :modes lua-mode)
+;; markdown-mode org-mode nxml-mode sh-mode
+;; (spacemacs|add-company-backends markdown-mode)
+;; (spacemacs|add-company-backends org-mode)
+;; (spacemacs|add-company-backends nxml-mode)
+;; (spacemacs|add-company-backends sh-mode)
+;; (spacemacs|add-company-backends sh-mode)
 
 ;;(spacemacs/declare-prefix "ot" "Toggle")
 

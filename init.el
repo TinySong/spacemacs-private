@@ -400,7 +400,7 @@ layers configuration."
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
-  ;;;TODO https://github.com/et2010/Han
+;;;TODO https://github.com/et2010/Han
 
   ;; (global-company-mode t)
   (setq-default powerline-default-separator 'arrow)
@@ -475,6 +475,13 @@ layers configuration."
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; For Javascript
   (spacemacs|add-company-backends text-mode)
+
+  ;; customize compnay face
+  (custom-set-faces
+   '(company-tooltip-common
+     ((t (:inherit company-tooltip :weight bold :underline nil))))
+   '(company-tooltip-common-selection
+     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
