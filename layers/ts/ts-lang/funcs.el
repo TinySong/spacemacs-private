@@ -13,7 +13,7 @@
 
 ;;  reload GOPATH for go
 (defun ts-lang/load-docker-gopath ()
-  (interactive "P")
+  (interactive)
   (progn
     (setq gopath (getenv "GOPATH")
           vendor (concat  gopath "/src/github.com/docker/docker/vendor"))
