@@ -1,3 +1,37 @@
+;;; packages.el --- ts-org layer packages file for Spacemacs. ;; -*- lexical-binding: t -*-
+;;
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;;
+
+;; Author: song <song@GE60-SHADOW-Walker.lan>
+;; URL: https://github.com/TinySong/spacemacs-private
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
+;;; Commentary:
+
+;; See the Spacemacs documentation and FAQs for instructions on how to implement
+;; a new layer:
+
+
+;;
+;;   SPC h SPC layers RET
+;;
+;;
+;; Briefly, each package to be installed or configured by this layer should be
+;; added to `ts-org-packages'. Then, for each package PACKAGE:
+;;
+
+;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
+;;   function `ts-org/init-PACKAGE' to load and initialize the package.
+
+;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
+;;   define the functions `ts-org/pre-init-PACKAGE' and/or
+;;   `ts-org/post-init-PACKAGE' to customize the package as it is loaded.
+
+;;; Code:
 (defconst ts-org-packages
   '(
     org
@@ -425,6 +459,7 @@
   (use-package org-pomodoro
     :init
     (progn
+      ;; (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)
       (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
       (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
       (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))

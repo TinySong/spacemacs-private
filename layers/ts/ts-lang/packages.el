@@ -1,3 +1,35 @@
+;;; packages.el --- ts-lang layer packages file for Spacemacs. ;; -*- lexical-binding: t -*-
+;;
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;;
+
+;; Author: song <song@GE60-SHADOW-Walker.lan>
+;; URL: https://github.com/TinySong/spacemacs-private
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
+;;; Commentary:
+
+;; See the Spacemacs documentation and FAQs for instructions on how to implement
+;; a new layer:
+
+
+;;
+;;   SPC h SPC layers RET
+;;
+;;
+;; Briefly, each package to be installed or configured by this layer should be
+;; added to `ts-lang-packages'. Then, for each package PACKAGE:
+;;
+
+;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
+;;   function `ts-lang/init-PACKAGE' to load and initialize the package.
+
+;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
+;;   define the functions `ts-lang/pre-init-PACKAGE' and/or
+;;   `ts-lang/post-init-PACKAGE' to customize the package as it is loaded.
 (defconst ts-lang-packages
   '(
     (cc-mode :location built-in)
@@ -5,20 +37,9 @@
     google-c-style
     lispy
     lua-mode
-    python
-    ;; go
+    ;; python
     ))
-;; (defun ts-lang/init-go-mode ()
-;;   (use-package go-mode
-;;     :defer t
-;;     :config
-;;     (progn
-;;       ;; for go-mode
-;;       (spacemacs/set-leader-keys "ob" 'beginning-of-defun)
-;;       (spacemacs/set-leader-keys "oe" 'end-of-defun)
-;;       (spacemacs/set-leader-keys "om" 'mark-defun)
-;;       (spacemacs/set-leader-keys "on" 'narrow-to-defun)
-;;       )))
+
 
 (defun ts-lang/post-init-cc-mode ()
   (progn
@@ -103,12 +124,12 @@
   (use-package google-c-style
     :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
 
-(defun ts-lang/post-init-python ()
-  (use-package python
-    :init
-    (add-hook 'python-mode-hook
-              (lambda ()
-                (setq python-shell-interpreter "python")
-                (setq anaconda-mode-server-script
-                      "/usr/local/lib/python2.7/site-packages/anaconda_mode.py")))
-    ))
+;; (defun ts-lang/post-init-python ()
+;;   (progn
+;;     (add-hook 'python-mode-hook
+;;               (lambda ()
+;;                 (setq python-shell-interpreter "python")
+;;                 (setq anaconda-mode-server-script
+;;                       "/usr/local/lib/python2.7/site-packages/anaconda_mode.py")))
+;;     )
+;;   )
