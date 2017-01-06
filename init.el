@@ -46,7 +46,8 @@ values."
      (spell-checking :variables spell-checking-enable-by-default nil)
      yaml
      ;; (ruby :variables ruby-version-manager 'rvm)
-     (python :variables python-enable-yapf-format-on-save t)
+     (python :variables python-enable-yapf-format-on-save t
+             python-test-runner '(nose pytest))
      lua
      (go :variables go-tab-width 4
          gofmt-command "goimports"
