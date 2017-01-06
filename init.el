@@ -391,7 +391,6 @@ layers configuration."
   ;; (hide-ifdef-mode t)
   (delete-selection-mode t)
   (yas-global-mode 1)
-  (global-company-mode t)
   ;;  auto save by extral app edit
   (global-auto-revert-mode t)
   ;; 解决org表格里面中英文对齐的问题
@@ -403,7 +402,6 @@ layers configuration."
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
 ;;;TODO https://github.com/et2010/Han
 
-  ;; (global-company-mode t)
   (setq-default powerline-default-separator 'arrow)
 
   ;; Utility functions
