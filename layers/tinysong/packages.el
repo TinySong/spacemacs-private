@@ -471,6 +471,7 @@
     (progn
       (setq elfeed-feeds
             '(
+              "http://blog.csdn.net/lujun9972/rss/list"
               ("http://thenewstack.io/blog/feed/" docker)
               "http://nullprogram.com/feed/"
               "http://z.caudate.me/rss/"
