@@ -47,6 +47,7 @@ values."
      yaml
      ;; (ruby :variables ruby-version-manager 'rvm)
      (python :variables python-enable-yapf-format-on-save t
+             python-auto-set-local-pyvenv-virtualenv 'on-project-switch
              python-test-runner '(nose pytest))
      lua
      (go :variables go-tab-width 4
