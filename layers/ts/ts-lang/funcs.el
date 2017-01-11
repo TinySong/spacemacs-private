@@ -19,3 +19,12 @@
           vendor (concat  gopath "/src/github.com/docker/docker/vendor"))
     (setenv "GOPATH" (concat gopath ":" vendor)))
   )
+
+;;  reload GOPATH for go
+(defun ts-lang/load-kubernetes-gopath ()
+  (interactive)
+  (progn
+    (setq gopath "~/development/golang"
+          vendor (concat  gopath "/src/github.com/kubernetes/kubernetes/vendor"))
+    (setenv "GOPATH" (concat gopath ":" vendor)))
+  )

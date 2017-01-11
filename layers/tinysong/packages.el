@@ -471,15 +471,16 @@
     (progn
       (setq elfeed-feeds
             '(
+              ("https://martinfowler.com/feed.atom" ms)
+              ("https://www.reddit.com/r/emacs/.rss" emacs)
               "http://blog.csdn.net/lujun9972/rss/list"
-              ("http://thenewstack.io/blog/feed/" docker)
               "http://nullprogram.com/feed/"
               "http://z.caudate.me/rss/"
               "http://irreal.org/blog/?feed=rss2"
               ("http://feeds.feedburner.com/LostInTheTriangles" emacs)
               "http://planet.emacsen.org/atom.xml"
               ("http://feeds.feedburner.com/emacsblog" emacs)
-              "http://blog.binchen.org/rss.xml"
+              ("http://blog.binchen.org/rss.xml" emacs)
               "http://www.masteringemacs.org/feed/"
               "http://coolshell.cn/feed"
               "http://emacsist.com/rss"
