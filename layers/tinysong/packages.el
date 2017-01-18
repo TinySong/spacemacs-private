@@ -471,6 +471,7 @@
     (progn
       (setq elfeed-feeds
             '(
+              ("http://www.infoq.com/cn/feed/wulianwang" iot)
               ("https://martinfowler.com/feed.atom" ms)
               ("https://www.reddit.com/r/emacs/.rss" emacs)
               "http://blog.csdn.net/lujun9972/rss/list"
