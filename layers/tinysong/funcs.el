@@ -31,8 +31,20 @@
                   "activate application (frontmostApplication as text)\n"
                   "set links to {}\n"
                   "copy theResult to the end of links\n"
-                  "return links as string\n"))))
-    (format "%s" (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
+                  "return links as string\n")))
+        (title (do-applescript
+                (concat
+                 "set frontmostApplication to path to frontmost application\n"
+                 "tell application \"Google Chrome\"\n"
+                 "set theTitle to get title of active tab of first window\n"
+                 "set theResult to (get theTitle) \n"
+                 "end tell\n"
+                 "activate application (frontmostApplication as text)\n"
+                 "set links to {}\n"
+                 "copy theResult to the end of links\n"
+                 "return links as string\n"
+                 ))))
+    (format "%s:  %s" title (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
 
 
 ;; "https://github.com/vhallac/.emacs.d/blob/master/config/customize-org-agenda.el"
@@ -333,7 +345,7 @@ With PREFIX, cd to project root."
                      current-prefix-arg))
   (let* ((dir (if prefix (tinysong/project-root)
                 default-directory))
-         ;; if COMMAND is empty, just change directory
+         ;; if COMMAND is empty, just change directory ;
          (cmd (format "cd %s ;%s" dir command)))
     (do-applescript
      (format
