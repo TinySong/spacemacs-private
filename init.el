@@ -36,7 +36,7 @@ values."
      (version-control :variables version-control-diff-tool 'git-gutter+
                       version-control-global-margin t)
      osx
-     semantic                           ; too slow
+     ;; semantic                           ; too slow
      markdown
      (vinegar :variables vinegar-reuse-dired-buffer t)
      (org :variables org-enable-github-support t)
@@ -97,7 +97,7 @@ values."
             shell-enable-smart-eshell t)
      (chinese :variables
               chinese-enable-youdao-dict t)
-     selectric
+     ;; selectric
      tinysong
      guanghui
      erc
@@ -114,6 +114,8 @@ values."
      shaders
      yaml
      speed-reading
+     slack
+     mu4e
      ;; (mu4e :variables
      ;;       mu4e-installation-path "/usr/share/emacs/site-lisp")
      )
@@ -186,6 +188,7 @@ values."
    dotspacemacs-editing-style '(hybrid :variables
                                        hybrid-mode-enable-evilified-state t
                                        hybrid-mode-enable-hjkl-bindings t
+                                       hybrid-mode-use-evil-search-module t
                                        hybrid-mode-default-state 'normal
                                        )
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
@@ -211,9 +214,9 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          monokai
-                         spacemacs-dark
-                         solarized-light
-                         leuven
+                         ;; spacemacs-dark
+                         ;; solarized-light
+                         ;; leuven
                          ;; sanityinc-tomorrow-day
                          ;; sanityinc-tomorrow-eighties
                          ;; spacemacs-light
@@ -347,7 +350,7 @@ values."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -402,7 +405,7 @@ layers configuration."
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
 ;;;TODO https://github.com/et2010/Han
 
-  (setq-default powerline-default-separator 'arrow)
+  (setq-default powerline-default-separator 'contour)
 
   ;; Utility functions
   (defun bb/define-key (keymap &rest bindings)
@@ -482,6 +485,12 @@ layers configuration."
      ((t (:inherit company-tooltip :weight bold :underline nil))))
    '(company-tooltip-common-selection
      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+
+  ;; add exec path
+  (add-to-list 'exec-path "~/development/golang/bin/")
+
+  ;; slack
+  ;; -----------------user config end---------------------------
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
