@@ -44,7 +44,7 @@
                  "copy theResult to the end of links\n"
                  "return links as string\n"
                  ))))
-    (format "%s:  %s" title (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
+    (format " %s\n %s" title (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
 
 
 ;; "https://github.com/vhallac/.emacs.d/blob/master/config/customize-org-agenda.el"
@@ -460,3 +460,14 @@ With PREFIX, cd to project root."
   (elfeed)
   (elfeed-search-update--force))
 
+
+;; (defun tinysong/sync-k8s-to-devops ()
+;;   (interactive)
+;;   (let (command-str (format "rsync -a --delete --progress \"-e ssh -p 22\" ~/development/golang/src/k8s.io/kubernetes/* root@192.168.0.5:/kubernetes/src/github.com/kubernetes/kubernetes/")))
+;;   (defun sync-to-dev ()
+;;     "sync .go file to develop machine with external script."
+;;     (when (eq major-mode 'go-mode)
+;;       (shell-command-to-string command-str)
+;;       ))
+;;   (add-hook 'after-save-hook 'sync-to-dev)
+;;   )

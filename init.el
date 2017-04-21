@@ -52,7 +52,8 @@ values."
      lua
      (go :variables go-tab-width 4
          gofmt-command "goimports"
-         go-use-gometalinter t)
+         go-use-gometalinter t
+         go-use-gocheck-for-testing t)
      c-c++
      command-log
      html
@@ -111,7 +112,6 @@ values."
      ts-lang
      docker
      graphviz
-     shaders
      yaml
      speed-reading
      slack
