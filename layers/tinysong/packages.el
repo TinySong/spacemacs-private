@@ -72,6 +72,7 @@
     persp-mode
     fasd
     bookmark
+    which-func
     ))
 
 
@@ -471,6 +472,7 @@
     (progn
       (setq elfeed-feeds
             '(
+              ("http://ergoemacs.org/emacs/blog.xml" ergoemacs)
               ("http://www.infoq.com/cn/feed/wulianwang" iot)
               ("https://martinfowler.com/feed.atom" ms)
               ("https://www.reddit.com/r/emacs/.rss" emacs)
@@ -483,15 +485,20 @@
               ("http://feeds.feedburner.com/emacsblog" emacs)
               ("http://blog.binchen.org/rss.xml" emacs)
               "http://www.masteringemacs.org/feed/"
-              "http://coolshell.cn/feed"
               "http://emacsist.com/rss"
               "http://oremacs.com/atom.xml"
               "http://www.masteringemacs.org/feed/"
-              ("http://www.infoq.com/cn/feed/architecture-design" infoq)
-              ("http://www.infoq.com/cn/feed/AI" infoq)
-              ("http://www.infoq.com/cn/feed/ronqi" infoq)
+              ("http://www.infoq.com/cn/feed/architecture-design" infoq-ad)
+              ("http://www.infoq.com/cn/feed/AI" infoq-ai)
+              ("http://www.infoq.com/cn/feed/ronqi" infoq-rongqi)
               ("http://www.infoq.com/cn/feed/html-5/minibooks" infoq)
               ("http://www.infoq.com/cn/feed/culture-methods" culture-method)
+              ("http://www.infoq.com/cn/feed/Kubernetes" infoq-kubernetes-cn)
+              ("https://www.infoq.com/feed/Kubernetes" infoq-kubernetes-en)
+              ("https://www.infoq.com/feed/news" infoq-news)
+              ("https://coreos.com/atom.xml" coreos)
+              ("http://blog.kubernetes.io/feeds/posts/default" blog-kubernetes)
+              ("http://www.infoq.com/cn/feed/Devops" infoq-devops)
               ))
 
       (evilified-state-evilify-map elfeed-search-mode-map
@@ -727,4 +734,16 @@
     (spacemacs/set-leader-keys "obr" 'bookmark-rename)
     (spacemacs/set-leader-keys "obd" 'bookmark-delete)
     )
+  )
+
+(defun tinysong/init-which-func ()
+  ;; Show the current function name in the header line
+  (which-function-mode)
+  (setq which-func-unknown "n/a")
+  (setq-default header-line-format
+                '((which-func-mode ("" which-func-format " "))))
+  (setq mode-line-misc-info
+        ;; We remove Which Function Mode from the mode line, because it's mostly
+        ;; invisible here anyway.
+        (assq-delete-all 'which-func-mode mode-line-misc-info))
   )

@@ -38,6 +38,8 @@
     org-tree-slide
     org-octopress
     org-pomodoro
+    org-caldav
+    org-mac-iCal
     ))
 
 (defun ts-org/post-init-org ()
@@ -120,7 +122,7 @@
                   "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
                   "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
                   "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-                  "scheme" "sqlite")))
+                  "scheme" "sqlite" "yaml")))
            (list (ido-completing-read "Source code type: " src-code-types))))
         (progn
           (newline-and-indent)
@@ -255,7 +257,7 @@
          (plantuml . t)
          (C . t)
          (ditaa . t)))
-      (setq org-agenda-files (quote ("~/org-notes" )))
+      (setq org-agenda-files (quote ("~/org-notes/gtd.org" "~/org-notes/notes.org" "~/org-notes/CD.org" "~/org-notes/programLang.org")))
       ;; (setq  org-default-notes-file (quote ("~/org-notes" )))
       (setq org-default-notes-file "~/org-notes/gtd.org")
 
@@ -424,7 +426,7 @@
       (define-key evil-normal-state-map (kbd "C-c C-w") 'org-refile)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "owh" 'plain-org-wiki-helm
-        "owf" 'plain-org-wiki)
+        )
       (setq org-mobile-directory "~/org-notes/org")
       )))
 
@@ -464,3 +466,24 @@
       (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
       (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))
       )))
+
+(defun ts-org/init-org-caldav ()
+  (use-package org-caldav
+    :init
+    :config
+    (progn
+      (setq org-caldav-url "https://www.google.com/calendar/dav")
+      (setq org-caldav-calendar-id "tinysong1226@gmail.com")
+      (setq org-caldav-inbox "~/org-note/caldav.org")
+      (setq org-caldav-files org-agenda-files)
+      )
+    )
+  )
+
+(defun ts-org/init-org-mac-iCal ()
+  (use-package org-mac-iCal
+    :init
+    :config
+    (progn
+      (setq org-agenda-include-diary t)))
+  )
