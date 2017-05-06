@@ -301,7 +301,8 @@
 (defun tinysong/post-init-youdao-dictionary ()
   ;; ((interactive "P"))
   (spacemacs/declare-prefix "od" "directory")
-  (spacemacs/set-leader-keys "ody" 'youdao-dictionary-search-at-point+))
+  (spacemacs/set-leader-keys "ody" 'youdao-dictionary-search-at-point+)
+  )
 
 (defun tinysong/post-init-persp-mode ()
   (when (fboundp 'spacemacs|define-custom-layout)
@@ -569,28 +570,6 @@
 (defun tinysong/init-multiple-cursors ()
   (use-package multiple-cursors
     :init
-    (progn
-      (spacemacs/declare-prefix "om" "mc")
-      (spacemacs/set-leader-keys "oml" 'mc/edit-lines)
-      (spacemacs/set-leader-keys "omb" 'mc/edit-beginnings-of-lines)
-      (spacemacs/set-leader-keys "ome" 'mc/edit-ends-of-lines)
-
-      (spacemacs/set-leader-keys "oma" 'mc/mark-all-like-this)
-      (spacemacs/set-leader-keys "omA" 'mc/mark-all-dwim)
-
-      (spacemacs/set-leader-keys "omj" 'mc/mark-next-like-this)
-      (spacemacs/set-leader-keys "omJ" 'mc/unmark-next-like-this)
-      (spacemacs/set-leader-keys "omk" 'mc/mark-previous-like-this)
-      (spacemacs/set-leader-keys "omK" 'mc/unmark-previous-like-this)
-
-      (spacemacs/set-leader-keys "omi" 'mc/insert-numbers)
-      (spacemacs/set-leader-keys "omh" 'mc-hide-unmatched-lines-mode)
-      (spacemacs/set-leader-keys "omd" 'mc/mark-all-symbols-like-this-in-defun)
-      (spacemacs/set-leader-keys "omr" 'mc/reverse-regions)
-      (spacemacs/set-leader-keys "oms" 'mc/sort-regions)
-
-      (global-unset-key (kbd "M-<down-mouse-1>"))
-      (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click))
     :config
     (setq mc/cmds-to-run-for-all
           '(
@@ -620,7 +599,30 @@
             org-self-insert-command
             sp-backward-delete-char
             sp-delete-char
-            sp-remove-active-pair-overlay))))
+            sp-remove-active-pair-overlay))
+    (progn
+      (spacemacs/declare-prefix "om" "mc")
+      (spacemacs/set-leader-keys "oml" 'mc/edit-lines)
+      (spacemacs/set-leader-keys "omb" 'mc/edit-beginnings-of-lines)
+      (spacemacs/set-leader-keys "ome" 'mc/edit-ends-of-lines)
+
+      (spacemacs/set-leader-keys "oma" 'mc/mark-all-like-this)
+      (spacemacs/set-leader-keys "omA" 'mc/mark-all-dwim)
+
+      (spacemacs/set-leader-keys "omj" 'mc/mark-next-like-this)
+      (spacemacs/set-leader-keys "omJ" 'mc/unmark-next-like-this)
+      (spacemacs/set-leader-keys "omk" 'mc/mark-previous-like-this)
+      (spacemacs/set-leader-keys "omK" 'mc/unmark-previous-like-this)
+
+      (spacemacs/set-leader-keys "omi" 'mc/insert-numbers)
+      (spacemacs/set-leader-keys "omh" 'mc-hide-unmatched-lines-mode)
+      (spacemacs/set-leader-keys "omd" 'mc/mark-all-symbols-like-this-in-defun)
+      (spacemacs/set-leader-keys "omr" 'mc/reverse-regions)
+      (spacemacs/set-leader-keys "oms" 'mc/sort-regions)
+
+      (global-unset-key (kbd "M-<down-mouse-1>"))
+      (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click))
+    ))
 
 
 (defun tinysong/post-init-evil ()

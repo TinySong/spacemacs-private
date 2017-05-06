@@ -122,7 +122,7 @@
                   "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
                   "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
                   "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-                  "scheme" "sqlite" "yaml")))
+                  "scheme" "sqlite" "yaml" "Go")))
            (list (ido-completing-read "Source code type: " src-code-types))))
         (progn
           (newline-and-indent)
@@ -257,9 +257,18 @@
          (plantuml . t)
          (C . t)
          (ditaa . t)))
-      (setq org-agenda-files (quote ("~/org-notes/gtd.org" "~/org-notes/notes.org" "~/org-notes/CD.org" "~/org-notes/programLang.org")))
+      ;; (setq org-agenda-files (quote ("~/org-notes/gtd.org" "~/org-notes/notes.org" "~/org-notes/CD.org" "~/org-notes/programLang.org")))
+
       ;; (setq  org-default-notes-file (quote ("~/org-notes" )))
-      (setq org-default-notes-file "~/org-notes/gtd.org")
+      ;; (setq org-default-notes-file "~/org-notes/gtd.org")
+      (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
+      (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
+      (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
+      (setq org-agenda-file-code-snippet (expand-file-name "snippet.org" org-agenda-dir))
+      (setq org-default-notes-file (expand-file-name "gtd.org" org-agenda-dir))
+      (setq org-default-kernel-file (expand-file-name "kernel.org" org-agenda-dir))
+      (setq org-agenda-files (list org-agenda-dir))
+
 
       (with-eval-after-load 'org-agenda
         (when (configuration-layer/package-usedp 'org-pomodoro)
@@ -273,42 +282,30 @@
       ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
       ;;add multi-file journal
       (setq org-capture-templates
-            '(("t" "Todo" entry (file+headline "~/org-notes/gtd.org" "Workspace")
+            '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
                "* TODO [#B] %?\n  %i\n%U"
                :empty-lines 1)
-              ("n" "notes" entry (file+headline "~/org-notes/notes.org" "Quick notes")
+              ("n" "notes" entry (file+headline org-agenda-file-note "Quick notes")
                "* TODO [#C] %?\n  %i\n %U"
                :empty-lines 1)
-              ("b" "Blog Ideas" entry (file+headline "~/org-notes/notes.org" "Blog Ideas")
+              ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
-              ("B" "Book" entry (file+headline "~/org-notes/booklist.org" "Book")
-               "* TODO [#B] %?\n  %i\n %U"
-               :empty-lines 1)
-              ("C" "notes" entry (file+headline "~/org-notes/CD.org" "Quick notes")
-               "* TODO [#C] %?\n  %i\n %U"
-               :empty-lines 1)
-              ("s" "study" entry (file+headline "~/org-notes/studyNotes.org" "Studynotes")
-               "* TODO [#C] %?\n  %i\n %U"
-               )
-              ;; ("d" "Dev Driver" entry (file+headline "~/org-notes/net_driver.org" "Net Driver")
-              ;;  "* TODO [#B] %?\n  %i\n %U"
-              ;;  :empty-lines 1)
-              ("k" "Kernel" entry (file+headline "~/org-notes/kernel.org" "Kernel Quick Note")
+              ("k" "Kernel" entry (file+headline org-default-kernel-file "Kernel Quick Note")
                "* TODO [#B] %?\n  %i\n %U"
                ;; :empty-lines 1
                )
-              ("w" "work" entry (file+headline "~/org-notes/CD.org" "CD_WORK")
+              ("w" "work" entry (file+headline org-agenda-file-gtd "Careerdream")
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)
-              ("c" "Chrome" entry (file+headline "~/org-notes/notes.org" "Quick notes")
+              ("c" "Chrome" entry (file+headline org-default-notes-file "Quick notes")
                "* TODO [#C] %?\n %(tinysong/retrieve-chrome-current-tab-url)\n %i\n %U"
                :empty-lines 1)
-              ("l" "links" entry (file+headline "~/org-notes/notes.org" "Quick notes")
+              ("l" "links" entry (file+headline org-default-notes-file "Quick notes")
                "* TODO [#C] %?\n  %i\n %a \n %U"
                :empty-lines 1)
               ("j" "Journal Entry"
-               entry (file+datetree "~/org-notes/journal.org")
+               entry (file+datetree org-agenda-file-journal)
                "* %?"
                :empty-lines 1)))
 
@@ -462,9 +459,12 @@
     :init
     (progn
       ;; (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)
-      (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
-      (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
-      (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))
+      ;; (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
+      ;; (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
+      ;; (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))
+      (add-hook 'org-pomodoro-finished-hook '(lambda () (zilongshanren/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
+      (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (zilongshanren/growl-notification "Short Break" "🐝 Ready to Go?" t)))
+      (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (zilongshanren/growl-notification "Long Break" " 💪 Ready to Go?" t)))
       )))
 
 (defun ts-org/init-org-caldav ()

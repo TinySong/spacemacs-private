@@ -19,7 +19,6 @@
         nodejs-repl
         ycmd
         discover-my-major
-        popwin
         ace-window
         avy
         4clojure
