@@ -14,7 +14,6 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq guanghui-packages
       '(
-        prodigy
         js2-mode
         nodejs-repl
         ycmd
@@ -280,69 +279,6 @@
          (define-key js2-mode-map   (kbd "s-.") 'company-tern)))))
 
 
-
-;; http://rejeep.github.io/emacs/2013/12/14/prodigy-emacs-service-manager.html
-(defun guanghui/post-init-prodigy ()
-  (progn
-    (prodigy-define-tag
-      :name 'jekyll
-      :env '(("LANG" "en_US.UTF-8")
-             ("LC_ALL" "en_US.UTF-8")))
-    ;; define service
-    (prodigy-define-service
-      :name "Preview cocos2d-x web"
-      :command "python"
-      :args '("-m" "SimpleHTTPServer" "6001")
-      :cwd "~/cocos2d-x/web"
-      :tags '(work)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
-
-    (prodigy-define-service
-      :name "Preview cocos2d-html5"
-      :command "python"
-      :args '("-m" "SimpleHTTPServer" "6004")
-      :cwd "~/Github/fireball/engine"
-      :tags '(work)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
-
-    (prodigy-define-service
-      :name "Hexo Server"
-      :command "hexo"
-      :args '("server")
-      :cwd "~/4gamers.cn"
-      :tags '(hexo server)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
-
-    (prodigy-define-service
-      :name "Hexo Deploy"
-      :command "hexo"
-      :args '("deploy" "--generate")
-      :cwd "~/4gamers.cn"
-      :tags '(hexo deploy)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
-
-    (prodigy-define-service
-      :name "Debug Fireball"
-      :command "npm"
-      :args '("start" "--" "--nologin" "/Users/guanghui/Github/example-cases")
-      :cwd "~/Github/fireball/"
-      :tags '(work)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
-
-    (prodigy-define-service
-      :name "Org wiki preview"
-      :command "python"
-      :args '("-m" "SimpleHTTPServer" "8088")
-      :cwd "~/org-notes/public_html"
-      :tags '(org-mode)
-      :init (lambda () (browse-url "http://localhost:8088"))
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)))
 
 (defun guanghui/init-moz-controller ()
   (use-package moz-controller

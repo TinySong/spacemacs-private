@@ -73,6 +73,7 @@
     fasd
     bookmark
     which-func
+    prodigy
     ))
 
 
@@ -749,3 +750,40 @@
         ;; invisible here anyway.
         (assq-delete-all 'which-func-mode mode-line-misc-info))
   )
+
+;; http://rejeep.github.io/emacs/2013/12/14/prodigy-emacs-service-manager.html
+(defun tinysong/post-init-prodigy ()
+  (progn
+    (prodigy-define-tag
+      :name 'jekyll
+      :env '(("LANG" "en_US.UTF-8")
+             ("LC_ALL" "en_US.UTF-8")))
+
+    (prodigy-define-service
+      :name "Hexo Server"
+      :command "hexo"
+      :args '("server")
+      :cwd "~/4gamers.cn"
+      :tags '(hexo server)
+      :kill-signal 'sigkill
+      :kill-process-buffer-on-stop t)
+
+    (prodigy-define-service
+      :name "Hexo Deploy"
+      :command "hexo"
+      :args '("deploy" "--generate")
+      :cwd "~/4gamers.cn"
+      :tags '(hexo deploy)
+      :kill-signal 'sigkill
+      :kill-process-buffer-on-stop t)
+
+
+    (prodigy-define-service
+      :name "Org wiki preview"
+      :command "python"
+      :args '("-m" "SimpleHTTPServer" "8088")
+      :cwd "~/org-notes/public_html"
+      :tags '(org-mode)
+      :init (lambda () (browse-url "http://localhost:8088"))
+      :kill-signal 'sigkill
+      :kill-process-buffer-on-stop t)))
