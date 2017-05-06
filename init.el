@@ -97,13 +97,12 @@ values."
             shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      (chinese :variables
-              chinese-enable-youdao-dict t)
-     ;; selectric
+              chinese-enable-youdao-dict t
+              :variables chinese-enable-fcitx nil
+              )
      tinysong
      guanghui
      erc
-     scheme
-     games
      latex
      ts-org
      ts-helm
@@ -113,11 +112,10 @@ values."
      docker
      graphviz
      yaml
-     speed-reading
-     slack
-     mu4e
-     ;; (mu4e :variables
-     ;;       mu4e-installation-path "/usr/share/emacs/site-lisp")
+     ;; selectric
+     ;; scheme
+     ;; speed-reading
+     ;; mu4e
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -126,35 +124,31 @@ values."
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
-                                    solarized-theme
-                                    chinese-wbim
-                                    chinese-pyim
-                                    ;;https://github.com/abo-abo/lispy/issues/137
-                                    ;; evil-escape
-                                    ;; evil-mc
-                                    ;; org-plus-contrib
-                                    ;; skewer-mode
-                                    ;; vi-tilde-fringe
-                                    ;; ;; emmet-mode
-                                    ;; smooth-scrolling
-                                    ;; yasnippet
-                                    ;; srefactor
-                                    ;; org-download
-                                    ;; org-timer
-                                    ;; org-tree-slide
-                                    ;; ;; disable it for lispy-mode
-                                    ;; ;;At first, I should disable hydra in zilongshanren layer and install clj-refactor, after it is installed.
-                                    ;; ;; I could re-enable it again in zilongshanren layer.
-                                    ;; ;; clj-refactor
-                                    ;; ;;remove from spacemacs distribution
-                                    ;; ;; neotree
-                                    ;; leuven-theme
-                                    ;; gh-md
-                                    ;; evil-lisp-state
-                                    ;; spray
-                                    ;; doc-view
-                                    ;; lorem-ipsum
-                                    )
+                                    magit-gh-pulls magit-gitflow org-projectile evil-mc
+                                                   evil-args evil-ediff evil-exchange evil-unimpaired
+                                                   evil-indent-plus volatile-highlights smartparens
+                                                   holy-mode skewer-mode rainbow-delimiters
+                                                   highlight-indentation vi-tilde-fringe eyebrowse
+                                                   smooth-scrolling org-repo-todo org-download org-timer
+                                                   livid-mode git-gutter git-gutter-fringe  evil-escape
+                                                   leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
+                                                   ac-ispell ace-jump-mode auto-complete auto-dictionary
+                                                   clang-format define-word google-translate disaster epic
+                                                   fancy-battery org-present orgit orglue spacemacs-theme
+                                                   helm-flyspell flyspell-correct-helm clean-aindent-mode
+                                                   helm-c-yasnippet ace-jump-helm-line helm-make magithub
+                                                   helm-themes helm-swoop helm-spacemacs-help smeargle
+                                                   ido-vertical-mode flx-ido company-quickhelp counsel-projectile
+                                                   solarized-theme
+                                                   chinese-wbim
+                                                   chinese-pyim
+                                                   ;;https://github.com/abo-abo/lispy/issues/137
+                                                   clj-refactor
+                                                   window-purpose
+                                                   helm-purpose
+                                                   spacemacs-purpose-popwin
+                                                   ;; org-bullets
+                                                   )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
