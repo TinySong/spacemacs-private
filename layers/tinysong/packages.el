@@ -70,7 +70,6 @@
     multiple-cursors
     graphviz-dot-mode
     persp-mode
-    fasd
     bookmark
     which-func
     prodigy

@@ -41,8 +41,8 @@ values."
      (org :variables org-enable-github-support t)
      prodigy
      search-engine
-     (syntax-checking :variables syntax-checking-enable-by-default nil)
-     (spell-checking :variables spell-checking-enable-by-default nil)
+     (syntax-checking :variables syntax-checking-enable-by-default t)
+     (spell-checking :variables spell-checking-enable-by-default t)
      yaml
      ;; (ruby :variables ruby-version-manager 'rvm)
      (python :variables python-enable-yapf-format-on-save t
@@ -60,16 +60,16 @@ values."
      ;; restclient
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
-     dash
-     emoji
-     ;; ycmd
+     ;; dash
      ;; fasd
-     ranger
+     ;; ycmd
+     ;; TODO is here
+     emoji
+     (ranger :variables ranger-show-preview t)
      ;; racket
      gtags
      (spacemacs-layouts :variables layouts-enable-autosave t
                         layouts-autosave-delay 300)
-     ;; eyebrowse
      (colors :variables
              colors-enable-nyan-cat-progress-bar t)
      (git :variables
@@ -92,7 +92,7 @@ values."
                       :disabled-for org)
      (shell :variables
             shell-default-position 'bottom
-            shell-default-shell 'ansi-term
+            shell-default-shell 'term
             shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      (chinese :variables
