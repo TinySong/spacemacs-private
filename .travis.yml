@@ -7,7 +7,7 @@ before_install:
   - cd $HOME/.emacs.d
   - git checkout origin/develop
   - git clone https://github.com/TinySong/spacemeacs-private.git $HOME/.spacemacs.d
-
+  - chmod +x  $HOME/.spacemacs.d/test-startup.sh
   - evm config path /tmp
   - evm install $EVM_EMACS --use --skip
 
