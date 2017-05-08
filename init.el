@@ -41,7 +41,7 @@ values."
      (org :variables org-enable-github-support t)
      prodigy
      search-engine
-     (syntax-checking :variables syntax-checking-enable-by-default t)
+     (syntax-checking :variables syntax-checking-enable-by-default nil)
      (spell-checking :variables spell-checking-enable-by-default t)
      yaml
      ;; (ruby :variables ruby-version-manager 'rvm)
@@ -57,7 +57,6 @@ values."
      command-log
      html
      javascript
-     ;; restclient
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
      ;; dash
@@ -126,7 +125,7 @@ values."
                                     org-projectile
                                     evil-mc
                                     evil-args evil-ediff evil-exchange evil-unimpaired
-                                    evil-indent-plus volatile-highlights smartparens
+                                    evil-indent-plus volatile-highlights
                                     holy-mode skewer-mode rainbow-delimiters
                                     highlight-indentation vi-tilde-fringe eyebrowse
                                     smooth-scrolling org-repo-todo org-download org-timer
