@@ -361,10 +361,12 @@ any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
-  (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
-          ("org-cn"   . "https://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+  (when (spacemacs/system-is-mac)
+    (setq configuration-layer--elpa-archives
+          '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+            ("org-cn"   . "https://elpa.emacs-china.org/org/")
+            ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+    )
 
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
