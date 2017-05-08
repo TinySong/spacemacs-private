@@ -27,3 +27,13 @@
      (org-archive-subtree)
      (setq org-map-continue-from (outline-previous-heading)))
    "/CANCELLED" 'file))
+
+(defun position-to-kill-ring ()
+  "Copy to the kill ring a string in the format
+  \"file:file-name::line-number\"for the current
+  buffer's file name, and the line number at point."
+  (interactive)
+  (kill-new
+   (format "file:%s::%d"
+           (buffer-file-name) (save-restriction
+                                (widen) (line-number-at-pos)))))
