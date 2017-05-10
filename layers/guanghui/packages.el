@@ -14,7 +14,7 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq guanghui-packages
       '(
-        js2-mode
+        ;; js2-mode
         nodejs-repl
         ycmd
         discover-my-major
@@ -277,6 +277,7 @@
       '(progn
          (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
          (define-key js2-mode-map   (kbd "s-.") 'company-tern)))))
+
 
 
 

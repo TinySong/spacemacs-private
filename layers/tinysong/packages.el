@@ -38,6 +38,7 @@
   '(
     ;; (hackernews :location build-in)
     js-doc
+    js2-mode
     smartparens
     markdown-mode
     erc
@@ -786,3 +787,27 @@
       :init (lambda () (browse-url "http://localhost:8088"))
       :kill-signal 'sigkill
       :kill-process-buffer-on-stop t)))
+
+(defun tinysong/post-init-js2-mode ()
+  (progn
+    (setq company-backends-js2-mode '((company-dabbrev-code
+                                       company-keywords
+                                       company-etags) company-files company-dabbrev))
+
+    (zilongshanren|toggle-company-backends company-tern)
+
+
+    (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+      "tb" 'zilong/company-toggle-company-tern)
+
+    (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+      "ga" 'projectile-find-other-file
+      "gA" 'projectile-find-other-file-other-window)
+
+    (spacemacs/set-leader-keys-for-major-mode 'web-mode
+      "ga" 'projectile-find-other-file
+      "gA" 'projectile-find-other-file-other-window)
+    (eval-after-load 'js2-mode
+      '(progn
+         (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
+         (define-key js2-mode-map   (kbd "s-.") 'company-tern)))))
