@@ -16,9 +16,8 @@
       '(
         ;; js2-mode
         nodejs-repl
-        ycmd
-        discover-my-major
-        ace-window
+        ;; ycmd
+        ;; ace-window
         avy
         4clojure
         ;; persp-mode
@@ -104,14 +103,6 @@
 (defun guanghui/post-init-ace-window ()
   (global-set-key (kbd "C-x C-o") #'ace-window))
 
-(defun guanghui/init-discover-my-major ()
-  (use-package discover-my-major
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys (kbd "mhm") 'discover-my-major)
-
-      (evilified-state-evilify makey-key-mode makey-key-mode-get-key-map))))
 
 (defun guanghui/post-init-ycmd ()
   (progn

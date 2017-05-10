@@ -811,3 +811,10 @@
       '(progn
          (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
          (define-key js2-mode-map   (kbd "s-.") 'company-tern)))))
+
+(defun tinysong/init-discover-my-major ()
+  (use-package discover-my-major
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys (kbd "mhm") 'discover-my-major)
