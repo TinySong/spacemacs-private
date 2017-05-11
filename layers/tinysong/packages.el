@@ -817,4 +817,4 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys (kbd "mhm") 'discover-my-major)
+      (spacemacs/set-leader-keys (kbd "mhm") 'discover-my-major))))

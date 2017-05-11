@@ -15,15 +15,15 @@
 (setq guanghui-packages
       '(
         ;; js2-mode
-        nodejs-repl
+        ;; nodejs-repl
         ;; ycmd
         ;; ace-window
-        avy
-        4clojure
+        ;; avy
+        ;; 4clojure
         ;; persp-mode
-        (gulpjs :location (recipe :fetcher github :repo "zilongshanren/emacs-gulpjs"))
-        litable
-        pangu-spacing
+        ;; (gulpjs :location (recipe :fetcher github :repo "zilongshanren/emacs-gulpjs"))
+        ;; litable
+        ;; pangu-spacing
         ))
 
 (defun guanghui/post-init-command-log ()
