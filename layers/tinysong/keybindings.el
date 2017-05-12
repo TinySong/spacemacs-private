@@ -53,7 +53,7 @@
 
 (global-set-key [(shift return)] 'smart-open-line)
 
-(define-key global-map (kbd "<f1>") 'zilongshanren/hotspots)
+(define-key global-map (kbd "<f1>") 'tinysong/hotspots)
 
 ;; (global-set-key (kbd "C-.") 'company-capf)
 
@@ -89,11 +89,11 @@
 
 (bind-key* "s-r" 'tinysong/browser-refresh--chrome-applescript)
 
-(bind-key* "s-;" 'zilongshanren/insert-semicolon-at-the-end-of-this-line)
-(bind-key* "C-s-;" 'zilongshanren/delete-semicolon-at-the-end-of-this-line)
+(bind-key* "s-;" 'tinysong/insert-semicolon-at-the-end-of-this-line)
+(bind-key* "C-s-;" 'tinysong/delete-semicolon-at-the-end-of-this-line)
 
-(bind-key* "s-," 'zilongshanren/insert-comma-at-the-end-of-this-line)
-(bind-key* "C-s-," 'zilongshanren/delete-comma-at-the-end-of-this-line)
+(bind-key* "s-," 'tinysong/insert-comma-at-the-end-of-this-line)
+(bind-key* "C-s-," 'tinysong/delete-comma-at-the-end-of-this-line)
 
 (bind-key* "C-=" 'er/expand-region)
 
@@ -101,3 +101,4 @@
 (bind-key* "M--" 'tinysong/goto-match-paren)
 
 (spacemacs/set-leader-keys "ol" 'tinysong/load-my-layout)
+
