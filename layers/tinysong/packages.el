@@ -794,11 +794,11 @@
                                        company-keywords
                                        company-etags) company-files company-dabbrev))
 
-    (zilongshanren|toggle-company-backends company-tern)
+    (tinysong|toggle-company-backends company-tern)
 
 
     (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-      "tb" 'zilong/company-toggle-company-tern)
+      "tb" 'tinysong/company-toggle-company-tern)
 
     (spacemacs/set-leader-keys-for-major-mode 'js2-mode
       "ga" 'projectile-find-other-file

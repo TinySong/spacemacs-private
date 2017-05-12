@@ -617,3 +617,12 @@ With PREFIX, cd to project root."
 (defun tinysong/load-my-layout ()
   (interactive)
   (persp-load-state-from-file (concat persp-save-dir "song")))
+
+(defmacro tinysong|toggle-company-backends (backend)
+  "Push or delete the backend to company-backends"
+  (let ((funsymbol (intern (format "ts/company-toggle-%S" backend))))
+    `(defun ,funsymbol ()
+       (interactive)
+       (if (eq (car company-backends) ',backend)
+           (setq-local company-backends (delete ',backend company-backends))
+         (push ',backend company-backends)))))
