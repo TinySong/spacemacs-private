@@ -507,7 +507,8 @@
         :mode elfeed-search-mode
         :bindings
         "G" 'elfeed-update
-        "g" 'elfeed-search-update--force)
+        "g" 'elfeed-search-update--force
+        )
 
       ;;insert space before elfeed filter
       (defun elfeed-search-live-filter-space ()

@@ -35,7 +35,14 @@ values."
      github
      (version-control :variables version-control-diff-tool 'git-gutter+
                       version-control-global-margin t)
-     osx
+     ;; osx
+     (osx :variables osx-command-as       'super
+          osx-option-as        'meta
+          osx-control-as       'control
+          osx-function-as      'none
+          osx-right-command-as 'left
+          osx-right-option-as  'left
+          osx-right-control-as 'left)
      markdown
      (vinegar :variables vinegar-reuse-dired-buffer t)
      (org :variables org-enable-github-support t)
@@ -99,8 +106,7 @@ values."
               :variables chinese-enable-fcitx nil
               )
      tinysong
-     guanghui
-     erc
+     ;; erc
      latex
      ts-org
      ts-helm
