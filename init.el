@@ -65,11 +65,7 @@ values."
      html
      javascript
      emacs-lisp
-     (clojure :variables clojure-enable-fancify-symbols t)
-     ;; dash
-     ;; fasd
-     ;; ycmd
-     ;; TODO is here
+     ;; (clojure :variables clojure-enable-fancify-symbols t)
      emoji
      (ranger :variables ranger-show-preview t)
      ;; racket
