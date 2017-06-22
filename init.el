@@ -379,6 +379,14 @@ in `dotspacemacs/user-config'."
   (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   (setq evil-shift-round nil)
   (setq byte-compile-warnings '(not obsolete))
+  ;; 解决org表格里面中英文对齐的问题
+  ;; TODO:cannot create org table when tap TAB or RET
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (and window-system (spacemacs/system-is-mac))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14))
+    (when (spacemacs/system-is-linux)
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14)))
+;;;TODO https://github.com/et2010/Han
   )
 
 (defun dotspacemacs/user-config ()
@@ -393,14 +401,6 @@ layers configuration."
   (yas-global-mode 1)
   ;;  auto save by extral app edit
   (global-auto-revert-mode t)
-  ;; 解决org表格里面中英文对齐的问题
-  ;; TODO:cannot create org table when tap TAB or RET
-  (when (configuration-layer/layer-usedp 'chinese)
-    (when (and window-system (spacemacs/system-is-mac))
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14))
-    (when (spacemacs/system-is-linux)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14)))
-;;;TODO https://github.com/et2010/Han
 
   (setq-default powerline-default-separator 'contour)
 
