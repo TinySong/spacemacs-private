@@ -64,8 +64,6 @@
     swiper
     command-log
     ;; hydra
-    ;; elfeed
-    ;; elfeed-org
     osx-dictionary
     org-mac-link
     ;; (auto-rsync :location local)
@@ -73,7 +71,6 @@
     graphviz-dot-mode
     persp-mode
     bookmark
-    which-func
     prodigy
     company
     ))
@@ -466,81 +463,6 @@
 
 ;; https://github.com/skeeto/elfeed
 ;; http://nullprogram.com/blog/2013/09/04/
-(defun tinysong/init-elfeed ()
-  (use-package elfeed
-    :init
-    (global-set-key (kbd "C-x w") 'elfeed)
-    (spacemacs/set-leader-keys "of" 'elfeed)
-    :defer t
-    :config
-    (progn
-      (setq elfeed-feeds
-            '(
-              ("http://ergoemacs.org/emacs/blog.xml" ergoemacs)
-              ("http://www.infoq.com/cn/feed/wulianwang" iot)
-              ("https://martinfowler.com/feed.atom" ms)
-              ("https://www.reddit.com/r/emacs/.rss" emacs)
-              "http://blog.csdn.net/lujun9972/rss/list"
-              "http://nullprogram.com/feed/"
-              "http://z.caudate.me/rss/"
-              "http://irreal.org/blog/?feed=rss2"
-              ("http://feeds.feedburner.com/LostInTheTriangles" emacs)
-              "http://planet.emacsen.org/atom.xml"
-              ("http://feeds.feedburner.com/emacsblog" emacs)
-              ("http://blog.binchen.org/rss.xml" emacs)
-              "http://www.masteringemacs.org/feed/"
-              "http://emacsist.com/rss"
-              "http://oremacs.com/atom.xml"
-              "http://www.masteringemacs.org/feed/"
-              ("http://www.infoq.com/cn/feed/architecture-design" infoq-ad)
-              ("http://www.infoq.com/cn/feed/AI" infoq-ai)
-              ("http://www.infoq.com/cn/feed/ronqi" infoq-rongqi)
-              ("http://www.infoq.com/cn/feed/html-5/minibooks" infoq)
-              ("http://www.infoq.com/cn/feed/culture-methods" culture-method)
-              ("http://www.infoq.com/cn/feed/Kubernetes" infoq-kubernetes-cn)
-              ("https://www.infoq.com/feed/Kubernetes" infoq-kubernetes-en)
-              ("https://www.infoq.com/feed/news" infoq-news)
-              ("https://coreos.com/atom.xml" coreos)
-              ("http://blog.kubernetes.io/feeds/posts/default" blog-kubernetes)
-              ("http://www.infoq.com/cn/feed/Devops" infoq-devops)
-              ))
-
-      (evilified-state-evilify-map elfeed-search-mode-map
-        :mode elfeed-search-mode
-        :bindings
-        "G" 'elfeed-update
-        "g" 'elfeed-search-update--force
-        )
-
-      ;;insert space before elfeed filter
-      (defun elfeed-search-live-filter-space ()
-        "Insert space when running elfeed filter"
-        (interactive)
-        (let ((elfeed-search-filter (concat elfeed-search-filter " ")))
-          (elfeed-search-live-filter)))
-
-
-      (defun elfeed-mark-all-as-read ()
-        (interactive)
-        (mark-whole-buffer)
-        (elfeed-search-untag-all-unread))
-
-      (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
-      (define-key elfeed-search-mode-map (kbd "s") 'elfeed-search-live-filter-space)
-
-      (defadvice elfeed-show-yank (after elfeed-show-yank-to-kill-ring activate compile)
-        "Insert the yanked text from x-selection to kill ring"
-        (kill-new (x-get-selection)))
-
-      (ad-activate 'elfeed-show-yank))))
-
-(defun tinysong/init-elfeed-org ()
-  (use-package elfeed-org
-    :ensure t
-    :config
-    (setq rmh-elfeed-org-files (list "~/org-notes/elfeed.org"))
-    ))
-
 
 (defun tinysong/post-init-osx-dictionary ()
   (use-package osx-dictionary

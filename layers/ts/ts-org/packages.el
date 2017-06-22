@@ -40,6 +40,7 @@
     org-pomodoro
     org-caldav
     org-mac-iCal
+    org-jira
     ))
 
 (defun ts-org/post-init-org ()
@@ -487,3 +488,12 @@
     (progn
       (setq org-agenda-include-diary t)))
   )
+
+
+
+(defun ts-org/init-org-jira ()
+  (use-package org-jira
+    :init
+    (setq jiralib-url "http://jira.tenxcloud.com")
+    :config
+    ))
