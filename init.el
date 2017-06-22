@@ -117,6 +117,7 @@ values."
      ;; scheme
      ;; speed-reading
      ;; mu4e
+     (elfeed :variables rmh-elfeed-org-files (list "~/org-notes/elfeed.org"))
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -222,7 +223,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -396,9 +397,9 @@ layers configuration."
   ;; TODO:cannot create org table when tap TAB or RET
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and window-system (spacemacs/system-is-mac))
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14))
     (when (spacemacs/system-is-linux)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14)))
 ;;;TODO https://github.com/et2010/Han
 
   (setq-default powerline-default-separator 'contour)
@@ -485,6 +486,7 @@ layers configuration."
   ;; add exec path
   (add-to-list 'exec-path "~/development/golang/bin/")
 
+  (setq confluence-url "http://wiki.tenxcloud.com/confluence/rpc/xmlrpc")
   ;; slack
   ;; -----------------user config end---------------------------
   )
