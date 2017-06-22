@@ -102,4 +102,4 @@
 
 (spacemacs/set-leader-keys "ol" 'tinysong/load-my-layout)
 
-(bind-key* "s-RET" 'goto-address-at-point)
+(global-set-key (kbd "s-<return>") 'goto-address-at-point)
