@@ -57,14 +57,15 @@
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
     nodejs-repl
+    (nodejs-repl-eval :location local)
     wrap-region
     youdao-dictionary
     deft
     swiper
     command-log
     ;; hydra
-    elfeed
-    elfeed-org
+    ;; elfeed
+    ;; elfeed-org
     osx-dictionary
     org-mac-link
     ;; (auto-rsync :location local)
@@ -74,6 +75,7 @@
     bookmark
     which-func
     prodigy
+    company
     ))
 
 
@@ -819,3 +821,27 @@
     :init
     (progn
       (spacemacs/set-leader-keys (kbd "mhm") 'discover-my-major))))
+
+;; https://atlanis.net/blog/posts/nodejs-repl-eval.html
+(defun tinysong/init-nodejs-repl-eval ()
+  (use-package nodejs-repl-eval
+    :commands (nodejs-repl-eval-buffer nodejs-repl-eval-dwim nodejs-repl-eval-function)
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'js2-mode
+        "ms" "REPL")
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "sb" 'nodejs-repl-eval-buffer
+        "sf" 'nodejs-repl-eval-function
+        "sd" 'nodejs-repl-eval-dwim))
+    :defer t
+    ))
+
+(defun tinysong/post-init-company ()
+  (progn
+    (setq company-minimum-prefix-length 1
+          company-idle-delay 0.08)
+
+    (when (configuration-layer/package-usedp 'company)
+      (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode lua-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
+    ))
