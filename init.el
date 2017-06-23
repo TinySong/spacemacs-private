@@ -118,6 +118,7 @@ values."
      ;; speed-reading
      ;; mu4e
      (elfeed :variables rmh-elfeed-org-files (list "~/org-notes/elfeed.org"))
+     (typescript :packages (not eldoc))
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -326,7 +327,8 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers '(:relative t  :size-limit-kb 1000)
+
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    ;; dotspacemacs-smartparens-strict-mode nil
