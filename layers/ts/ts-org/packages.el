@@ -72,6 +72,11 @@
       (setq org-agenda-window-setup 'current-window)
       (setq org-log-done t)
 
+      ;; ;FIX: ~t~ keybindings evil-find-char-to
+      ;; https://www.mail-archive.com/emacs-orgmode@gnu.org/msg112173.html
+      (evil-define-key 'normal evil-org-mode-map
+        (kbd "t") 'org-todo)
+
       ;; 加密文章
       ;; "http://coldnew.github.io/blog/2013/07/13_5b094.html"
       ;; https://www.emacswiki.org/emacs/EasyPG#toc5
