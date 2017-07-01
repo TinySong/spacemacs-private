@@ -500,5 +500,5 @@
   (use-package org-jira
     :init
     (setq jiralib-url "http://jira.tenxcloud.com")
-    :config
+    :config (spacemacs|diminish org-jira-mode " Ⓙ" "jr")
     ))

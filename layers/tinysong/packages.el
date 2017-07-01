@@ -73,6 +73,7 @@
     bookmark
     prodigy
     company
+    which-func
     ))
 
 

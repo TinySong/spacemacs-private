@@ -118,7 +118,7 @@ values."
      ;; speed-reading
      ;; mu4e
      (elfeed :variables rmh-elfeed-org-files (list "~/org-notes/elfeed.org"))
-     (typescript :packages (not eldoc))
+     ;; (typescript :packages (not eldoc))
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -212,7 +212,6 @@ values."
                          monokai
                          ;; spacemacs-dark
                          ;; solarized-light
-                         ;; leuven
                          ;; sanityinc-tomorrow-day
                          ;; sanityinc-tomorrow-eighties
                          ;; spacemacs-light
@@ -383,12 +382,12 @@ in `dotspacemacs/user-config'."
   (setq byte-compile-warnings '(not obsolete))
   ;; 解决org表格里面中英文对齐的问题
   ;; TODO:cannot create org table when tap TAB or RET
+;;;TODO https://github.com/et2010/Han
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and window-system (spacemacs/system-is-mac))
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14)))
-;;;TODO https://github.com/et2010/Han
   )
 
 (defun dotspacemacs/user-config ()
