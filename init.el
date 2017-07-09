@@ -113,7 +113,7 @@ values."
      graphviz
      yaml
      confluence
-     ;; ts-tools
+     ts-tools
      ;; selectric
      ;; scheme
      ;; speed-reading
