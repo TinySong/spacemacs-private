@@ -36,6 +36,8 @@
     elfeed-goodies
     elfeed-org
     elfeed-web
+    bug-hunter
+    calfw
     )
   "The list of Lisp packages required by the ts-tools layer.
 
@@ -237,3 +239,30 @@ Each entry is either:
             (require 'elfeed)
             (elfeed-web-start))))
 
+
+(defun ts-tools/init-bug-hunter ()
+  (use-package bug-hunter
+    :ensure t
+    :commands (bug-hunter-file bug-hunter-init-file))
+  )
+
+
+(defun ts-tools/init-calfw ()
+  ;; Calfw program displays a calendar view in the Emacs buffer.
+  (use-package calfw
+    :commands cfw:open-org-calendar
+    :defer 0.5
+    :ensure t
+    :config
+    (progn
+      (use-package calfw-org)
+      ;; Unicode characters
+      (setq cfw:fchar-junction ?╋
+            cfw:fchar-vertical-line ?┃
+            cfw:fchar-horizontal-line ?━
+            cfw:fchar-left-junction ?┣
+            cfw:fchar-right-junction ?┫
+            cfw:fchar-top-junction ?┯
+            cfw:fchar-top-left-corner ?┏
+            cfw:fchar-top-right-corner ?┓)))
+  )

@@ -55,3 +55,8 @@
   (interactive)
   (elfeed-db-save)
   (quit-window))
+
+(defun tinysong/elfeed-mark-all-as-read ()
+  (interactive)
+  (mark-whole-buffer)
+  (elfeed-search-untag-all-unread))
