@@ -224,3 +224,10 @@ Single Capitals as you type."
                                             ;; emacs regex
                                             ("8d" "\\([0-9]+?\\)")
                                             ("8str" "\\([^\"]+?\\)\"")))
+
+
+(defvar rsync-remote-host "root@192.168.0.227"
+  "remote host name.")
+
+(defvar rsync-remote-path "/root/tenxcloud/"
+  "remote path.")

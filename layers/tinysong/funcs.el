@@ -626,7 +626,34 @@ With PREFIX, cd to project root."
            (setq-local company-backends (delete ',backend company-backends))
          (push ',backend company-backends)))))
 
-(defun tinysong/elfeed-mark-all-as-read ()
+
+
+(defun tinysong/dired-rsync ()
   (interactive)
-  (mark-whole-buffer)
-  (elfeed-search-untag-all-unread))
+  ;; offer dwim target as the suggestion
+  (setq cadicate-list (list (expand-file-name (read-file-name "Rsync to:" (projectile-project-root) "*"))))
+  ;; store all selected files into "files" list
+  (setq tmtxt/rsync-command "rsync -arvz --delete --progress ")
+  (if (string-equal (substring (car cadicate-list) -1) "*")
+      (progn (setq tmtxt/rsync-command
+                   (concat tmtxt/rsync-command
+                           (car cadicate-list) " " rsync-remote-host ":" rsync-remote-path))
+             ;; run the async shell command
+             (async-shell-command tmtxt/rsync-command "*rsync*")
+             (other-window 1)
+             )
+    ;; rsync all file to destinations
+    ;; add all selected file names as arguments to the rsync command
+    (dolist (file cadicate-list)
+      (setq tmtxt/rsync-command
+            (concat tmtxt/rsync-command
+                    (shell-quote-argument file)
+                    " "))
+      ;; append the destination
+      (setq tmtxt/rsync-command
+            (concat tmtxt/rsync-command " " rsync-remote-host ":" rsync-remote-path))
+      ;; run the async shell command
+      (async-shell-command tmtxt/rsync-command "*rsync*")
+      ;; finally, switch to that window
+      (other-window 1)
+      )))

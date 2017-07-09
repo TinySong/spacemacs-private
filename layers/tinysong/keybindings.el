@@ -103,3 +103,5 @@
 (spacemacs/set-leader-keys "ol" 'tinysong/load-my-layout)
 
 (global-set-key (kbd "s-<return>") 'goto-address-at-point)
+
+(spacemacs/set-leader-keys "or" 'tinysong/dired-rsync)
