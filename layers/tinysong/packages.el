@@ -66,7 +66,6 @@
     ;; hydra
     osx-dictionary
     org-mac-link
-    ;; (auto-rsync :location local)
     multiple-cursors
     graphviz-dot-mode
     persp-mode
