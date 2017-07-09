@@ -28,7 +28,7 @@
      (setq org-map-continue-from (outline-previous-heading)))
    "/CANCELLED" 'file))
 
-(defun position-to-kill-ring ()
+(defun ts-org/position-to-kill-ring ()
   "Copy to the kill ring a string in the format
   \"file:file-name::line-number\"for the current
   buffer's file name, and the line number at point."

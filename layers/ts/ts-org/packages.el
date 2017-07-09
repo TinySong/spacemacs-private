@@ -40,7 +40,7 @@
     org-pomodoro
     org-caldav
     org-mac-iCal
-    org-jira
+    ;; org-jira  ;;TODO  don't know emacs how to read /etc/hosts info when access internet
     ))
 
 (defun ts-org/post-init-org ()
@@ -310,6 +310,9 @@
               ("l" "links" entry (file+headline org-default-notes-file "Quick notes")
                "* TODO [#C] %?\n  %i\n %a \n %U"
                :empty-lines 1)
+              ("L" "CodeLine" entry (file+headline org-agenda-file-gtd "CodeTask")
+               "* TODO [#B] %?\n  %(ts-org/position-to-kill-ring)\n %a \n %U"
+               :empty-lines 1)
               ("j" "Journal Entry"
                entry (file+datetree org-agenda-file-journal)
                "* %?"
@@ -468,9 +471,9 @@
       ;; (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
       ;; (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "☕🐝 Ready to Go?" t)))
       ;; (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" "☕💪 Ready to Go?" t)))
-      (add-hook 'org-pomodoro-finished-hook '(lambda () (zilongshanren/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
-      (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (zilongshanren/growl-notification "Short Break" "🐝 Ready to Go?" t)))
-      (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (zilongshanren/growl-notification "Long Break" " 💪 Ready to Go?" t)))
+      (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
+      (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "🐝 Ready to Go?" t)))
+      (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" " 💪 Ready to Go?" t)))
       )))
 
 (defun ts-org/init-org-caldav ()
@@ -501,4 +504,27 @@
     :init
     (setq jiralib-url "http://jira.tenxcloud.com")
     :config (spacemacs|diminish org-jira-mode " Ⓙ" "jr")
+    ;; TODO test domain code inflowing
+    ;; (let ((domain "jira.tenxcloud.com"))
+    ;;   (switch-to-buffer-other-window "*temp*")
+    ;;   (erase-buffer)
+    ;;   (setq www (format "www.%s" domain))
+    ;;   (setq ip "")
+    ;;   (setq mx "")
+    ;;   ;; (setq ret-val (call-process "ping" nil t nil domain "-n" "1"))
+    ;;   (setq ret-val (call-process-shell-command "ping" nil t nil domain "-n" "1"))
+    ;;   (if (equal ret-val 0)
+    ;;       (progn
+    ;;         (goto-char 1)
+    ;;         (setq ip (buffer-substring-no-properties
+    ;;                   (search-forward "[") (- (search-forward "]") 1)))))
+    ;;   (erase-buffer)
+    ;;   (call-process-shell-command "nslookup" nil t nil "-type=MX" domain)
+    ;;   (goto-char 1)
+    ;;   (if (search-forward "mail exchanger = " nil t)
+    ;;       (progn
+    ;;         (setq mx (thing-at-point 'filename))))
+    ;;   (other-window 1)
+    ;;   (print (concat "\t" ip "\t" mx)))
+    ;; (url-gateway-nslookup-host "jira.tenxcloud.com")
     ))

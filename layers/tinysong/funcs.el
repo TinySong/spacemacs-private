@@ -403,8 +403,7 @@ With PREFIX, cd to project root."
   (interactive)
   (do-applescript
    (format
-    "
-  tell application \"Google Chrome\"
+    "tell application \"Google Chrome\"
     set winref to a reference to (first window whose title does not start with \"Developer Tools - \")
     set winref's index to 1
     reload active tab of winref
@@ -626,3 +625,8 @@ With PREFIX, cd to project root."
        (if (eq (car company-backends) ',backend)
            (setq-local company-backends (delete ',backend company-backends))
          (push ',backend company-backends)))))
+
+(defun tinysong/elfeed-mark-all-as-read ()
+  (interactive)
+  (mark-whole-buffer)
+  (elfeed-search-untag-all-unread))

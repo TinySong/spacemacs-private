@@ -113,12 +113,11 @@ values."
      graphviz
      yaml
      confluence
+     ;; ts-tools
      ;; selectric
      ;; scheme
      ;; speed-reading
      ;; mu4e
-     (elfeed :variables rmh-elfeed-org-files (list "~/org-notes/elfeed.org"))
-     ;; (typescript :packages (not eldoc))
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -396,7 +395,11 @@ in `dotspacemacs/user-config'."
 layers configuration."
   (xterm-mouse-mode -1)
   (global-hl-line-mode t)
-  ;; (selectric-mode 1)
+  ;; replace yes/no questions with y/n
+  (fset 'yes-or-no-p 'y-or-n-p)
+  ;; show the empty lines at the end (bottom) of the buffer
+  (toggle-indicate-empty-lines)
+  
   ;; (hide-ifdef-mode t)
   (delete-selection-mode t)
   (yas-global-mode 1)
