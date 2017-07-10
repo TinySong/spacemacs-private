@@ -60,7 +60,6 @@ values."
          gofmt-command "goimports"
          go-use-gometalinter t
          go-use-gocheck-for-testing t)
-     c-c++
      command-log
      html
      javascript
@@ -85,6 +84,8 @@ values."
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-support t
+            c-c++-enable-clang-format-on-save t
             c-c++-default-mode-for-headers 'c-mode)
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       auto-completion-enable-help-tooltip t
@@ -491,7 +492,13 @@ layers configuration."
   (add-to-list 'exec-path "~/development/golang/bin/")
 
   (setq confluence-url "http://wiki.tenxcloud.com/confluence/rpc/xmlrpc")
-  ;; slack
+
+  ;; Bind clang-format-region to C-M-tab in all modes:
+  (global-set-key [C-M-tab] 'clang-format-region)
+  ;; Bind clang-format-buffer to tab on the c++-mode only:
+  (add-hook 'c++-mode-hook 'clang-format-bindings
+            (defun clang-format-bindings ()
+              (define-key c++-mode-map [tab] 'clang-format-buffer)))
   ;; -----------------user config end---------------------------
   )
 
