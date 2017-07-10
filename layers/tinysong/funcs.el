@@ -631,9 +631,12 @@ With PREFIX, cd to project root."
 (defun tinysong/dired-rsync ()
   (interactive)
   ;; offer dwim target as the suggestion
-  (setq cadicate-list (list (expand-file-name (read-file-name "Rsync to:" (projectile-project-root) "*"))))
-  (let ((rsync-remote-host (read-string "Enter Host:" rsync-remote-host))))
-  (let ((rsync-remote-path (read-string "Enter Path:" rsync-remote-path))))
+  (if (projectile-project-p)
+      (setq cadicate-list (list (expand-file-name (read-file-name "Rsync from:" (projectile-project-root) "*"))))
+    (setq cadicate-list (list (expand-file-name (read-file-name "Rsync from:"))))
+    )
+  (setq rsync-remote-host (read-string "Enter Host:" rsync-remote-host))
+  (setq rsync-remote-path (read-string "Enter Path:" rsync-remote-path))
   ;; store all selected files into "files" list
   (setq tmtxt/rsync-command "rsync -arvz --delete --progress ")
   (if (string-equal (substring (car cadicate-list) -1) "*")
