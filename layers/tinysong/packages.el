@@ -37,17 +37,13 @@
   ;; (setq tinysong-packages
   '(
     ;; (hackernews :location build-in)
-    js-doc
+    ;; hl-anything
     js2-mode
-    smartparens
     markdown-mode
-    erc
     evil
-    ;; document create
     (doxymacs :location local)
     evil-vimish-fold
     beacon
-    hl-anything
     keyfreq
     ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
@@ -82,34 +78,32 @@
 
 ;; package init
 
-(defun tinysong/post-init-js-doc ()
-  (setq js-doc-mail-address "TinySong1226@gmail.com"
-        js-doc-author (format "RongXiang Song <%s>" js-doc-mail-address)
-        js-doc-url "http://www.tinysong.com"
-        js-doc-license "MIT"))
+;; (defun tinysong/post-init-js-doc ()
+;;   (setq js-doc-mail-address "TinySong1226@gmail.com"
+;;         js-doc-author (format "RongXiang Song <%s>" js-doc-mail-address)
+;;         js-doc-url "http://www.tinysong.com"
+;;         js-doc-license "MIT"))
 
 
-;; https://ebzzry.github.io/emacs-pairs.html
-(defun tinysong/post-init-smartparens ()
-  (progn
-    (defun wrap-sexp-with-new-round-parens ()
-      (interactive)
-      (insert "()")
-      (backward-char)
-      (sp-forward-slurp-sexp))
+;; ;; https://ebzzry.github.io/emacs-pairs.html
+;; (defun tinysong/post-init-smartparens ()
+;;   (progn
+;;     (defun wrap-sexp-with-new-round-parens ()
+;;       (interactive)
+;;       (insert "()")
+;;       (backward-char)
+;;       (sp-forward-slurp-sexp))
 
-    (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
-    (with-eval-after-load 'smartparens
-      (evil-define-key 'normal sp-keymap
-        (kbd ")>") 'sp-forward-slurp-sexp
-        (kbd ")<") 'sp-forward-barf-sexp
-        (kbd "(>") 'sp-backward-barf-sexp
-        (kbd "(<") 'sp-backward-slurp-sexp))
+;;     (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
+;;     (with-eval-after-load 'smartparens
+;;       (evil-define-key 'normal sp-keymap
+;;         (kbd ")>") 'sp-forward-slurp-sexp
+;;         (kbd ")<") 'sp-forward-barf-sexp
+;;         (kbd "(>") 'sp-backward-barf-sexp
+;;         (kbd "(<") 'sp-backward-slurp-sexp))
 
-    ))
-
+;;     ))
 (setq-default tab-width 4)
-
 
 ;; https://www.emacswiki.org/emacs/ERC
 ;; TODO: erc linux notation
@@ -126,21 +120,31 @@
 ;;     ;; call the system notifier here
 ;;     ))
 
-(defun tinysong/post-init-erc ()
-  (progn
-    (defun my-erc-hook (match-type nick message)
-      "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
-      (unless (posix-string-match "^\\** *Users on #" message)
-        (tinysong/growl-notification
-         (concat "ERC: : " (buffer-name (current-buffer)))
-         message
-         t
-         )))
-    (message "notation")
-    (add-hook 'erc-text-matched-hook 'my-erc-hook)
-    ;; (spaceline-toggle-erc-track-off)
-    ))
+;; (defun tinysong/post-init-erc ()
+;;   (progn
+;;     (defun my-erc-hook (match-type nick message)
+;;       "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
+;;       (unless (posix-string-match "^\\** *Users on #" message)
+;;         (tinysong/growl-notification
+;;          (concat "ERC: : " (buffer-name (current-buffer)))
+;;          message
+;;          t
+;;          )))
+;;     (message "notation")
+;;     (add-hook 'erc-text-matched-hook 'my-erc-hook)
+;;     ;; (spaceline-toggle-erc-track-off)
+;;     ))
 
+;; (defun tinysong/post-init-hl-anything ()
+;;   "Highlight Symbols, Selections, Enclosing Parens and More."
+;;   (progn
+;;     (hl-highlight-mode -1)
+;;     (spacemacs|add-toggle toggle-hl-anything
+;;       :status hl-highlight-mode
+;;       :on (hl-highlight-mode)
+;;       :off (hl-highlight-mode -1)
+;;       :documentation "Toggle highlight anything mode."
+;;       :evil-leader "ths")))
 
 ;; https://www.ibm.com/developerworks/cn/aix/library/au-learningdoxygen/
 ;; http://emacser.com/doxymacs.htm
@@ -158,7 +162,7 @@
       (spacemacs|hide-lighter doxymacs-mode))))
 
 
-;; fold functions
+;; func fold functions
 (defun tinysong/init-evil-vimish-fold ()
   (use-package evil-vimish-fold
     :init
@@ -175,9 +179,6 @@
         :off (beacon-mode -1)
         :documentation "Enable point highlighting after scrolling"
         :evil-leader "otb")
-      ;; (setq beacon-push-mark 60)
-      ;; (setq beacon-color "#666600")
-      ;; (setq beacon-color "#990099")
       (spacemacs/toggle-beacon-on))
     :config (spacemacs|hide-lighter beacon-mode)
     (setq beacon-size 80)
@@ -185,16 +186,6 @@
     (setq beacon-color "#FF9900")
     ))
 
-
-(defun tinysong/post-init-hl-anything ()
-  (progn
-    (hl-highlight-mode -1)
-    (spacemacs|add-toggle toggle-hl-anything
-      :status hl-highlight-mode
-      :on (hl-highlight-mode)
-      :off (hl-highlight-mode -1)
-      :documentation "Toggle highlight anything mode."
-      :evil-leader "ths")))
 
 ;; https://github.com/benma/visual-regexp.el
 (defun tinysong/init-visual-regexp ()
@@ -206,9 +197,9 @@
     :init
     (progn
       (define-key global-map (kbd "C-c r") 'vr/replace)
-      (define-key global-map (kbd "C-c q") 'vr/query-replace))
+      (define-key global-map (kbd "C-c q") 'vr/query-replace)
+      (define-key global-map (kbd "C-c m") 'vr/mc-mark))
     ))
-
 
 
 (defun tinysong/init-keyfreq ()
