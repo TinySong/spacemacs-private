@@ -501,6 +501,9 @@ layers configuration."
   (add-hook 'c++-mode-hook 'clang-format-bindings
             (defun clang-format-bindings ()
               (define-key c++-mode-map [tab] 'clang-format-buffer)))
+
+  ;; fix helm-projectile-find-file is slow, becasuse zsh plugin, see:  https://github.com/syl20bnr/spacemacs/issues/4207
+  (setq shell-file-name "/bin/bash")
   ;; -----------------user config end---------------------------
   )
 

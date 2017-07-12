@@ -3,14 +3,13 @@
   (interactive)
   (if (ts-project/project-root)
       (counsel-git)
+    (find-file-in-project)
     ))
 
 (defun ts-project/project-root ()
   "Return the project root for current buffer."
   (let ((directory default-directory))
-    (or (locate-dominating-file directory ".git")
-        (locate-dominating-file directory ".svn")
-        (locate-dominating-file directory ".hg"))))
+    (or (locate-dominating-file directory ".git"))))
 
 (defun ts-project/skip-non-stuck-projects ()
   "Skip trees that are not stuck projects"
