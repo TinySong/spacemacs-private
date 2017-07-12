@@ -40,7 +40,7 @@
     ;; hl-anything
     js2-mode
     markdown-mode
-    evil
+    ;; evil
     (doxymacs :location local)
     evil-vimish-fold
     beacon
@@ -48,7 +48,7 @@
     ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
     visual-regexp-steroids
-    flycheck
+    ;; flycheck
     ;; post extension names go here
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
@@ -558,7 +558,7 @@
     ;; (evil-move-cursor-back nil)
     (push "TAGS" spacemacs-useless-buffers-regexp)
 
-    ;; ;; change evil initial mode state
+    ;; change evil initial mode state
     (loop for (mode . state) in
           '((shell-mode . normal))
           do (evil-set-initial-state mode state))
@@ -582,15 +582,14 @@
     (define-key evil-normal-state-map (kbd "[ SPC") (lambda () (interactive) (evil-insert-newline-above) (forward-line)))
     (define-key evil-normal-state-map (kbd "] SPC") (lambda () (interactive) (evil-insert-newline-below) (forward-line -1)))
 
-
-    (define-key evil-normal-state-map (kbd "[ b") 'spacemacs/previous-useful-buffer)
-    (define-key evil-normal-state-map (kbd "] b") 'spacemacs/next-useful-buffer)
+    ;; (define-key evil-normal-state-map (kbd "[ b") 'spacemacs/previous-useful-buffer)
+    ;; (define-key evil-normal-state-map (kbd "] b") 'spacemacs/next-useful-buffer)
 
     ;; (define-key evil-insert-state-map "\C-e" 'end-of-line)
     ;; (define-key evil-insert-state-map "\C-n" 'next-line)
     ;; (define-key evil-insert-state-map "\C-k" 'kill-line)
-    (define-key evil-emacs-state-map (kbd "s-f") 'forward-word)
-    (define-key evil-insert-state-map (kbd "s-f") 'forward-word)
+    (define-key evil-emacs-state-map (kbd "\s-f") 'forward-word)
+    (define-key evil-insert-state-map (kbd "C-f") 'forward-word)
     (define-key evil-emacs-state-map (kbd "s-b") 'backward-word)
     (define-key evil-insert-state-map (kbd "s-b") 'backward-word)
 

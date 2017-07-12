@@ -118,9 +118,9 @@
       ;; OR if I'm reading my personal issue track document,
       )))
 
-(defun ts-project/post-init-ivy ()
-  (use-package ivy
-    :init
-    :config
-    (progn
-      (bind-key* "s-p" 'counsel-git))))
+;; (defun ts-project/post-init-ivy ()
+;;   (use-package ivy
+;;     :init
+;;     :config
+;;     (progn
+;;       (bind-key* "s-p" 'counsel-git))))
