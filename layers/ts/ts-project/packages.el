@@ -74,6 +74,7 @@
       (setq projectile-file-exists-remote-cache-expire (* 1 20))
       (add-to-list 'projectile-other-file-alist '("html" "js")) ;; switch from html -> js
       (add-to-list 'projectile-other-file-alist '("js" "html")) ;; switch from js -> html
+      (bind-key* "s-p" 'ts-project/open-file-with-projectile-or-lsgit)
       )))
 
 (defun ts-project/init-cmake-font-lock ()
