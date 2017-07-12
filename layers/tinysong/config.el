@@ -231,3 +231,7 @@ Single Capitals as you type."
 
 (defvar rsync-remote-path "/root/tenxcloud/"
   "remote path.")
+
+(with-eval-after-load 'flycheck
+  (setq flycheck-display-errors-delay 0.1)
+  )
