@@ -302,21 +302,9 @@
 (defun tinysong/post-init-persp-mode ()
   (when (fboundp 'spacemacs|define-custom-layout)
     (progn
-      ;; (spacemacs|define-custom-layout "@Kernel"
-      ;;   :binding "k"
-      ;;   :body
-      ;;   ;; (split-window-right)
-      ;;   (find-file "~/development/kernel-2.6.11.12/Makefile"))
-      ;; (spacemacs|define-custom-layout "@Docker"
-      ;;   :binding "d"
-      ;;   :body
-      ;;   ;; (split-window-right)
-      ;;   (find-file "~/development/golang/src/github.com/docker/docker/cmd/dockerd/daemon.go"))
-      ;; )
       (spacemacs|define-custom-layout "@terminal"
         :binding "d"
         :body
-        ;; (split-window-right)
         (terminal))
       )
     ))
