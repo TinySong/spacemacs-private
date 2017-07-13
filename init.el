@@ -113,7 +113,6 @@ values."
      docker
      graphviz
      yaml
-     confluence
      ts-tools
      kubernetes
      ;; selectric
