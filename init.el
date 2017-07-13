@@ -115,6 +115,7 @@ values."
      yaml
      confluence
      ts-tools
+     kubernetes
      ;; selectric
      ;; scheme
      ;; speed-reading
