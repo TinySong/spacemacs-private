@@ -48,7 +48,6 @@
     ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
     visual-regexp-steroids
-    ;; flycheck
     ;; post extension names go here
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
@@ -56,7 +55,7 @@
     (nodejs-repl-eval :location local)
     wrap-region
     youdao-dictionary
-    deft
+    ;; deft
     swiper
     command-log
     ;; hydra
@@ -284,7 +283,7 @@
        '(("$" "$")
          ("{-" "-}" "#")
          ("/" "/" nil ruby-mode)
-         ("/* " " */" "#" (java-mode javascript-mode css-mode js2-mode))
+         ("/* " " */" "#" (go-mode javascript-mode css-mode js2-mode))
          ("`" "`" nil (markdown-mode ruby-mode))))
       (add-to-list 'wrap-region-except-modes 'dired-mode)
       (add-to-list 'wrap-region-except-modes 'web-mode)
@@ -329,7 +328,6 @@
   (progn
     (setq deft-use-filter-string-for-filename t)
     (spacemacs/set-leader-keys-for-major-mode 'deft-mode "q" 'quit-window)
-    (setq deft-extension "org")
     (setq deft-directory "~/org-notes")))
 
 (defun tinysong/post-init-markdown-mode ()

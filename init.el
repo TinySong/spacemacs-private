@@ -115,6 +115,7 @@ values."
      yaml
      ts-tools
      kubernetes
+     deft
      ;; selectric
      ;; scheme
      ;; speed-reading
