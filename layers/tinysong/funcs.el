@@ -662,3 +662,7 @@ With PREFIX, cd to project root."
       ;; finally, switch to that window
       (other-window 1)
       )))
+
+(defun kill-terminal-buffer ()
+  (define-key shell-mode-map (kbd ", q") 'kill-buffer-and-window))
+(add-hook 'shell-mode-hook 'kill-terminal-buffer)
