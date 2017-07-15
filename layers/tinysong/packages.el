@@ -69,6 +69,7 @@
     company
     which-func
     header2
+    evil-multiedit
     ))
 
 
@@ -208,17 +209,6 @@
     (progn
       (keyfreq-mode t)
       (keyfreq-autosave-mode 1))))
-
-(defun tinysong/post-init-flycheck ()
-  (with-eval-after-load 'flycheck
-    (progn
-      ;; (setq flycheck-display-errors-function 'flycheck-display-error-messages)
-      (setq flycheck-display-errors-delay 0.1)
-      ;; (remove-hook 'c-mode-hook 'flycheck-mode)
-      ;; (remove-hook 'c++-mode-hook 'flycheck-mode)
-      ;; (evilify flycheck-error-list-mode flycheck-error-list-mode-map)
-      )))
-
 
 
 (defun tinysong/init-nodejs-repl ()
@@ -516,25 +506,33 @@
             sp-delete-char
             sp-remove-active-pair-overlay))
     (progn
-      (spacemacs/declare-prefix "om" "mc")
-      (spacemacs/set-leader-keys "oml" 'mc/edit-lines)
-      (spacemacs/set-leader-keys "omb" 'mc/edit-beginnings-of-lines)
-      (spacemacs/set-leader-keys "ome" 'mc/edit-ends-of-lines)
+      ;; (spacemacs/declare-prefix "om" "mc")
+      (spacemacs/set-leader-keys "dl" 'mc/edit-lines)
+      (spacemacs/set-leader-keys "db" 'mc/edit-beginnings-of-lines)
+      (spacemacs/set-leader-keys "de" 'mc/edit-ends-of-lines)
 
-      (spacemacs/set-leader-keys "oma" 'mc/mark-all-like-this)
-      (spacemacs/set-leader-keys "omA" 'mc/mark-all-dwim)
+      (spacemacs/set-leader-keys "da" 'mc/mark-all-like-this)
+      (spacemacs/set-leader-keys "dA" 'mc/mark-all-dwim)
 
-      (spacemacs/set-leader-keys "omj" 'mc/mark-next-like-this)
-      (spacemacs/set-leader-keys "omJ" 'mc/unmark-next-like-this)
-      (spacemacs/set-leader-keys "omk" 'mc/mark-previous-like-this)
-      (spacemacs/set-leader-keys "omK" 'mc/unmark-previous-like-this)
+      (spacemacs/set-leader-keys "dj" 'mc/mark-next-like-this)
+      (spacemacs/set-leader-keys "dJ" 'mc/unmark-next-like-this)
+      (spacemacs/set-leader-keys "dk" 'mc/mark-previous-like-this)
+      (spacemacs/set-leader-keys "dK" 'mc/unmark-previous-like-this)
 
-      (spacemacs/set-leader-keys "omi" 'mc/insert-numbers)
-      (spacemacs/set-leader-keys "omh" 'mc-hide-unmatched-lines-mode)
-      (spacemacs/set-leader-keys "omd" 'mc/mark-all-symbols-like-this-in-defun)
-      (spacemacs/set-leader-keys "omr" 'mc/reverse-regions)
-      (spacemacs/set-leader-keys "oms" 'mc/sort-regions)
-
+      (spacemacs/set-leader-keys "di" 'mc/insert-numbers)
+      (spacemacs/set-leader-keys "dh" 'mc-hide-unmatched-lines-mode)
+      (spacemacs/set-leader-keys "dd" 'mc/mark-all-symbols-like-this-in-defun)
+      (spacemacs/set-leader-keys "dr" 'mc/reverse-regions)
+      (spacemacs/set-leader-keys "ds" 'mc/sort-regions)
+      (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+      (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+      (global-set-key (kbd "C-+") 'mc/mark-next-like-this)
+      (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+      ;; From active region to multiple cursors:
+      ;; (global-set-key (kbd "C-c c r") 'set-rectangular-region-anchor)
+      ;; (global-set-key (kbd "C-c c c") 'mc/edit-lines)
+      ;; (global-set-key (kbd "C-c c e") 'mc/edit-ends-of-lines)
+      ;; (global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
       (global-unset-key (kbd "M-<down-mouse-1>"))
       (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click))
     ))
@@ -565,18 +563,12 @@
       (kbd "Y") 'tinysong/yank-to-end-of-line)
 
     ;; rebind g,k to gj and gk
-    (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-    (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-
     (define-key evil-normal-state-map (kbd "[ SPC") (lambda () (interactive) (evil-insert-newline-above) (forward-line)))
     (define-key evil-normal-state-map (kbd "] SPC") (lambda () (interactive) (evil-insert-newline-below) (forward-line -1)))
 
     ;; (define-key evil-normal-state-map (kbd "[ b") 'spacemacs/previous-useful-buffer)
     ;; (define-key evil-normal-state-map (kbd "] b") 'spacemacs/next-useful-buffer)
-
-    ;; (define-key evil-insert-state-map "\C-e" 'end-of-line)
-    ;; (define-key evil-insert-state-map "\C-n" 'next-line)
-    ;; (define-key evil-insert-state-map "\C-k" 'kill-line)
+    
     (define-key evil-emacs-state-map (kbd "\s-f") 'forward-word)
     (define-key evil-insert-state-map (kbd "C-f") 'forward-word)
     (define-key evil-emacs-state-map (kbd "s-b") 'backward-word)
@@ -753,4 +745,11 @@
 
     (when (configuration-layer/package-usedp 'company)
       (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode lua-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
+    ))
+
+(defun tinysong/init-evil-multiedit ()
+  (use-package evil-multiedit
+    :defer t
+    :init
+    :config
     ))

@@ -106,7 +106,7 @@ values."
      ;; erc
      latex
      ts-org
-     ts-helm
+     ;; ts-helm
      ts-git
      ts-project
      ts-lang
@@ -116,10 +116,6 @@ values."
      ts-tools
      kubernetes
      deft
-     ;; selectric
-     ;; scheme
-     ;; speed-reading
-     ;; mu4e
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -243,7 +239,7 @@ values."
    dotspacemacs-ex-command-key ":"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
    ;; (default "SPC")
-   dotspacemacs-emacs-command-key "SPC"
+   dotspacemacs-emacs-command-key ":"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
@@ -439,7 +435,7 @@ layers configuration."
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
   (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
-  (define-key helm-find-files-map (kbd "s-c") 'helm-ff-run-copy-file)
+  ;; (define-key helm-find-files-map (kbd "s-c") 'helm-ff-run-copy-file)
 
   ;; http://emacsredux.com/blog/2014/04/05/which-function-mode/
   ;; when editing js file, this feature is very useful
