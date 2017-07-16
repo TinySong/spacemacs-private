@@ -61,7 +61,7 @@
     ;; hydra
     osx-dictionary
     org-mac-link
-    multiple-cursors
+    ;; multiple-cursors
     graphviz-dot-mode
     persp-mode
     bookmark
@@ -385,8 +385,7 @@
                                                 evil-previous-visual-line)))))
 
 (defun tinysong/init-hydra ()
-  (use-package hydra
-    :init
+  (with-eval-after-load 'hydra
     (progn
       ;; major mode hydra is really cool, don't need to switch mode anymore
       ;; C-c [a-z] and s-[a-z] is very quick to pressed even in emacs-state and F1-F9 is also the same
@@ -438,7 +437,8 @@
         ("o" customize-apropos-options "options"))
 
       (bind-key*  "<f4>" 'hydra-apropos/body)
-      )))
+      )
+    ))
 
 ;; https://github.com/skeeto/elfeed
 ;; http://nullprogram.com/blog/2013/09/04/

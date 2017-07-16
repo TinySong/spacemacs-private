@@ -32,16 +32,19 @@
 ;;   (elfeed-expose #'elfeed-search-toggle-all 'star))
 
 (defmacro ts-tools/make-elfeed-hydra ()
-  `(defhydra hydra-elfeed ()
-     "filter"
-     ,@(ts-tools/make-elfeed-cats (elfeed-db-get-all-tags))
-     ("*" (elfeed-search-set-filter "@6-months-ago +star") "Starred")
-     ("M" elfeed-toggle-star "Mark")
-     ("A" (elfeed-search-set-filter "@6-months-ago") "All")
-     ("T" (elfeed-search-set-filter "@1-day-ago") "Today")
-     ("q" ts-tools/elfeed-save-db-and-bury "Quit Elfeed" :color blue)
-     ;; ("q" nil "quit" :color blue)
-     ))
+  (with-eval-after-load 'elfeed
+    `(defhydra hydra-elfeed ()
+       "filter"
+       ,@(ts-tools/make-elfeed-cats (elfeed-db-get-all-tags))
+       ("*" (elfeed-search-set-filter "@6-months-ago +star") "Starred")
+       ("M" elfeed-toggle-star "Mark")
+       ("A" (elfeed-search-set-filter "@6-months-ago") "All")
+       ("T" (elfeed-search-set-filter "@1-day-ago") "Today")
+       ("q" ts-tools/elfeed-save-db-and-bury "Quit Elfeed" :color blue)
+       ;; ("q" nil "quit" :color blue)
+       )
+    )
+  )
 
 (defun ts-tools/make-and-run-elfeed-hydra ()
   ""
