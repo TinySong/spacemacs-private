@@ -152,6 +152,7 @@
 (defun tinysong/init-doxymacs ()
   "Initialize doxymacs, create document from souce-code"
   (use-package doxymacs
+    :defer t
     :init
     (add-hook 'c-mode-common-hook 'doxymacs-mode)
     :config
@@ -166,12 +167,14 @@
 ;; func fold functions
 (defun tinysong/init-evil-vimish-fold ()
   (use-package evil-vimish-fold
+    :defer t
     :init
     (vimish-fold-global-mode 1)))
 
 ;; http://endlessparentheses.com/beacon-never-lose-your-cursor-again.html
 (defun tinysong/init-beacon ()
   (use-package beacon
+    :defer t
     :init
     (progn
       (spacemacs|add-toggle beacon
@@ -191,10 +194,12 @@
 ;; https://github.com/benma/visual-regexp.el
 (defun tinysong/init-visual-regexp ()
   (use-package visual-regexp
-    :init))
+    :init
+    :defer t))
 
 (defun tinysong/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
+    :defer t
     :init
     (progn
       (define-key global-map (kbd "C-c r") 'vr/replace)
@@ -205,6 +210,7 @@
 
 (defun tinysong/init-keyfreq ()
   (use-package keyfreq
+    :defer t
     :init
     (progn
       (keyfreq-mode t)
@@ -213,6 +219,7 @@
 
 (defun tinysong/init-nodejs-repl ()
   (use-package nodejs-repl
+    :defer t
     :init
     :defer t))
 
@@ -266,6 +273,7 @@
 
 (defun tinysong/init-wrap-region ()
   (use-package wrap-region
+    :defer t
     :init
     (progn
       (wrap-region-global-mode t)
@@ -299,11 +307,13 @@
     ))
 (defun tinysong/init-unicad ()
   (use-package unicad
+    :defer t
     :init))
 
 (defun tinysong/init-header2 ()
   ;; (interactive "p")
   (use-package header2
+    :defer t
     :init
     :config
     (autoload 'auto-make-header "header2")
@@ -358,6 +368,7 @@
     (setq ivy-display-style 'fancy)
 
     (use-package recentf
+      :defer t
       :config
       (setq recentf-exclude
             '("COMMIT_MSG" "COMMIT_EDITMSG" "github.*txt$"
@@ -445,6 +456,7 @@
 
 (defun tinysong/post-init-osx-dictionary ()
   (use-package osx-dictionary
+    :defer t
     :config
     (progn
       (evilified-state-evilify osx-dictionary-mode osx-dictionary-mode-map)
@@ -455,6 +467,7 @@
 
 (defun tinysong/init-org-mac-link ()
   (use-package org-mac-link
+    :defer t
     :init
     (add-hook 'org-mode-hook
               (lambda ()
@@ -474,6 +487,7 @@
 
 (defun tinysong/init-multiple-cursors ()
   (use-package multiple-cursors
+    :defer t
     :init
     :config
     (setq mc/cmds-to-run-for-all
@@ -628,7 +642,8 @@
   )
 
 (defun tinysong/init-fasd ()
-  (use-package fasd
+  (use-package fasdq
+    :defer t
     :init
     :config
     ))

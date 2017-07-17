@@ -112,6 +112,7 @@ Each entry is either:
 
 (defun ts-tools/init-elfeed ()
   (use-package elfeed
+    :defer t
     :init (spacemacs/set-leader-keys "af" 'elfeed)
     :ensure t
     :commands elfeed
@@ -218,6 +219,7 @@ Each entry is either:
 
 (defun ts-tools/init-elfeed-goodies ()
   (use-package elfeed-goodies
+    :defer t
     :commands elfeed-goodies/setup
     :init (spacemacs|use-package-add-hook elfeed
             :post-config (progn

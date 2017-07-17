@@ -37,7 +37,7 @@
     google-c-style
     lispy
     lua-mode
-    ;; python
+    irony
     ))
 
 
@@ -122,14 +122,17 @@
 ;; http://blog.csdn.net/csfreebird/article/details/9250989
 (defun ts-lang/init-google-c-style ()
   (use-package google-c-style
+    :defer t
     :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
 
-;; (defun ts-lang/post-init-python ()
-;;   (progn
-;;     (add-hook 'python-mode-hook
-;;               (lambda ()
-;;                 (setq python-shell-interpreter "python")
-;;                 (setq anaconda-mode-server-script
-;;                       "/usr/local/lib/python2.7/site-packages/anaconda_mode.py")))
-;;     )
-;;   )
+
+(defun ts-lang/init-irony ()
+  (use-package irony
+    :defer t
+    :init
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'objc-mode-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+
+  )

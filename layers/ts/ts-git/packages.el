@@ -16,6 +16,7 @@
         "Show the GitHub page for the current commit."
         (interactive)
         (use-package github-browse-file
+          :defer t
           :commands (github-browse-file--relative-url))
 
         (let* ((commit git-messenger:last-commit-id)

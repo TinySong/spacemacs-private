@@ -45,6 +45,7 @@
 ;; http://blog.binchen.org/posts/how-to-use-ctags-in-emacs-effectively-3.html
 (defun ts-project/init-ctags-update ()
   (use-package ctags-update
+    :defer t
     :init
     (progn
       (add-hook 'c++-mode-hook 'turn-on-ctags-auto-update-mode)
