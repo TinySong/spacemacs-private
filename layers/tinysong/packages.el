@@ -44,7 +44,7 @@
     (doxymacs :location local)
     evil-vimish-fold
     beacon
-    keyfreq
+    ;; keyfreq
     ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
     visual-regexp-steroids
@@ -69,7 +69,14 @@
     company
     which-func
     header2
-    evil-multiedit
+    smartparens
+    ;; spaceline-all-the-icons
+    ;; (prettify-utils :location (recipe :fetcher github
+    ;;                                   :repo "Ilazki/prettify-utils.el"))
+    ;; all-the-icons-ivy
+    ;; all-the-icons
+    ;; (pretty-magit :location local)
+    ;; (pretty-fonts :location local)
     ))
 
 
@@ -87,23 +94,23 @@
 
 
 ;; ;; https://ebzzry.github.io/emacs-pairs.html
-;; (defun tinysong/post-init-smartparens ()
-;;   (progn
-;;     (defun wrap-sexp-with-new-round-parens ()
-;;       (interactive)
-;;       (insert "()")
-;;       (backward-char)
-;;       (sp-forward-slurp-sexp))
+(defun tinysong/post-init-smartparens ()
+  (progn
+    (defun wrap-sexp-with-new-round-parens ()
+      (interactive)
+      (insert "()")
+      (backward-char)
+      (sp-forward-slurp-sexp))
 
-;;     (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
-;;     (with-eval-after-load 'smartparens
-;;       (evil-define-key 'normal sp-keymap
-;;         (kbd ")>") 'sp-forward-slurp-sexp
-;;         (kbd ")<") 'sp-forward-barf-sexp
-;;         (kbd "(>") 'sp-backward-barf-sexp
-;;         (kbd "(<") 'sp-backward-slurp-sexp))
+    (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens)
+    (with-eval-after-load 'smartparens
+      (evil-define-key 'normal sp-keymap
+        (kbd ")>") 'sp-forward-slurp-sexp
+        (kbd ")<") 'sp-forward-barf-sexp
+        (kbd "(>") 'sp-backward-barf-sexp
+        (kbd "(<") 'sp-backward-slurp-sexp))
 
-;;     ))
+    ))
 (setq-default tab-width 4)
 
 ;; https://www.emacswiki.org/emacs/ERC
@@ -456,7 +463,6 @@
 
 (defun tinysong/post-init-osx-dictionary ()
   (use-package osx-dictionary
-    :defer t
     :config
     (progn
       (evilified-state-evilify osx-dictionary-mode osx-dictionary-mode-map)
@@ -768,3 +774,102 @@
     :init
     :config
     ))
+
+(defun tinysong/init-spaceline-all-the-icons ()
+  (use-package spaceline-all-the-icons
+    :after spaceline
+    :config
+    (progn
+      (spaceline-all-the-icons-theme)
+      (setq spaceline-highlight-face-func 'spaceline-highlight-face-default
+            spaceline-all-the-icons-icon-set-modified 'chain
+            spaceline-all-the-icons-icon-set-window-numbering 'circle
+            spaceline-all-the-icons-separator-type 'none
+            spaceline-all-the-icons-primary-separator "")
+      (spaceline-toggle-all-the-icons-buffer-size-off)
+      (spaceline-toggle-all-the-icons-buffer-position-off)
+      (spaceline-toggle-all-the-icons-vc-icon-off)
+      (spaceline-toggle-all-the-icons-vc-status-off)
+      (spaceline-toggle-all-the-icons-git-status-off)
+      (spaceline-toggle-all-the-icons-flycheck-status-off)
+      (spaceline-toggle-all-the-icons-time-off)
+      (spaceline-toggle-all-the-icons-battery-status-off)
+      (spaceline-toggle-hud-off))))
+
+(defun tinysong/init-prettify-utils ()
+  (use-package prettify-utils))
+
+(defun tinysong/init-all-the-icons-ivy ()
+  (use-package all-the-icons-ivy
+    :init
+    :after all-the-icons
+    :config
+    (progn
+      (all-the-icons-ivy-setup)
+      ;; (advice-add 'all-the-icons-ivy-file-transformer
+      ;;             :override 'ivy-file-transformer-fixed-for-files)
+      )))
+
+(defun tinysong/init-all-the-icons ()
+  (use-package all-the-icons
+    :init
+    :config
+    (progn
+      (add-to-list
+       'all-the-icons-icon-alist
+       '("\\.hy$" all-the-icons-fileicon "lisp" :face all-the-icons-orange))
+      (add-to-list
+       'all-the-icons-mode-icon-alist
+       '(hy-mode all-the-icons-fileicon "lisp" :face all-the-icons-orange)))))
+
+(defun tinysong/init-pretty-magit ()
+  (use-package pretty-magit
+    :config
+    (progn
+      (pretty-magit "Feature" ? (:foreground "slate gray" :height 1.2))
+      (pretty-magit "Add"     ? (:foreground "#375E97" :height 1.2))
+      (pretty-magit "Fix"     ? (:foreground "#FB6542" :height 1.2))
+      (pretty-magit "Clean"   ? (:foreground "#FFBB00" :height 1.2))
+      (pretty-magit "Docs"    ? (:foreground "#3F681C" :height 1.2))
+      (pretty-magit "master"  ? (:box t :height 1.2) t)
+      (pretty-magit "origin"  ? (:box t :height 1.2) t))))
+
+(defun tinysong/init-pretty-fonts ()
+  (use-package pretty-fonts
+    :init
+    (progn
+      (defconst pretty-fonts-hy-mode
+        '(("\\(self\\)"   ?⊙))))
+
+    :config
+    (progn
+      (pretty-fonts-set-kwds
+       '(;; Fira Code Ligatures
+         (pretty-fonts-fira-font prog-mode-hook org-mode-hook)
+         ;; Custom replacements not possible with `pretty-code' package
+         (pretty-fonts-hy-mode hy-mode-hook)))
+
+      (pretty-fonts-set-fontsets
+       '(("fontawesome"
+          ;;                         
+          #xf07c #xf0c9 #xf0c4 #xf0cb #xf017 #xf101)
+
+         ("all-the-icons"
+          ;;    
+          #xe907 #xe928)
+
+         ("github-octicons"
+          ;;                          
+          #xf091 #xf059 #xf076 #xf075 #xe192  #xf016)
+
+         ("material icons"
+          ;;        
+          #xe871 #xe918 #xe3e7
+          ;;
+          #xe3d0 #xe3d1 #xe3d2 #xe3d4)
+
+         ("Symbola"
+          ;; 𝕊    ⨂      ∅      ⟻    ⟼     ⊙      𝕋       𝔽
+          #x1d54a #x2a02 #x2205 #x27fb #x27fc #x2299 #x1d54b #x1d53d
+          ;; 𝔹    𝔇       𝔗
+          #x1d539 #x1d507 #x1d517))))))

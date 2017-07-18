@@ -38,8 +38,8 @@
     org-tree-slide
     org-octopress
     org-pomodoro
-    org-caldav
-    org-mac-iCal
+    ;; org-caldav
+    ;; org-mac-iCal
     ;; org-jira  ;;TODO  don't know emacs how to read /etc/hosts info when access internet
     ))
 

@@ -2,6 +2,7 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+(setq is-linuxp (eq system-type 'gnu/linux))
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -61,10 +62,9 @@ values."
          go-use-gometalinter t
          go-use-gocheck-for-testing t)
      command-log
-     html
+     ;; html
      javascript
      emacs-lisp
-     ;; (clojure :variables clojure-enable-fancify-symbols t)
      emoji
      (ranger :variables ranger-show-preview t)
      ;; racket
@@ -112,7 +112,6 @@ values."
      ts-lang
      docker
      graphviz
-     yaml
      ts-tools
      kubernetes
      deft
@@ -207,13 +206,6 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          monokai
-                         ;; spacemacs-dark
-                         ;; solarized-light
-                         ;; sanityinc-tomorrow-day
-                         ;; sanityinc-tomorrow-eighties
-                         ;; spacemacs-light
-                         ;; solarized-dark
-                         ;; zenburn
                          )
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -223,7 +215,11 @@ values."
                                :size 12
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.5)
+   ;; dotspacemacs-default-font `("operator mono medium"
+   ;;                             :size ,(if is-linuxp 18 12)
+   ;;                             :powerline-scale 1.5)
+
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
