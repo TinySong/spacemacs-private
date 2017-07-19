@@ -389,6 +389,10 @@ in `dotspacemacs/user-config'."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
+
+  ;; modify neo-theme
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+
   (xterm-mouse-mode -1)
   (global-hl-line-mode t)
   ;; replace yes/no questions with y/n
