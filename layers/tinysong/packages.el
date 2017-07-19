@@ -70,13 +70,10 @@
     which-func
     header2
     smartparens
+    all-the-icons
+    all-the-icons-dired
     ;; spaceline-all-the-icons
-    ;; (prettify-utils :location (recipe :fetcher github
-    ;;                                   :repo "Ilazki/prettify-utils.el"))
-    ;; all-the-icons-ivy
-    ;; all-the-icons
-    ;; (pretty-magit :location local)
-    ;; (pretty-fonts :location local)
+    all-the-icons-ivy
     ))
 
 
@@ -775,26 +772,20 @@
     :config
     ))
 
+;; TODO fix load time
 (defun tinysong/init-spaceline-all-the-icons ()
   (use-package spaceline-all-the-icons
+    :init
+    :defer t
     :after spaceline
     :config
-    (progn
-      (spaceline-all-the-icons-theme)
-      (setq spaceline-highlight-face-func 'spaceline-highlight-face-default
-            spaceline-all-the-icons-icon-set-modified 'chain
-            spaceline-all-the-icons-icon-set-window-numbering 'circle
-            spaceline-all-the-icons-separator-type 'none
-            spaceline-all-the-icons-primary-separator "")
-      (spaceline-toggle-all-the-icons-buffer-size-off)
-      (spaceline-toggle-all-the-icons-buffer-position-off)
-      (spaceline-toggle-all-the-icons-vc-icon-off)
-      (spaceline-toggle-all-the-icons-vc-status-off)
-      (spaceline-toggle-all-the-icons-git-status-off)
-      (spaceline-toggle-all-the-icons-flycheck-status-off)
-      (spaceline-toggle-all-the-icons-time-off)
-      (spaceline-toggle-all-the-icons-battery-status-off)
-      (spaceline-toggle-hud-off))))
+    (spaceline-all-the-icons-theme)
+    (spaceline-all-the-icons--setup-anzu)            ;; Enable anzu searching
+    (spaceline-all-the-icons--setup-package-updates) ;; Enable package update indicator
+    (spaceline-all-the-icons--setup-git-ahead)       ;; Enable # of commits ahead of upstream in git
+    (spaceline-all-the-icons--setup-paradox)         ;; Enable Paradox mode line
+    (spaceline-all-the-icons--setup-neotree)         ;; Enable Neotree mode linez
+    ))
 
 (defun tinysong/init-prettify-utils ()
   (use-package prettify-utils))
@@ -813,14 +804,20 @@
 (defun tinysong/init-all-the-icons ()
   (use-package all-the-icons
     :init
+    :defer t
+    :ensure t
     :config
-    (progn
-      (add-to-list
-       'all-the-icons-icon-alist
-       '("\\.hy$" all-the-icons-fileicon "lisp" :face all-the-icons-orange))
-      (add-to-list
-       'all-the-icons-mode-icon-alist
-       '(hy-mode all-the-icons-fileicon "lisp" :face all-the-icons-orange)))))
+    ;; (progn
+    ;;   (add-to-list
+    ;;    'all-the-icons-icon-alist
+    ;;    '("\\.hy$" all-the-icons-fileicon "lisp" :face all-the-icons-orange))
+    ;;   (add-to-list
+    ;;    'all-the-icons-mode-icon-alist
+    ;;    '(hy-mode all-the-icons-fileicon "lisp" :face all-the-icons-orange)))
+    (all-the-icons-octicon "file-binary") ;; GitHub Octicon for Binary File
+    (all-the-icons-faicon  "cogs")        ;; FontAwesome icon for cogs
+    (all-the-icons-wicon   "tornado")     ;; Weather Icon for tornado
+    ))
 
 (defun tinysong/init-pretty-magit ()
   (use-package pretty-magit
@@ -873,3 +870,12 @@
           #x1d54a #x2a02 #x2205 #x27fb #x27fc #x2299 #x1d54b #x1d53d
           ;; 𝔹    𝔇       𝔗
           #x1d539 #x1d507 #x1d517))))))
+
+(defun tinysong/init-all-the-icons-dired ()
+  (use-package all-the-icons-dired
+    :init
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+    :defer t
+    :ensure t
+    )
+  )

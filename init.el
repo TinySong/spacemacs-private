@@ -381,6 +381,8 @@ in `dotspacemacs/user-config'."
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14)))
+  ;; fix slow down in performace when rendering multiple icons simultaneously
+  (setq inhibit-compacting-font-caches t)
   )
 
 (defun dotspacemacs/user-config ()
