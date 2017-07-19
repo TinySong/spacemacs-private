@@ -439,11 +439,15 @@
 (defun ts-org/init-org-tree-slide ()
   (use-package org-tree-slide
     :init
+    :defer t
+    :config
     (spacemacs/set-leader-keys "oto" 'org-tree-slide-mode)))
 
 (defun ts-org/init-org-octopress ()
   (use-package org-octopress
+    :defer t
     :init
+    :config
     (progn
       (evilified-state-evilify org-octopress-summary-mode org-octopress-summary-mode-map)
       (add-hook 'org-octopress-summary-mode-hook
@@ -466,6 +470,8 @@
 (defun ts-org/post-init-org-pomodoro ()
   (use-package org-pomodoro
     :init
+    :defer t
+    :config
     (progn
       ;; (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)
       (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))

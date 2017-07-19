@@ -37,7 +37,7 @@
     elfeed-org
     elfeed-web
     bug-hunter
-    calfw
+    ;; calfw
     )
   "The list of Lisp packages required by the ts-tools layer.
 

@@ -115,6 +115,7 @@ values."
      ts-tools
      kubernetes
      deft
+     imenu-list
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -216,9 +217,6 @@ values."
                                :weight normal
                                :width normal
                                :powerline-scale 1.5)
-   ;; dotspacemacs-default-font `("operator mono medium"
-   ;;                             :size ,(if is-linuxp 18 12)
-   ;;                             :powerline-scale 1.5)
 
    ;; The leader key
    dotspacemacs-leader-key "SPC"
