@@ -664,5 +664,5 @@ With PREFIX, cd to project root."
       )))
 
 (defun kill-terminal-buffer ()
-  (define-key shell-mode-map (kbd ", q") 'kill-buffer-and-window))
+  (define-key shell-mode-map (kbd ", q") 'kill-this-buffer))
 (add-hook 'shell-mode-hook 'kill-terminal-buffer)
