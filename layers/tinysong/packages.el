@@ -74,7 +74,7 @@
     all-the-icons-dired
     ;; spaceline-all-the-icons
     all-the-icons-ivy
-    ;; yahoo-weather
+    yahoo-weather
     ))
 
 
@@ -884,8 +884,10 @@
 (defun tinysong/init-yahoo-weather ()
   (use-package yahoo-weather
     :init
-    :after spaceline
     :config
-    (yahoo-weather-mode t)
+    (spacemacs|add-toggle mode-line-yahoo-weather
+      :mode yahoo-weather-mode
+      :documentation "Display local weather in mode-line."
+      :evil-leader "tmw")
     )
   )
