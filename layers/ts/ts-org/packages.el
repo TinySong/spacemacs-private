@@ -456,9 +456,8 @@
 
       (defun ts-org/org-save-and-export ()
         (interactive)
-        (org-octopress-setup-publish-project)
+        ;; (org-octopress-setup-publish-project)
         (org-publish-project "octopress" t))
-
       (spacemacs/set-leader-keys "op" 'ts-org/org-save-and-export)
       )))
 
@@ -502,27 +501,4 @@
     :init
     (setq jiralib-url "http://jira.tenxcloud.com")
     :config (spacemacs|diminish org-jira-mode " Ⓙ" "jr")
-    ;; TODO test domain code inflowing
-    ;; (let ((domain "jira.tenxcloud.com"))
-    ;;   (switch-to-buffer-other-window "*temp*")
-    ;;   (erase-buffer)
-    ;;   (setq www (format "www.%s" domain))
-    ;;   (setq ip "")
-    ;;   (setq mx "")
-    ;;   ;; (setq ret-val (call-process "ping" nil t nil domain "-n" "1"))
-    ;;   (setq ret-val (call-process-shell-command "ping" nil t nil domain "-n" "1"))
-    ;;   (if (equal ret-val 0)
-    ;;       (progn
-    ;;         (goto-char 1)
-    ;;         (setq ip (buffer-substring-no-properties
-    ;;                   (search-forward "[") (- (search-forward "]") 1)))))
-    ;;   (erase-buffer)
-    ;;   (call-process-shell-command "nslookup" nil t nil "-type=MX" domain)
-    ;;   (goto-char 1)
-    ;;   (if (search-forward "mail exchanger = " nil t)
-    ;;       (progn
-    ;;         (setq mx (thing-at-point 'filename))))
-    ;;   (other-window 1)
-    ;;   (print (concat "\t" ip "\t" mx)))
-    ;; (url-gateway-nslookup-host "jira.tenxcloud.com")
     ))

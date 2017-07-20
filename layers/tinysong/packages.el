@@ -74,6 +74,7 @@
     all-the-icons-dired
     ;; spaceline-all-the-icons
     all-the-icons-ivy
+    ;; yahoo-weather
     ))
 
 
@@ -877,5 +878,14 @@
     (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
     :defer t
     :ensure t
+    )
+  )
+
+(defun tinysong/init-yahoo-weather ()
+  (use-package yahoo-weather
+    :init
+    :after spaceline
+    :config
+    (yahoo-weather-mode t)
     )
   )
