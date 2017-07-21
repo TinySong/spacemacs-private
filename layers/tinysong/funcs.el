@@ -635,10 +635,11 @@ With PREFIX, cd to project root."
       (setq cadicate-list (list (expand-file-name (read-file-name "Rsync from:" (projectile-project-root) "*"))))
     (setq cadicate-list (list (expand-file-name (read-file-name "Rsync from:"))))
     )
+  (setq subcommand (read-string "Sub command:" subcommand))
   (setq rsync-remote-host (read-string "Enter Host:" rsync-remote-host))
   (setq rsync-remote-path (read-string "Enter Path:" rsync-remote-path))
   ;; store all selected files into "files" list
-  (setq tmtxt/rsync-command "rsync -arvz --delete --progress ")
+  (setq tmtxt/rsync-command (format "rsync -arvz --delete --progress %s " subcommand))
   (if (string-equal (substring (car cadicate-list) -1) "*")
       (progn (setq tmtxt/rsync-command
                    (concat tmtxt/rsync-command

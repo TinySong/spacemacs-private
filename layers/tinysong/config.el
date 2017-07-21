@@ -233,6 +233,11 @@ Single Capitals as you type."
 (defvar rsync-remote-path "/root/tenxcloud/"
   "remote path.")
 
+(defvar subcommand "--exclude= ")
+
 (with-eval-after-load 'flycheck
   (setq flycheck-display-errors-delay 0.1)
   )
+
+
+(setq yahoo-weather-location "北京")
