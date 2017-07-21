@@ -103,7 +103,6 @@ values."
               :variables chinese-enable-fcitx nil
               )
      tinysong
-     ;; erc
      latex
      ts-org
      ;; ts-helm
