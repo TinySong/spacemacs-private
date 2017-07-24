@@ -112,7 +112,6 @@ Each entry is either:
 
 (defun ts-tools/init-elfeed ()
   (use-package elfeed
-    :defer t
     :init (spacemacs/set-leader-keys "af" 'elfeed)
     :ensure t
     :commands elfeed

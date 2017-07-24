@@ -74,7 +74,7 @@
     all-the-icons-dired
     ;; spaceline-all-the-icons
     all-the-icons-ivy
-    yahoo-weather
+    ;; yahoo-weather
     ))
 
 

@@ -102,6 +102,11 @@ values."
               chinese-enable-youdao-dict t
               :variables chinese-enable-fcitx nil
               )
+     (geolocation :variables
+                  geolocation-enable-automatic-theme-changer t
+                  geolocation-enable-location-service t
+                  geolocation-enable-weather-forecast t)
+
      tinysong
      latex
      ts-org
@@ -500,6 +505,9 @@ layers configuration."
 
   ;; fix helm-projectile-find-file is slow, becasuse zsh plugin, see:  https://github.com/syl20bnr/spacemacs/issues/4207
   (setq shell-file-name "/bin/bash")
+  ;; set config for geolocation layer
+  (setq sunshine-appid "4986a2c5f818b187d74d8c8fc80f88fe")
+  (setq sunshine-location "beijing")
   ;; -----------------user config end---------------------------
   )
 
