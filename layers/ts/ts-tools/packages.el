@@ -282,7 +282,7 @@ Each entry is either:
                   (nnimap-server-port 993)
                   (nnimap-stream ssl)))
 
-        ;; TODO set flter rule
+        ;; TODO set flter rule: http://sachachua.com/blog/2008/05/emacs-gnus-organize-your-mail/
         ;; nnimap-split-methods '(
         ;;                        (""))
         ;; Send mail
