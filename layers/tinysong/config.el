@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2015-2016 tinysong
 ;;
-;; Author: tinysong <guanghui8827@gmail.com>
+;; Author: tinysong <TinySong1226@gmail.com>
 ;; URL: https://github.com/tinysong/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
