@@ -447,7 +447,6 @@
 
 (defun ts-org/init-org-octopress ()
   (use-package org-octopress
-    :defer t
     :init
     (progn
       (evilified-state-evilify org-octopress-summary-mode org-octopress-summary-mode-map)

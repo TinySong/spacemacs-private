@@ -135,7 +135,7 @@ values."
                                     evil-indent-plus volatile-highlights
                                     holy-mode skewer-mode rainbow-delimiters
                                     highlight-indentation vi-tilde-fringe eyebrowse
-                                    smooth-scrolling org-repo-todo org-download org-timer
+                                    smooth-scrolling org-repo-todo org-timer
                                     livid-mode   evil-escape
                                     leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
                                     ac-ispell ace-jump-mode auto-complete auto-dictionary
@@ -210,6 +210,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
+   ;; http://themegallery.robdor.com/
    dotspacemacs-themes '(
                          monokai
                          )
@@ -509,6 +510,8 @@ layers configuration."
   ;; set config for geolocation layer
   (setq sunshine-appid "4986a2c5f818b187d74d8c8fc80f88fe")
   (setq sunshine-location "beijing")
+  (setq sunshine-units 'metric)
+
   ;; -----------------user config end---------------------------
   )
 
