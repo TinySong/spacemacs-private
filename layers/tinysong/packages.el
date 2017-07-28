@@ -157,7 +157,6 @@
 (defun tinysong/init-doxymacs ()
   "Initialize doxymacs, create document from souce-code"
   (use-package doxymacs
-    :defer t
     :init
     (add-hook 'c-mode-common-hook 'doxymacs-mode)
     :config

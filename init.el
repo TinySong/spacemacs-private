@@ -62,7 +62,7 @@ values."
          go-use-gometalinter t
          go-use-gocheck-for-testing t)
      command-log
-     ;; html
+     dash
      javascript
      emacs-lisp
      emoji

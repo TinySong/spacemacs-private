@@ -455,7 +455,7 @@
 
       (defun ts-org/org-save-and-export ()
         (interactive)
-        ;; (org-octopress-setup-publish-project)
+        (org-octopress-setup-publish-project)
         (org-publish-project "octopress" t))
       (spacemacs/set-leader-keys "op" 'ts-org/org-save-and-export)
       )))
