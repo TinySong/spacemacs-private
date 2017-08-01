@@ -129,7 +129,6 @@ values."
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
-                                    org-projectile
                                     evil-mc
                                     evil-args evil-ediff evil-exchange evil-unimpaired
                                     evil-indent-plus volatile-highlights
@@ -396,10 +395,13 @@ in `dotspacemacs/user-config'."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
+  ;; To enable evil-mc
+  global-evil-mc-mode
   ;; modify neo-theme
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
   (xterm-mouse-mode -1)
+  ;; highlight current line
   (global-hl-line-mode t)
   ;; replace yes/no questions with y/n
   (fset 'yes-or-no-p 'y-or-n-p)
