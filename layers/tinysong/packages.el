@@ -61,7 +61,7 @@
     ;; hydra
     osx-dictionary
     org-mac-link
-    ;; multiple-cursors
+    ;; multiple-cursors // with evil-mc instead of
     graphviz-dot-mode
     persp-mode
     bookmark
@@ -74,7 +74,6 @@
     all-the-icons-dired
     ;; spaceline-all-the-icons
     all-the-icons-ivy
-    ;; yahoo-weather
     ))
 
 
@@ -877,16 +876,5 @@
     (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
     :defer t
     :ensure t
-    )
-  )
-
-(defun tinysong/init-yahoo-weather ()
-  (use-package yahoo-weather
-    :init
-    :config
-    (spacemacs|add-toggle mode-line-yahoo-weather
-      :mode yahoo-weather-mode
-      :documentation "Display local weather in mode-line."
-      :evil-leader "tmw")
     )
   )

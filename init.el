@@ -129,28 +129,29 @@ values."
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
+                                    evil-mc
                                     evil-args evil-ediff evil-exchange evil-unimpaired
-                                              evil-indent-plus volatile-highlights
-                                              holy-mode skewer-mode rainbow-delimiters
-                                              highlight-indentation vi-tilde-fringe eyebrowse
-                                              smooth-scrolling org-repo-todo org-timer
-                                              livid-mode   evil-escape
-                                              leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
-                                              ac-ispell ace-jump-mode auto-complete auto-dictionary
-                                              clang-format define-word google-translate disaster epic
-                                              fancy-battery org-present orgit orglue spacemacs-theme
-                                              helm-flyspell flyspell-correct-helm clean-aindent-mode
-                                              helm-c-yasnippet ace-jump-helm-line helm-make
-                                              helm-themes helm-swoop helm-spacemacs-help smeargle
-                                              ido-vertical-mode flx-ido company-quickhelp counsel-projectile
-                                              solarized-theme
-                                              chinese-wbim
-                                              chinese-pyim
-                                              ;;https://github.com/abo-abo/lispy/issues/137
-                                              clj-refactor
-                                              magit-gh-pulls magit-gitflow
-                                              magithub git-gutter git-gutter-fringe
-                                              )
+                                    evil-indent-plus volatile-highlights
+                                    holy-mode skewer-mode rainbow-delimiters
+                                    highlight-indentation vi-tilde-fringe eyebrowse
+                                    smooth-scrolling org-repo-todo org-timer
+                                    livid-mode   evil-escape
+                                    leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
+                                    ac-ispell ace-jump-mode auto-complete auto-dictionary
+                                    clang-format define-word google-translate disaster epic
+                                    fancy-battery org-present orgit orglue spacemacs-theme
+                                    helm-flyspell flyspell-correct-helm clean-aindent-mode
+                                    helm-c-yasnippet ace-jump-helm-line helm-make
+                                    helm-themes helm-swoop helm-spacemacs-help smeargle
+                                    ido-vertical-mode flx-ido company-quickhelp counsel-projectile
+                                    solarized-theme
+                                    chinese-wbim
+                                    chinese-pyim
+                                    ;;https://github.com/abo-abo/lispy/issues/137
+                                    clj-refactor
+                                    magit-gh-pulls magit-gitflow
+                                    magithub git-gutter git-gutter-fringe
+                                    )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
