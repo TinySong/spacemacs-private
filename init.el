@@ -395,8 +395,10 @@ in `dotspacemacs/user-config'."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
-  ;; To enable evil-mc
-  global-evil-mc-mode
+  ;; To enable evil-mc if enabled
+  (if (and (boundp 'flymake-mode) flymake-mode)
+      (global-evil-mc-mode)
+    )
   ;; modify neo-theme
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 

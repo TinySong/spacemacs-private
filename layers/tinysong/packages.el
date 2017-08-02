@@ -308,10 +308,6 @@
         (terminal))
       )
     ))
-(defun tinysong/init-unicad ()
-  (use-package unicad
-    :defer t
-    :init))
 
 (defun tinysong/init-header2 ()
   ;; (interactive "p")
