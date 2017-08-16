@@ -270,9 +270,7 @@
       (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
       (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
       (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
-      (setq org-agenda-file-code-snippet (expand-file-name "snippet.org" org-agenda-dir))
       (setq org-default-notes-file (expand-file-name "gtd.org" org-agenda-dir))
-      (setq org-default-kernel-file (expand-file-name "kernel.org" org-agenda-dir))
       (setq org-agenda-files (list org-agenda-dir))
 
 
@@ -297,11 +295,11 @@
               ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
-              ("k" "Kernel" entry (file+headline org-default-kernel-file "Kernel Quick Note")
-               "* TODO [#B] %?\n  %i\n %U"
-               ;; :empty-lines 1
-               )
-              ("w" "work" entry (file+headline org-agenda-file-gtd "Careerdream")
+              ;; ("k" "Kernel" entry (file+headline org-default-kernel-file "Kernel Quick Note")
+              ;;  "* TODO [#B] %?\n  %i\n %U"
+              ;;  ;; :empty-lines 1
+              ;;  )
+              ("w" "work" entry (file+headline org-agenda-file-gtd "tenx")
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)
               ("c" "Chrome" entry (file+headline org-default-notes-file "Quick notes")
@@ -329,7 +327,7 @@
               ("b" "Blog" tags-todo "BLOG")
               ("p" . "项目安排")
               ;; ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"cocos2d-x\"")
-              ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"tinysong\"")
+              ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"project\"")
               ("W" "Weekly Review"
                ((stuck "")            ;; review stuck projects as designated by org-stuck-projects
                 (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
