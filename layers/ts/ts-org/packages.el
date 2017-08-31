@@ -40,7 +40,7 @@
     org-pomodoro
     ;; org-caldav
     ;; org-mac-iCal
-    ;; org-jira  ;;TODO  don't know emacs how to read /etc/hosts info when access internet
+    org-jira  ;;TODO  don't know emacs how to read /etc/hosts info when access internet
     ))
 
 (defun ts-org/post-init-org ()

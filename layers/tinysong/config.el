@@ -217,7 +217,7 @@ Single Capitals as you type."
                                             ("8win" "Windows")
                                             ("8ie" "Internet Explorer")
                                             ("8ahk" "AutoHotkey")
-                                            ("k8s" "kubernetes")
+                                            ("8ks" "kubernetes")
                                             ;; ("82dx" "Cocos2D-X")
 
                                             ;; signature
