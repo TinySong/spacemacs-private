@@ -38,20 +38,20 @@
   '(
     ;; (hackernews :location build-in)
     ;; hl-anything
-    js2-mode
     markdown-mode
     ;; evil
     (doxymacs :location local)
     evil-vimish-fold
     beacon
     ;; keyfreq
-    ;; visual-regexp-steroids and visual-regexp are reg serarch, steroids is an externsion to visual-regexp
     visual-regexp
     visual-regexp-steroids
-    ;; post extension names go here
     ;; nodejs-repl-eval don't support es6 and js2-mode also don't support it
     ;; so I use js-comit instead.
+    js2-mode
+    js2-refactor
     nodejs-repl
+    web-mode
     (nodejs-repl-eval :location local)
     wrap-region
     youdao-dictionary
@@ -291,6 +291,7 @@
       )
     :defer t
     :config
+    (setq js-indent-level 2)
     (spacemacs|hide-lighter wrap-region-mode)))
 
 (defun tinysong/post-init-youdao-dictionary ()
@@ -708,12 +709,17 @@
 
 (defun tinysong/post-init-js2-mode ()
   (progn
+    
     (setq company-backends-js2-mode '((company-dabbrev-code
                                        company-keywords
                                        company-etags) company-files company-dabbrev))
 
     (tinysong|toggle-company-backends company-tern)
-
+    (spacemacs|define-jump-handlers js2-mode)
+    (add-hook 'spacemacs-jump-handlers-js2-mode 'etags-select-find-tag-at-point)
+    (setq company-backends-js2-mode '((company-dabbrev-code :with company-keywords company-etags)
+                                      company-files company-dabbrev))
+    (tinysong|toggle-company-backends company-tern)
 
     (spacemacs/set-leader-keys-for-major-mode 'js2-mode
       "tb" 'tinysong/company-toggle-company-tern)
@@ -725,10 +731,57 @@
     (spacemacs/set-leader-keys-for-major-mode 'web-mode
       "ga" 'projectile-find-other-file
       "gA" 'projectile-find-other-file-other-window)
-    (eval-after-load 'js2-mode
-      '(progn
-         (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
-         (define-key js2-mode-map   (kbd "s-.") 'company-tern)))))
+
+    (add-hook 'js2-mode-hook 'my-js2-mode-hook)
+    (with-eval-after-load 'js2-mode
+      (progn
+        ;; these mode related variables must be in eval-after-load
+        ;; https://github.com/magnars/.emacs.d/blob/master/settings/setup-js2-mode.el
+        (setq-default js2-allow-rhino-new-expr-initializer nil)
+        (setq-default js2-auto-indent-p nil)
+        (setq-default js2-enter-indents-newline nil)
+        (setq-default js2-global-externs '("module" "ccui" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
+        (setq-default js2-idle-timer-delay 0.2)
+        (setq-default js2-mirror-mode nil)
+        (setq-default js2-strict-inconsistent-return-warning nil)
+        (setq-default js2-include-rhino-externs nil)
+        (setq-default js2-include-gears-externs nil)
+        (setq-default js2-concat-multiline-strings 'eol)
+        (setq-default js2-rebind-eol-bol-keys nil)
+        (setq-default js2-auto-indent-p t)
+
+        (setq-default js2-bounce-indent nil)
+        (setq-default js-indent-level 4)
+        (setq-default js2-basic-offset 4)
+        (setq-default js-switch-indent-offset 4)
+        ;; Let flycheck handle parse errors
+        (setq-default js2-mode-show-parse-errors nil)
+        (setq-default js2-mode-show-strict-warnings nil)
+        (setq-default js2-highlight-external-variables t)
+        (setq-default js2-strict-trailing-comma-warning nil)
+
+        (add-hook 'web-mode-hook 'my-web-mode-indent-setup)
+
+        (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+          "ti" 'my-toggle-web-indent)
+        (spacemacs/set-leader-keys-for-major-mode 'js-mode
+          "ti" 'my-toggle-web-indent)
+        (spacemacs/set-leader-keys-for-major-mode 'web-mode
+          "ti" 'my-toggle-web-indent)
+        (spacemacs/set-leader-keys-for-major-mode 'css-mode
+          "ti" 'my-toggle-web-indent)
+
+        (spacemacs/declare-prefix-for-mode 'js2-mode "mt" "toggle")
+        (spacemacs/declare-prefix-for-mode 'js-mode "mt" "toggle")
+        (spacemacs/declare-prefix-for-mode 'web-mode "mt" "toggle")
+        (spacemacs/declare-prefix-for-mode 'css-mode "mt" "toggle")
+
+        (eval-after-load 'tern-mode
+          '(spacemacs|hide-lighter tern-mode))
+        ))
+
+    ))
+
 (defun tinysong/init-discover-my-major ()
   (use-package discover-my-major
     :defer t
@@ -874,3 +927,18 @@
     :ensure t
     )
   )
+
+(defun tinysong/post-init-web-mode ()
+  (with-eval-after-load "web-mode"
+    (web-mode-toggle-current-element-highlight)
+    (web-mode-dom-errors-show))
+  (setq company-backends-web-mode '((company-dabbrev-code
+                                     company-keywords
+                                     company-etags)
+                                    company-files company-dabbrev)))
+
+(defun tinysong/post-init-js2-refactor ()
+  (progn
+    (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+      "r>" 'js2r-forward-slurp
+      "r<" 'js2r-forward-barf)))
