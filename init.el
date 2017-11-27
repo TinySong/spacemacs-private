@@ -46,7 +46,9 @@ values."
           osx-right-control-as 'left)
      markdown
      (vinegar :variables vinegar-reuse-dired-buffer t)
-     (org :variables org-enable-github-support t)
+     (org :variables org-enable-github-support t
+          org-enable-bootstrap-support t
+          org-enable-org-journal-support t)
      prodigy
      search-engine
      (syntax-checking :variables syntax-checking-enable-by-default nil)
@@ -95,7 +97,7 @@ values."
                       :disabled-for org)
      (shell :variables
             shell-default-position 'bottom
-            shell-default-shell 'term
+            shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      (chinese :variables
@@ -121,6 +123,8 @@ values."
      deft
      imenu-list
      gnus
+     confluence
+     ;; treemacs
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -205,7 +209,7 @@ values."
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 10
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'emacs-lisp-mode
+   dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -367,9 +371,15 @@ in `dotspacemacs/user-config'."
   ;; (setq tramp-mode nil)
   (when (spacemacs/system-is-mac)
     (setq configuration-layer--elpa-archives
-          '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
-            ("org-cn"   . "https://elpa.emacs-china.org/org/")
-            ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+          '(("melpa"    . "melpa.org/packages/")
+            ("org"      . "orgmode.org/elpa/")
+            ("gnu"      . "elpa.gnu.org/packages/")))
+
+    ;; (setq configuration-layer-elpa-archives
+    ;;       '(
+    ;;         ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+    ;;         ("org-cn"   . "https://elpa.emacs-china.org/org/")
+    ;;         ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
     )
 
   (setq tramp-ssh-controlmaster-options
@@ -500,8 +510,6 @@ layers configuration."
 
   ;; add exec path
   (add-to-list 'exec-path "~/development/golang/bin/")
-
-  (setq confluence-url "http://wiki.tenxcloud.com/confluence/rpc/xmlrpc")
 
   ;; Bind clang-format-region to C-M-tab in all modes:
   (global-set-key [C-M-tab] 'clang-format-region)
