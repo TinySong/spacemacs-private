@@ -28,3 +28,15 @@
           vendor (concat  gopath "/src/github.com/kubernetes/kubernetes/vendor"))
     (setenv "GOPATH" (concat gopath ":" vendor)))
   )
+
+(defun ts-lang/insert-go-coments ()
+  (interactive)
+  (insert (setq comments (concat
+                          "// @Title \n"
+                          "// @Description \n"
+                          "// @Param   key     path    string  true        \"description\"\n"
+                          "// @Success 200\n"
+                          "// @Failure 400\n"
+                          "// @Failure 404\n"
+                          "// @router / [get]\n"
+                          ))))

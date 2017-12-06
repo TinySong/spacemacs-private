@@ -735,3 +735,5 @@ With PREFIX, cd to project root."
                                ("Class" "^[ \t]*var[ \t]*\\([0-9a-zA-Z]+\\)[ \t]*=[ \t]*\\([a-zA-Z]*\\).extend" 1)
                                ("Class" "^[ \t]*cc\.\\(.+\\)[ \t]*=[ \t]*cc\.\\(.+\\)\.extend" 1)
                                ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)))))
+
+
