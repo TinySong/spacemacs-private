@@ -36,11 +36,11 @@
   '(
     org
     org-tree-slide
-    org-octopress
+    ;; org-octopressoctopress
     org-pomodoro
-    ;; org-caldav
-    ;; org-mac-iCal
-    org-jira  ;;TODO  don't know emacs how to read /etc/hosts info when access internet
+    (easy-hugo :location local)
+    ;; org-octopress ;;change to use hugo, org-octopress relay on org-mac-link
+    ;; An error occurred while installing org-octopress (error: (error Package ‘org-mac-link-1.2’ is unavailable))
     ))
 
 (defun ts-org/post-init-org ()
@@ -55,14 +55,13 @@
       ;; http://orgmode.org/manual/Tracking-your-habits.html
       (require 'org-habit)
       (add-to-list 'org-modules 'org-habit)
-
+      (add-hook 'org-mode-hook 'toc-org-enable)
       (setq org-refile-use-outline-path 'file)
       (setq org-outline-path-complete-in-steps nil)
       (setq org-refile-targets
             '((nil :maxlevel . 4)
               (org-agenda-files :maxlevel . 4)))
       ;; config stuck project
-      ;; http://orgmode.org/manual/Stuck-projects.html#Stuck-projects
       (setq org-stuck-projects
             '("TODO={.+}/-DONE" nil nil "SCHEDULED:\\|DEADLINE:"))
 
@@ -247,11 +246,6 @@
       (add-hook 'org-after-todo-state-change-hook 'org-subtask-reset)
       ;; =================== end ========================================================
 
-      (setq org-plantuml-jar-path
-            (expand-file-name "~/.spacemacs.d/plantuml.jar"))
-      (setq org-ditaa-jar-path "~/.spacemacs.d/ditaa.jar")
-
-
       (org-babel-do-load-languages
        'org-babel-load-languages
        '((perl . t)
@@ -263,13 +257,10 @@
          (plantuml . t)
          (C . t)
          (ditaa . t)))
-      ;; (setq org-agenda-files (quote ("~/org-notes/gtd.org" "~/org-notes/notes.org" "~/org-notes/CD.org" "~/org-notes/programLang.org")))
 
-      ;; (setq  org-default-notes-file (quote ("~/org-notes" )))
-      ;; (setq org-default-notes-file "~/org-notes/gtd.org")
-      (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
+      (setq org-agenda-file-note (expand-file-name "notes.org" org-note-dir))
       (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
-      (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
+      ;; (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
       (setq org-default-notes-file (expand-file-name "gtd.org" org-agenda-dir))
       (setq org-agenda-files (list org-agenda-dir))
 
@@ -295,10 +286,6 @@
               ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
                "* TODO [#B] %?\n  %i\n %U"
                :empty-lines 1)
-              ;; ("k" "Kernel" entry (file+headline org-default-kernel-file "Kernel Quick Note")
-              ;;  "* TODO [#B] %?\n  %i\n %U"
-              ;;  ;; :empty-lines 1
-              ;;  )
               ("w" "work" entry (file+headline org-agenda-file-gtd "tenx")
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)
@@ -311,10 +298,11 @@
               ("L" "CodeLine" entry (file+headline org-agenda-file-gtd "CodeTask")
                "* TODO [#B] %?\n  %(ts-org/position-to-kill-ring)\n %a \n %U"
                :empty-lines 1)
-              ("j" "Journal Entry"
-               entry (file+datetree org-agenda-file-journal)
-               "* %?"
-               :empty-lines 1)))
+              ;; ("j" "Journal Entry"
+              ;;  entry (file+datetree org-agenda-file-journal)
+              ;;  "* %?"
+              ;;  :empty-lines 1)
+              ))
 
       ;;An entry without a cookie is treated just like priority ' B '.
       ;;So when create new task, they are default 重要且紧急
@@ -329,7 +317,7 @@
               ;; ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"cocos2d-x\"")
               ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"project\"")
               ("W" "Weekly Review"
-               ((stuck "")            ;; review stuck projects as designated by org-stuck-projects
+               ((stuck "") ;; review stuck projects as designated by org-stuck-projects
                 (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
                 ))))
 
@@ -361,7 +349,7 @@
                :html-preamble ,tinysong-website-html-preamble
                :author "tinysong"
                :email "tinysong1226@gmail.com"
-               :auto-sitemap t               ; Generate sitemap.org automagically...
+               :auto-sitemap t          ; Generate sitemap.org automagically...
                :sitemap-filename "index.org" ; ... call it sitemap.org (it's the default)...
                :sitemap-title "我的wiki"     ; ... with title 'Sitemap'.
                :sitemap-sort-files anti-chronologically
@@ -470,28 +458,6 @@
       (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" " 💪 Ready to Go?" t)))
       )))
 
-(defun ts-org/init-org-caldav ()
-  (use-package org-caldav
-    :init
-    :config
-    (progn
-      (setq org-caldav-url "https://www.google.com/calendar/dav")
-      (setq org-caldav-calendar-id "tinysong1226@gmail.com")
-      (setq org-caldav-inbox "~/org-note/caldav.org")
-      (setq org-caldav-files org-agenda-files)
-      )
-    )
-  )
-
-(defun ts-org/init-org-mac-iCal ()
-  (use-package org-mac-iCal
-    :init
-    :config
-    (progn
-      (setq org-agenda-include-diary t)))
-  )
-
-
 
 (defun ts-org/init-org-jira ()
   (use-package org-jira
@@ -499,3 +465,56 @@
     (setq jiralib-url "http://jira.tenxcloud.com")
     :config (spacemacs|diminish org-jira-mode " Ⓙ" "jr")
     ))
+
+(defun ts-org/init-easy-hugo ()
+  (use-package easy-hugo
+    :init
+    :config
+    (setq easy-hugo-basedir "~/hugo-blog/")
+    (setq easy-hugo-url "https://tinysong.githug.io")
+    (setq easy-hugo-sshdomain "blogdomain")
+    (setq easy-hugo-root "~/hugo-blog/")
+    (setq easy-hugo-postdir "org-blog/")
+    (setq easy-hugo-previewtime "300")
+    (setq easy-hugo-default-ext ".org")
+    ;; "Keymap for easy-hugo major mode."
+    (progn
+      (evilified-state-evilify-map easy-hugo-mode-map
+        :mode easy-hugo-mode
+        :bindings
+        "." 'easy-hugo-next-postdir
+        "," 'easy-hugo-previous-postdir
+        "+" 'easy-hugo-next-postdir
+        "-" 'easy-hugo-previous-postdir
+        "n" 'easy-hugo-newpost
+        "a" 'ts-org/easy-hugo-ag
+        "c" 'easy-hugo-open-config
+        "p" 'easy-hugo-preview
+        "P" 'ts-org/easy-hugo-publish
+        "T" 'easy-hugo-publish-timer
+        "t" 'easy-hugo-cancel-publish-timer
+        "o" 'easy-hugo-open
+        "O" 'easy-hugo-open-basedir
+        "R" 'easy-hugo-rename
+        "d" 'easy-hugo-delete
+        "N" 'easy-hugo-no-help
+        "j" 'easy-hugo-next-line
+        "k" 'easy-hugo-previous-line
+        "h" 'easy-hugo-backward-char
+        "l" 'easy-hugo-forward-char
+        "v" 'easy-hugo-view
+        "r" 'easy-hugo-refresh
+        "g" 'easy-hugo-refresh
+
+        "s" 'easy-hugo-sort-char
+        "G" 'easy-hugo-github-deploy
+        "H" 'easy-hugo-github-deploy-timer
+        "b" 'easy-hugo-cancel-github-deploy-timer
+        "D" 'easy-hugo-list-draft
+        "u" 'easy-hugo-undraft
+        "q" 'easy-hugo-quit
+        "<" 'easy-hugo-previous-blog
+        ">" 'easy-hugo-next-blog
+        ))
+    ))
+

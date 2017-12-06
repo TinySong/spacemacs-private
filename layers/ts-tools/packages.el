@@ -31,7 +31,6 @@
 
 (defconst ts-tools-packages
   '(
-    (mysql :location  built-in)
     elfeed
     elfeed-goodies
     elfeed-org
@@ -71,46 +70,6 @@ Each entry is either:
 
 ;;; packages.el ends here
 
-(defun ts-tools/post-init-mysql ()
-  (use-package sql-mysql)
-  :init
-  :config
-  (progn
-    (setq sql-connection-alist
-          '((tenx
-             (sql-product 'mysql)
-             (sql-port 3306)
-             (sql-server "192.168.0.227")
-             (sql-user "tenxcloud")
-             (sql-password "tenxcloud")
-             (sql-database "tenxcloud_2_0")
-             )))
-    (add-hook 'sql-interactive-mode-hook
-              (lambda ()
-                (toggle-truncate-lines t)))
-
-    )
-  ;; (defun ts-tools/tenx-sql ()
-  ;;   (interactive)
-  ;;   (my-sql-connect 'mysql 'tenx)
-  ;;   )
-  ;; (defun my-sql-connect (product connection)
-  ;;   ;; remember to set the sql-product, otherwise, it will fail for the first time
-  ;;   ;; you call the function
-  ;;   (setq sql-product product)
-  ;;   (sql-connect connection))
-
-  (defun sql-connect-preset (name)
-    "Connect to a predefined SQL connection listed in `sql-connection-alist'"
-    (eval `(let ,(cdr (assoc name sql-connection-alist))
-             (flet ((sql-get-login (&rest what)))
-               (sql-product-interactive sql-product)))))
-
-  (defun ts-tools/tenx ()
-    (interactive)
-    (sql-connect-preset 'tenx))
-  )
-
 
 (defun ts-tools/init-elfeed ()
   (use-package elfeed
@@ -139,8 +98,7 @@ Each entry is either:
         "G"  'end-of-buffer
         "v"  'set-mark-command
         "<escape>" 'keyboard-quit
-        )
-      )
+        ))
 
     (when (package-installed-p 'hydra)
       (bind-keys :map elfeed-search-mode-map

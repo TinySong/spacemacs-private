@@ -37,3 +37,23 @@
    (format "file:%s::%d"
            (buffer-file-name) (save-restriction
                                 (widen) (line-number-at-pos)))))
+
+
+(defun ts-org/easy-hugo-ag ()
+  "Search for blog article with helm-ag."
+  (interactive)
+  (spacemacs/counsel-search (list "ag") nil easy-hugo-basedir)
+  (error "search %s error",easy-hugo-postdir))
+
+
+(defun ts-org/easy-hugo-publish ()
+  "convert .org to .md and publish new path"
+  (interactive)
+  ;; base-dir
+  (buffer-file-name)
+  (setq destpath (string-remove-prefix (expand-file-name (concat easy-hugo-basedir "/org-blog"))  (file-name-directory buffer-file-name)))
+  (message "%s" destpath)
+  (let ((outfile (org-export-output-file-name ".md" nil (concat easy-hugo-basedir "content" destpath) )))
+    (message "%s" outfile)
+    (org-export-to-file 'gfm outfile))
+  )

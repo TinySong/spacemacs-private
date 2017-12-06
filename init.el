@@ -49,6 +49,7 @@ values."
      (org :variables org-enable-github-support t
           org-enable-bootstrap-support t
           org-enable-org-journal-support t)
+     spacemacs-org
      prodigy
      search-engine
      (syntax-checking :variables syntax-checking-enable-by-default nil)
@@ -138,7 +139,7 @@ values."
                                     evil-indent-plus volatile-highlights
                                     holy-mode skewer-mode rainbow-delimiters
                                     highlight-indentation vi-tilde-fringe eyebrowse
-                                    smooth-scrolling org-repo-todo org-timer
+                                    smooth-scrolling
                                     livid-mode   evil-escape
                                     leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
                                     ac-ispell ace-jump-mode auto-complete auto-dictionary

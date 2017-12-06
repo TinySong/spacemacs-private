@@ -519,7 +519,7 @@ With PREFIX, cd to project root."
   `((name . "Mail and News")
     (candidates . (("Calendar" . (lambda ()  (browse-url "https://www.google.com/calendar/render")))
                    ("RSS" . elfeed)
-                   ("Blog" . org-octopress)
+                   ("Blog" . easy-hugo)
                    ("Github" . (lambda() (helm-github-stars)))
                    ("Calculator" . (lambda () (helm-calcul-expression)))
                    ("Run current flie" . (lambda () (tinysong/run-current-file)))
