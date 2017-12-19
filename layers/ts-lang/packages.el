@@ -34,7 +34,6 @@
   '(
     (cc-mode :location built-in)
     company-c-headers
-    google-c-style
     lispy
     lua-mode
     irony
@@ -118,13 +117,6 @@
       "gr" 'helm-gtags-find-rtag
       "gs" 'helm-gtags-find-symbol
       "gf" 'helm-gtags-find-files)))
-
-;; http://blog.csdn.net/csfreebird/article/details/9250989
-(defun ts-lang/init-google-c-style ()
-  (use-package google-c-style
-    :defer t
-    :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
-
 
 (defun ts-lang/init-irony ()
   (use-package irony
