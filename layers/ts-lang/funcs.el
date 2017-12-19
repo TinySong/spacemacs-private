@@ -35,8 +35,9 @@
                           "// @Title \n"
                           "// @Description \n"
                           "// @Param   key     path    string  true        \"description\"\n"
-                          "// @Success 200\n"
-                          "// @Failure 400\n"
-                          "// @Failure 404\n"
+                          "// @Success 200 success\n"
+                          "// @Success 400 invalid request body\n"
+                          "// @Failure 403 no authorization\n"
+                          "// @Failure 500 internal server error\n"
                           "// @router / [get]\n"
                           ))))
