@@ -37,6 +37,7 @@
     elfeed-web
     bug-hunter
     gnus
+    google-translate
     ;; treemacs
     ;; calfw
     )
@@ -304,4 +305,11 @@ Each entry is either:
           ("fT"    . treemacs-projectile)
           ("f C-t" . treemacs-find-file)))
 
+  )
+
+(defun ts-tools/post-init-google-translate ()
+  (setq google-translate-default-target-language "zh-CN")
+  (setq google-translate-base-url "https://translate.google.cn/translate_a/single")
+  (setq google-translate-listen-url "https://translate.google.cn/translate_tts")
+  (setq google-translate--tkk-url  "https://translate.google.cn/")
   )

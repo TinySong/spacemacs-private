@@ -48,7 +48,8 @@ values."
      (vinegar :variables vinegar-reuse-dired-buffer t)
      (org :variables org-enable-github-support t
           org-enable-bootstrap-support t
-          org-enable-org-journal-support t)
+          org-enable-org-journal-support t
+          org-enable-hugo-support t)
      spacemacs-org
      prodigy
      search-engine
@@ -144,7 +145,7 @@ values."
                                     livid-mode   evil-escape
                                     leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
                                     ac-ispell ace-jump-mode auto-complete auto-dictionary
-                                    clang-format define-word google-translate disaster epic
+                                    clang-format define-word disaster epic
                                     fancy-battery org-present orgit orglue spacemacs-theme
                                     helm-flyspell flyspell-correct-helm clean-aindent-mode
                                     helm-c-yasnippet ace-jump-helm-line helm-make

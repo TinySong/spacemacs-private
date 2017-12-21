@@ -36,7 +36,6 @@
   '(
     org
     org-tree-slide
-    ;; org-octopressoctopress
     org-pomodoro
     (easy-hugo :location local)
     ;; org-octopress ;;change to use hugo, org-octopress relay on org-mac-link
