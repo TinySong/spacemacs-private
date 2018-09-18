@@ -3,7 +3,7 @@
     ;; git-messenger for github
     git-messenger
     magit
-    helm-github-stars                   ;; for github start
+    helm-github-stars ;; for github start
     ))
 
 ;; https://github.com/syohex/emacs-git-messenger

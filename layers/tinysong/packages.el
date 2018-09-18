@@ -68,12 +68,12 @@
     prodigy
     company
     which-func
-    header2
+    ;; header2
     smartparens
-    all-the-icons
-    all-the-icons-dired
+    ;; all-the-icons
+    ;; all-the-icons-dired
     ;; spaceline-all-the-icons
-    all-the-icons-ivy
+    ;; all-the-icons-ivy
     ))
 
 

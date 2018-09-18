@@ -627,7 +627,6 @@ With PREFIX, cd to project root."
          (push ',backend company-backends)))))
 
 
-
 (defun tinysong/dired-rsync ()
   (interactive)
   ;; offer dwim target as the suggestion
@@ -643,7 +642,7 @@ With PREFIX, cd to project root."
   (if (string-equal (substring (car cadicate-list) -1) "*")
       (progn (setq tmtxt/rsync-command
                    (concat tmtxt/rsync-command
-                           (car cadicate-list) " " rsync-remote-host ":" rsync-remote-path))
+                           (car cadicate-list) " " rsync-remote-host ":" (concat rsync-remote-path (projectile-project-name))))
              ;; run the async shell command
              (async-shell-command tmtxt/rsync-command "*rsync*")
              (other-window 1)

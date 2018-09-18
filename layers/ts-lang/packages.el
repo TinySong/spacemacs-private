@@ -37,6 +37,7 @@
     lispy
     lua-mode
     irony
+    go
     ))
 
 
@@ -127,4 +128,9 @@
     (add-hook 'objc-mode-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 
+  )
+
+(defun ts-lang/post-init-go ()
+  (with-eval-after-load 'go-mode
+    (add-hook 'go-mode (lambda () (smartparens-strict-mode 1))))
   )

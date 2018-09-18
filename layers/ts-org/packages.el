@@ -249,7 +249,7 @@
        'org-babel-load-languages
        '((perl . t)
          (ruby . t)
-         (sh . t)
+         (shell . t)
          (js . t)
          (python . t)
          (emacs-lisp . t)

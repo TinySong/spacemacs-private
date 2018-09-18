@@ -227,13 +227,13 @@ Single Capitals as you type."
                                             ("8str" "\\([^\"]+?\\)\"")))
 
 
-(defvar rsync-remote-host "root@192.168.0.227"
+(defvar rsync-remote-host "root@192.168.4.145"
   "remote host name.")
 
-(defvar rsync-remote-path "/root/tenxcloud/"
+(defvar rsync-remote-path "/data/src/"
   "remote path.")
 
-(defvar subcommand "--exclude= ")
+(defvar subcommand "--exclude=bin ")
 
 (with-eval-after-load 'flycheck
   (setq flycheck-display-errors-delay 0.1)
