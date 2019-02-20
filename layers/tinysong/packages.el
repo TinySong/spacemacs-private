@@ -68,7 +68,8 @@
     prodigy
     company
     which-func
-    ;; header2
+    (header2 :location local)
+    (setup-header2 :location local)
     smartparens
     ;; all-the-icons
     ;; all-the-icons-dired
@@ -311,9 +312,12 @@
     ))
 
 (defun tinysong/init-header2 ()
-  ;; (interactive "p")
   (use-package header2
-    :defer t
+    :commands (make-header
+               make-box-comment
+               make-header
+               auto-make-header
+               )
     :init
     :config
     (autoload 'auto-make-header "header2")
@@ -322,6 +326,12 @@
     (add-hook 'c-mode-common-hook 'auto-make-header)
     (add-hook 'go-mode-hook 'auto-make-header)
     (add-hook 'tex-mode-hook 'auto-make-header)
+    ))
+
+(defun tinysong/init-setup-header2 ()
+  (use-package setup-header2
+    :defer t
+    :init
     ))
 
 (defun tinysong/post-init-deft ()

@@ -68,3 +68,13 @@
 (defun tinysong/insert-current-date ()
   (interactive)
   (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
+
+
+(defun tinysong/insert-current-date ()
+  (interactive)
+  (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
+
+(defun tinysong/insert-author ()
+  (interactive)
+  "get author command"
+  (insert user-full-name))

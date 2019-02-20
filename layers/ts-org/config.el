@@ -11,11 +11,11 @@
 
 (setq-default
  org-agenda-dir "~/org-notes"
- org-note-dir "~/hugo-blog/org-blog"
+ org-note-dir "~/org-notes"
  deft-dir "~/org-notes")
 
 (setq blog-dir "~/hugo-blog"
-      public-blog-dir "~/hugo-blog/layout"
+      public-blog-dir "~/hugo-blog/public"
       hugo-process "Hugo Server"
       hugo-server-site "http://localhost:1313/")
 

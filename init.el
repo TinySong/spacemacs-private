@@ -33,7 +33,9 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(html
+     rust
+     sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -73,12 +75,16 @@ This function should only modify configuration layer settings."
              python-test-runner '(pytest nose))
      lua
      (go :variables go-tab-width 4
-         go-use-gometalinter t
-         gofmt-command "goimports"
-         go-backend 'lsp
          go-format-before-save t
+         gofmt-command "goimports"
+         go-use-golangci-lint t
          go-use-gocheck-for-testing t
          )
+     ;; (go :variables go-tab-width 4
+     ;;     go-use-gometalinter t
+     ;;     go-backend 'go-mode
+     ;;     godoc-at-point-function 'godoc-gogetdoc
+     ;;     gofmt-command "goimports" )
      command-log
      dash
      lsp
@@ -116,7 +122,7 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-position 'bottom
             shell-default-shell 'ansi-term
-            shell-default-term-shell "/bin/bash"
+            shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      (chinese :variables
               chinese-enable-youdao-dict t
@@ -136,6 +142,7 @@ This function should only modify configuration layer settings."
      ts-tools
      gnus
      treemacs
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      )
 
    ;; List of additional packages that will be installed without being
@@ -412,7 +419,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native nil
+   dotspacemacs-fullscreen-use-non-native t
 
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
@@ -545,6 +552,8 @@ This function defines the environment variables for your Emacs session. By
 default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
+  (setenv "SHELL" "/bin/zsh")
+  (setq shell-file-name "/bin/zsh")
   (spacemacs/load-spacemacs-env))
 
 (defun dotspacemacs/user-init ()
@@ -555,22 +564,24 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (when (spacemacs/system-is-mac)
-    (setq configuration-layer--elpa-archives
-          '(("melpa"    . "melpa.org/packages/")
-            ("org"      . "orgmode.org/elpa/")
-            ("gnu"      . "elpa.gnu.org/packages/")))
+    ;; (setq configuration-layer--elpa-archives
+    ;;       '(("melpa"    . "melpa.org/packages/")
+    ;;         ("org"      . "orgmode.org/elpa/")
+    ;;         ("gnu"      . "elpa.gnu.org/packages/")))
 
-    ;; (setq configuration-layer-elpa-archives
-    ;;       '(
-    ;;         ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
-    ;;         ("org-cn"   . "https://elpa.emacs-china.org/org/")
-    ;;         ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+    (setq configuration-layer-elpa-archives
+          '(
+            ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+            ("org-cn"   . "https://elpa.emacs-china.org/org/")
+            ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
     )
 
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   ;; ss proxy. But it will cause anacond-mode failed.
-  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  ;; TODO: set a variable, when enable, connect melpa by socks-server
+  (setq url-gateway-method 'socks)
+  (setq socks-server '("Default server" "127.0.0.1" 1086 5))
   (setq evil-shift-round nil)
   (setq byte-compile-warnings '(not obsolete))
   ;; 解决org表格里面中英文对齐的问题
@@ -600,8 +611,10 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; disable tab bar
+  (mac-toggle-tab-bar nil)
   ;; set gopath
-  ;; (exec-path-from-shell-copy-env "GOPATH")
+  ;; (exec -path-from-shell-copy-env "GOPATH")
   ( global-auto-composition-mode t)
   ;; To enable evil-mc if enabled
   (if (and (boundp 'flymake-mode) flymake-mode)

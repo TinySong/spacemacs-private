@@ -232,8 +232,8 @@ Each entry is either:
   )
 
 (defun ts-tools/post-init-gnus ()
-  (setq user-mail-address	"TinySong1226@gmail.com"
-        user-full-name	"timmy song"
+  (setq user-mail-address	"tinysong1226@gmail.com"
+        user-full-name	"song"
 
         ;; Get mail
         gnus-secondary-select-methods

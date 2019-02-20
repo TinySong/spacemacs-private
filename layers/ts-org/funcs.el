@@ -57,3 +57,43 @@
     (message "%s" outfile)
     (org-export-to-file 'gfm outfile))
   )
+
+
+(setq hugo-base-dir "~/hugo-blog/")
+
+(defun today-is ()
+  (format-time-string "%Y-%m-%d-"))
+
+(defun now-is ()
+  (concat (format-time-string "%Y-%m-%dT%T")
+          ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5)))
+           (format-time-string "%z"))))
+
+(defun org-hugo-new-post ()
+  "Creates a new org file in Hugo's content/post directory"
+  (interactive)
+  (let* ((title (read-from-minibuffer "Title: "))
+         (subtitle (read-from-minibuffer "SubTitle: "))
+         (filename (read-from-minibuffer "Filename: "
+                                         (replace-regexp-in-string "-\\.org" ".org"
+                                                                   (concat (downcase
+                                                                            (replace-regexp-in-string "[^a-z0-9]+" "-" title))
+                                                                           ".org"))))
+         (blogfile (concat "post/" (today-is) filename))
+         (url (concat (downcase
+                       (replace-regexp-in-string "[^a-z0-9]+" "-"
+                                                 title))))
+         (path (concat hugo-base-dir "content/" blogfile)))
+
+    (if (file-exists-p path)
+        (message "File already exists!")
+      (message blogfile)
+      (switch-to-buffer (generate-new-buffer blogfile))
+      (insert "#+DATE: " (now-is))
+      (insert "\n#+TITLE: " title)
+      (insert "\n#+SUBTITLE: " subtitle)
+      (insert "\n#+URL: /" url "/")
+      (insert "\n#+BANNER: \n#+DESCRIPTION: \n#+IMAGE: \n#+CATEGORIES: \n#+TAGS:\n\n")
+      (org-mode)
+      (write-file path)
+      (goto-char (point-max)))))
