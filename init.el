@@ -33,7 +33,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
+   '(php
+     html
      rust
      sql
      ;; ----------------------------------------------------------------
@@ -76,10 +77,13 @@ This function should only modify configuration layer settings."
      lua
      (go :variables go-tab-width 4
          go-format-before-save t
+         go-use-gometalinter t
+         go-backend 'lsp
+         godoc-at-point-function 'godoc-gogetdoc
          gofmt-command "goimports"
          go-use-golangci-lint t
-         go-use-gocheck-for-testing t
-         )
+         go-use-gocheck-for-testing t)
+
      ;; (go :variables go-tab-width 4
      ;;     go-use-gometalinter t
      ;;     go-backend 'go-mode

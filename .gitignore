@@ -4,6 +4,6 @@ snippets
 ### Elisp ###
 # Compiled
 *.elc
-
+.spacemacs.env
 # Packaging
 .cask
