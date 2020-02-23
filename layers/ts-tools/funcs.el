@@ -78,3 +78,42 @@
   (interactive)
   "get author command"
   (insert user-full-name))
+
+
+
+(require 'cl-lib)
+
+(defun save-chromium-session ()
+  "Reads chromium current session and generate org-mode heading with items."
+  (interactive)
+  (save-excursion
+    (let* ((cmd "strings ~/'Library/Application Support/Google/Chrome/Default/Current Session' | 'grep' -E '^https?://' | sort | uniq")
+           (ret (shell-command-to-string cmd)))
+      (insert
+       (concat
+        "* "
+        (format-time-string "[%Y-%m-%d %H:%M:%S]")
+        "\n"
+        (mapconcat 'identity
+                   (cl-reduce (lambda (lst x)
+                                (if (and x (not (string= "" x)))
+                                    (cons (concat "  - " x) lst)
+                                  lst))
+                              (split-string ret "\n")
+                              :initial-value (list))
+                   "\n"))))))
+
+(defun restore-chromium-session ()
+  "Restore session, by openning each link in list with (browse-url).
+Make sure to put cursor on date heading that contains list of urls."
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (when (looking-at "^\\*")
+      (forward-line 1)
+      (while (looking-at "^[ ]+-[ ]+\\(http.?+\\)$")
+        (let* ((ln (thing-at-point 'line t))
+               (ln (replace-regexp-in-string "^[ ]+-[ ]+" "" ln))
+               (ln (replace-regexp-in-string "\n" "" ln)))
+          (browse-url ln))
+        (forward-line 1)))))

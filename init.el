@@ -33,9 +33,9 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(php
-     html
-     rust
+   '(
+     ;; ansible
+     ruby
      sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -47,10 +47,12 @@ This function should only modify configuration layer settings."
      (better-defaults :variables
                       better-defaults-move-to-end-of-code-first t)
      github
-     (version-control :variables version-control-diff-tool 'git-gutter+
+     (version-control :variables
+                      version-control-diff-tool 'git-gutter+
                       version-control-global-margin t)
      ;; osx
-     (osx :variables osx-command-as       'super
+     (osx :variables
+          osx-command-as       'super
           osx-option-as        'meta
           osx-control-as       'control
           osx-function-as      'none
@@ -58,6 +60,9 @@ This function should only modify configuration layer settings."
           osx-right-option-as  'left
           osx-right-control-as 'left)
      markdown
+     ;; ;TODO:  custom deft-directory
+     ( deft :variables
+       deft-zetteldeft t)
      (vinegar :variables vinegar-reuse-dired-buffer t)
      (org :variables org-enable-github-support t
           org-enable-bootstrap-support t
@@ -68,7 +73,7 @@ This function should only modify configuration layer settings."
      search-engine
      (syntax-checking :variables syntax-checking-enable-by-default nil)
      (spell-checking :variables spell-checking-enable-by-default t)
-     yaml
+     (yaml :variables yaml-enable-lsp t)
      ;; (ruby :variables ruby-version-manager 'rvm)
      (python :variables python-backend 'anaconda
              python-enable-yapf-format-on-save t
@@ -91,11 +96,13 @@ This function should only modify configuration layer settings."
      ;;     gofmt-command "goimports" )
      command-log
      dash
+     dap
      lsp
      node
      javascript
      emacs-lisp
      emoji
+     quickurl
      (ranger :variables ranger-show-preview t)
      ;; racket
      gtags
@@ -113,20 +120,25 @@ This function should only modify configuration layer settings."
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
+            c-c++-lsp-sem-highlight-method 'overlay
+            c-c++-lsp-sem-highlight-rainbow t
             c-c++-enable-google-style t
-            c-c++-enable-clang-support t
+            c-c++-backend 'lsp-ccls
+            ;; c-c++-backend 'lsp-cquery
+            ;; c-c++-backend 'lsp-clangd
+            c-c++-adopt-subprojects t
+            ;; c-c++-enable-clang-support t
             c-c++-enable-clang-format-on-save t
             c-c++-default-mode-for-headers 'c-mode)
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       auto-completion-enable-help-tooltip t
                       auto-completion-tab-key-behavior 'cycle
-                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-snippets-in-popup t
                       :disabled-for org)
      (shell :variables
             shell-default-position 'bottom
-            shell-default-shell 'ansi-term
-            shell-default-term-shell "/bin/zsh"
+            shell-default-shell 'eshell
+            ;; shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      (chinese :variables
               chinese-enable-youdao-dict t
@@ -138,13 +150,9 @@ This function should only modify configuration layer settings."
                   geolocation-enable-weather-forecast t)
      tinysong
      ts-org
-     ts-helm
-     ts-git
      ts-project
      ts-lang
      docker
-     ts-tools
-     gnus
      treemacs
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      )
@@ -270,6 +278,7 @@ It should only modify the values of Spacemacs settings."
    ;; (default 'vim)
    dotspacemacs-editing-style '(hybrid :variables
                                        hybrid-mode-enable-evilified-state t
+                                       hybrid-style-visual-feedback t
                                        hybrid-mode-enable-hjkl-bindings t
                                        hybrid-mode-use-evil-search-module t
                                        hybrid-mode-default-state 'normal
@@ -325,11 +334,11 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 12
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.5)
+   ;; dotspacemacs-default-font '("Source Code Pro"
+   ;;                             :size 14
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;;                             :powerline-scale 1.5)
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -568,16 +577,16 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (when (spacemacs/system-is-mac)
-    ;; (setq configuration-layer--elpa-archives
-    ;;       '(("melpa"    . "melpa.org/packages/")
-    ;;         ("org"      . "orgmode.org/elpa/")
-    ;;         ("gnu"      . "elpa.gnu.org/packages/")))
+    (setq configuration-layer--elpa-archives
+          '(("melpa"    . "melpa.org/packages/")
+            ("org"      . "orgmode.org/elpa/")
+            ("gnu"      . "elpa.gnu.org/packages/")))
 
-    (setq configuration-layer-elpa-archives
-          '(
-            ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
-            ("org-cn"   . "https://elpa.emacs-china.org/org/")
-            ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+    ;; (setq configuration-layer-elpa-archives
+;;;       '(
+;;;         ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+;;;         ("org-cn"   . "https://elpa.emacs-china.org/org/")
+;;;         ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
     )
 
   (setq tramp-ssh-controlmaster-options
@@ -593,7 +602,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 ;;;TODO https://github.com/et2010/Han
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and window-system (spacemacs/system-is-mac))
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 13 14))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Source Han Serif" 12 14))
     (when (spacemacs/system-is-linux)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14)))
   ;; fix slow down in performace when rendering multiple icons simultaneously
@@ -616,9 +625,10 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
   ;; disable tab bar
-  (mac-toggle-tab-bar nil)
+  ;; (mac-toggle-tab-bar nil)
   ;; set gopath
   ;; (exec -path-from-shell-copy-env "GOPATH")
+  (global-company-mode t)
   ( global-auto-composition-mode t)
   ;; To enable evil-mc if enabled
   (if (and (boundp 'flymake-mode) flymake-mode)
@@ -649,16 +659,16 @@ before packages are loaded."
     (while bindings
       (define-key keymap (pop bindings) (pop bindings))))
   (bb/define-key evil-normal-state-map
-                 "+" 'spacemacs/evil-numbers-increase
-                 "_" 'spacemacs/evil-numbers-decrease
-                 "\\" 'evil-repeat-find-char-reverse
-                 "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
-                 "]s" (lambda (n) (interactive "p")
-                        (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
+    "+" 'spacemacs/evil-numbers-increase
+    "_" 'spacemacs/evil-numbers-decrease
+    "\\" 'evil-repeat-find-char-reverse
+    "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
+    "]s" (lambda (n) (interactive "p")
+           (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
 
   (with-eval-after-load 'company
     (bb/define-key company-active-map
-                   (kbd "C-w") 'evil-delete-backward-word))
+      (kbd "C-w") 'evil-delete-backward-word))
 
   (with-eval-after-load 'helm
     (define-key helm-map (kbd "C-w") 'evil-delete-backward-word))
@@ -722,6 +732,8 @@ before packages are loaded."
    '(company-tooltip-common-selection
      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 
+  ;; (when (memq window-system '(mac ns x))
+  ;;   (exec-path-from-shell-initialize))
   ;; add exec path
   (add-to-list 'exec-path "~/development/golang/bin/")
 
@@ -744,3 +756,20 @@ before packages are loaded."
   )
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
+
+;; Auto generated by cnfonts
+;; <https://github.com/tumashu/cnfonts>
+(set-face-attribute
+ 'default nil
+ :font (font-spec :name "-*-Source Code Pro-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
+                  :weight 'normal
+                  :slant 'normal
+                  :size 12.5))
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font
+   (frame-parameter nil 'font)
+   charset
+   (font-spec :name "-*-Source Han Serif SC-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+              :weight 'normal
+              :slant 'normal
+              :size 14.5)))

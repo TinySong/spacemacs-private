@@ -36,10 +36,7 @@
   '(
     org
     org-tree-slide
-    org-pomodoro
-    (easy-hugo :location local)
-    ;; org-octopress ;;change to use hugo, org-octopress relay on org-mac-link
-    ;; An error occurred while installing org-octopress (error: (error Package ‘org-mac-link-1.2’ is unavailable))
+    cnfonts
     ))
 
 (defun ts-org/post-init-org ()
@@ -426,45 +423,9 @@
 (defun ts-org/init-org-tree-slide ()
   (use-package org-tree-slide
     :init
-    ;; (spacemacs/set-leader-keys "oto" 'org-tree-slide-mode)
     :defer t
     :config))
 
-
-(defun ts-org/init-org-octopress ()
-  (use-package org-octopress
-    :init
-    (progn
-      (evilified-state-evilify org-octopress-summary-mode org-octopress-summary-mode-map)
-      (add-hook 'org-octopress-summary-mode-hook
-                #'(lambda () (local-set-key (kbd "q") 'bury-buffer)))
-
-      (defun ts-org/org-save-and-export ()
-        (interactive)
-        (org-octopress-setup-publish-project)
-        (org-publish-project "octopress" t))
-      (spacemacs/set-leader-keys "op" 'ts-org/org-save-and-export)
-      )))
-
-(defun ts-org/post-init-org-pomodoro ()
-  (use-package org-pomodoro
-    :init
-    :defer t
-    :config
-    (progn
-      ;; (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)
-      (add-hook 'org-pomodoro-finished-hook '(lambda () (tinysong/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
-      (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (tinysong/growl-notification "Short Break" "🐝 Ready to Go?" t)))
-      (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (tinysong/growl-notification "Long Break" " 💪 Ready to Go?" t)))
-      )))
-
-
-(defun ts-org/init-org-jira ()
-  (use-package org-jira
-    :init
-    (setq jiralib-url "http://jira.tenxcloud.com")
-    :config (spacemacs|diminish org-jira-mode " Ⓙ" "jr")
-    ))
 
 (defun ts-org/init-easy-hugo ()
   (use-package easy-hugo
@@ -518,3 +479,11 @@
         ))
     ))
 
+(defun ts-org/init-cnfonts ()
+  (use-package cnfonts
+    :init
+    (cnfonts-enable)
+    :config
+    (cnfonts-set-spacemacs-fallback-fonts))
+
+  )
