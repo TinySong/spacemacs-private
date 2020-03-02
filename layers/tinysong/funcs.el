@@ -12,42 +12,6 @@
 (require 'ido)
 (require 'cl)
 
-(setq octopress-workdir (expand-file-name "~/4gamers.cn/"))
-
-(defun tinysong/octopress-rake (command)
-  "run rake commands"
-  (let ((command-str (format "/bin/bash -l -c 'source $HOME/.rvm/scripts/rvm && rvm use ruby 2.0.0  && cd %s && rake %s'" octopress-workdir command)))
-    (shell-command-to-string command-str)))
-
-(defun tinysong/octopress-qrsync (command)
-  (let ((command-str (format "/usr/local/bin/qrsync %s" command )))
-    (shell-command-to-string command-str)))
-
-(defun tinysong/octopress-generate ()
-  "generate jekyll site"
-  (interactive)
-  (tinysong/octopress-rake "generate")
-  (message "Generate site OK"))
-
-(defun tinysong/octopress-deploy ()
-  "default deploy task"
-  (interactive)
-  (tinysong/octopress-rake "deploy")
-  (tinysong/octopress-qrsync "/Users/song/4gamers.cn/song.json")
-  (message "Deploy site OK"))
-
-(defun tinysong/octopress-gen-deploy ()
-  "generate website and deploy"
-  (interactive)
-  (tinysong/octopress-rake "gen_deploy")
-  (tinysong/octopress-qrsync "/Users/song/4gamers.cn/song.json")
-  (message "Generate and Deploy OK"))
-
-(defun tinysong/octopress-upimg ()
-  (interactive)
-  (tinysong/octopress-qrsync "/Users/song/4gamers.cn/song.json")
-  (message "Up Img to Qiniu"))
-
 ;; just for macOS
 (defun tinysong/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
@@ -80,10 +44,9 @@
                  "copy theResult to the end of links\n"
                  "return links as string\n"
                  ))))
-    (format " %s\n \t %s" title (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
-
-
-;; "https://github.com/vhallac/.emacs.d/blob/master/config/customize-org-agenda.el"
+    (message "%s" result)
+    (message "%s" title)
+    (format "[[%s][%s]]" (s-chop-suffix "\"" (s-chop-prefix "\"" result)) title)))
 
 
 ;; remove all the duplicated emplies in current buffer
