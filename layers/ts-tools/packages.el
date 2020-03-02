@@ -80,7 +80,7 @@ Each entry is either:
                                   :remove 'unread))
     (setq elfeed-search-filter "@4-weeks-old +unread "
           elfeed-search-title-max-width 100)
-    (setq rmh-elfeed-org-files (list "~/org-notes/elfeed.org"))
+    (setq rmh-elfeed-org-files (list "~/.elfeed/elfeed.org"))
     (progn
       (evilified-state-evilify-map elfeed-search-mode-map
         :mode elfeed-search-mode

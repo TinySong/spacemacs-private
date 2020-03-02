@@ -7,3 +7,4 @@ snippets
 .spacemacs.env
 # Packaging
 .cask
+.DS_Store

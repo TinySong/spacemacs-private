@@ -42,7 +42,7 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     (ivy :variables ivy-enable-advanced-buffer-information t)
+     ivy
      ;; helm
      (better-defaults :variables
                       better-defaults-move-to-end-of-code-first t)
@@ -67,7 +67,12 @@ This function should only modify configuration layer settings."
      (org :variables org-enable-github-support t
           org-enable-bootstrap-support t
           org-enable-org-journal-support t
-          org-enable-hugo-support t)
+          org-enable-hugo-support t
+          org-enable-sticky-header t
+          org-enable-jira-support t
+          jiralib-url "http://ex-jira.tenxcloud.com"
+
+          )
      spacemacs-org
      prodigy
      search-engine
@@ -89,11 +94,6 @@ This function should only modify configuration layer settings."
          go-use-golangci-lint t
          go-use-gocheck-for-testing t)
 
-     ;; (go :variables go-tab-width 4
-     ;;     go-use-gometalinter t
-     ;;     go-backend 'go-mode
-     ;;     godoc-at-point-function 'godoc-gogetdoc
-     ;;     gofmt-command "goimports" )
      command-log
      dash
      dap
@@ -138,7 +138,6 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-position 'bottom
             shell-default-shell 'eshell
-            ;; shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      (chinese :variables
               chinese-enable-youdao-dict t
@@ -171,29 +170,9 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    ;; spaceline
-                                    ;; evil-mc
-                                    ;; evil-args evil-ediff evil-exchange evil-unimpaired
-                                    ;; evil-indent-plus volatile-highlights  savehist
-                                    ;; holy-mode skewer-mode rainbow-delimiters
-                                    ;; highlight-indentation vi-tilde-fringe
-                                    ;; smooth-scrolling
-                                    ;; livid-mode   evil-escape
-                                    ;; leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
-                                    ;; ac-ispell ace-jump-mode auto-complete auto-dictionary
-                                    ;; clang-format define-word disaster epic
-                                    ;; fancy-battery org-present orgit orglue spacemacs-theme
-                                    ;; helm-flyspell flyspell-correct-helm clean-aindent-mode
-                                    ;; helm-c-yasnippet ace-jump-helm-line helm-make
-                                    ;; helm-themes helm-swoop helm-spacemacs-help smeargle
-                                    ;; ido-vertical-mode flx-ido company-quickhelp
-                                    ;; solarized-theme
-                                    ;; chinese-wbim
-                                    ;; chinese-pyim
-                                    ;; ;;https://github.com/abo-abo/lispy/issues/137
-                                    ;; clj-refactor
-                                    ;; magit-gh-pulls magit-gitflow
-                                    ;; magithub git-gutter git-gutter-fringe
+                                    solarized-theme
+                                    chinese-wbim
+                                    chinese-pyim
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -307,6 +286,11 @@ It should only modify the values of Spacemacs settings."
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
 
+   ;; Default major mode for a new empty buffer. Possible values are mode
+   ;; names such as `text-mode'; and `nil' to use Fundamental mode.
+   ;; (default `text-mode')
+   dotspacemacs-new-empty-buffer-major-mode 'text-mode
+
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
 
@@ -317,7 +301,11 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '( monokai)
+   dotspacemacs-themes '(
+                         spacemacs-dark
+                         monokai
+                         gruvbox
+                         )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -334,11 +322,11 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   ;; dotspacemacs-default-font '("Source Code Pro"
-   ;;                             :size 14
-   ;;                             :weight normal
-   ;;                             :width normal
-   ;;                             :powerline-scale 1.5)
+   dotspacemacs-default-font '("Source Code Pro"
+                               :size 12.0
+                               :weight normal
+                               :width normal
+                               :powerline-scale 1)
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -466,10 +454,14 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-smooth-scrolling t
 
    ;; Control line numbers activation.
-   ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
-   ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
+   ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
+   ;; `prog-mode' and `text-mode' derivatives. If set to `relative', line
+   ;; numbers are relative. If set to `visual', line numbers are also relative,
+   ;; but lines are only visual lines are counted. For example, folded lines
+   ;; will not be counted and wrapped lines are counted as multiple lines.
    ;; This variable can also be set to a property list for finer control:
    ;; '(:relative nil
+   ;;   :visual nil
    ;;   :disabled-for-modes dired-mode
    ;;                       doc-view-mode
    ;;                       markdown-mode
@@ -477,6 +469,7 @@ It should only modify the values of Spacemacs settings."
    ;;                       pdf-view-mode
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
+   ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
    dotspacemacs-line-numbers '(:relative t
                                          :enabled-for-modes prog-mode
@@ -491,7 +484,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-smartparens-strict-mode nil
 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
-   ;; over any automatically added closing parenthesis, bracket, quote, etc…
+   ;; over any automatically added closing parenthesis, bracket, quote, etc...
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
    dotspacemacs-smart-closing-parenthesis nil
 
@@ -593,12 +586,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   ;; ss proxy. But it will cause anacond-mode failed.
   ;; TODO: set a variable, when enable, connect melpa by socks-server
-  (setq url-gateway-method 'socks)
-  (setq socks-server '("Default server" "127.0.0.1" 1086 5))
+  ;; (setq url-gateway-method 'socks)
+  ;; (setq socks-server '("Default server" "127.0.0.1" 1086 5))
   (setq evil-shift-round nil)
   (setq byte-compile-warnings '(not obsolete))
-  ;; 解决org表格里面中英文对齐的问题
-  ;; TODO:cannot create org table when tap TAB or RET
+
 ;;;TODO https://github.com/et2010/Han
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and window-system (spacemacs/system-is-mac))
@@ -624,10 +616,9 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-  ;; disable tab bar
-  ;; (mac-toggle-tab-bar nil)
-  ;; set gopath
-  ;; (exec -path-from-shell-copy-env "GOPATH")
+  ;; enable mode line display of org clock
+  (setq spaceline-org-clock-p t)
+
   (global-company-mode t)
   ( global-auto-composition-mode t)
   ;; To enable evil-mc if enabled
@@ -744,8 +735,6 @@ before packages are loaded."
             (defun clang-format-bindings ()
               (define-key c++-mode-map [tab] 'clang-format-buffer)))
 
-  ;; fix helm-projectile-find-file is slow, becasuse zsh plugin, see:  https://github.com/syl20bnr/spacemacs/issues/4207
-  (setq shell-file-name "/bin/bash")
   ;; set config for geolocation layer
   (setq sunshine-appid "4986a2c5f818b187d74d8c8fc80f88fe")
   (setq sunshine-location "beijing")

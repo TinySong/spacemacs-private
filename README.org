@@ -1,21 +1,18 @@
-* TinySong spacemacs 私有配置
-** emacs 系统要求
-   emacs 最好选用 24.5+版本
-** 使用方法
-#+BEGIN_SRC sh
-   # clone spacemacs 源码
-   git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d
-   cd .emacs.d
-   git checkout origin/develop
+#+title: private spacemacs config
+#+description:  tweak emacs config according my habir
 
-   # clone 私有配置
-   git clone https://github.com/TinySong/spacemeacs-private.git ~/.spacemacs.d
+* emacs config
 
-   # add yasnippet template
-   git clone https://github.com/AndreaCrotti/yasnippet-snippets.git ~/.spacemacs.d/snippets
-#+END_SRC
-   然后运行 emacs 即可
+** autocompletion
+*** snippet
+    the directory =~/.spacemacs.d/snippets= in autocompletion layer when
+    enabled, check [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion/auto-completion#snippets-directories][snippets-directories]]. just use this command clone snippets
+    into directory.
 
-   #+BEGIN_SRC
-
-   #+END_SRC
+     activate snippets shortcut ~SPC i s~
+    #+BEGIN_SRC sh
+      git clone https://github.com/AndreaCrotti/yasnippet-snippets.git  ~/.spacemacs.d/snippets
+    #+END_SRC
+** orgmode
+   1. [ ] M-S-RET (org-insert-todo-heading)
+   2. ~C-c C-c~ order the ordered list
