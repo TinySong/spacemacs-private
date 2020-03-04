@@ -35,6 +35,7 @@
 
 (bind-key* "C-c l" 'tinysong/insert-chrome-current-tab-url)
 (spacemacs/set-leader-keys "oil" 'tinysong/insert-chrome-current-tab-url)
+(spacemacs/set-leader-keys "oit" 'tinysong/insert-chrome-current-tab-title)
 
 (global-set-key (kbd "<f5>") 'tinysong/run-current-file)
 

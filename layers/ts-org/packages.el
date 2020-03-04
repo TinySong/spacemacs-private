@@ -52,14 +52,13 @@
       (require 'org-habit)
       (add-to-list 'org-modules 'org-habit)
       (add-hook 'org-mode-hook 'toc-org-enable)
-      (setq org-refile-use-outline-path 'file)
       (setq org-outline-path-complete-in-steps nil)
-      (setq org-refile-targets
-            '((nil :maxlevel . 4)
-              (org-agenda-files :maxlevel . 4)))
       ;; config stuck project
       (setq org-stuck-projects
             '("TODO={.+}/-DONE" nil nil "SCHEDULED:\\|DEADLINE:"))
+
+      (global-set-key (kbd "<f12>") 'org-agenda)
+
 
       (setq org-agenda-inhibit-startup t)       ;; ~50x speedup
       (setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
@@ -77,12 +76,15 @@
       ;; https://www.emacswiki.org/emacs/EasyPG#toc5
       ;; org-mode 設定
       (require 'org-crypt)
+      ;; (require 'epa-file)
 
-      ;; 當被加密的部份要存入硬碟時，自動加密回去
+      ;; (epa-file-enable)
+      ;; ; Encrypt all entries before saving
       (org-crypt-use-before-save-magic)
 
       ;; 設定要加密的 tag 標籤為 secret
       (setq org-crypt-tag-matcher "secret")
+      (spacemacs/set-leader-keys "oc" 'org-decrypt-entries)
 
       ;; 避免 secret 這個 tag 被子項目繼承 造成重複加密
       ;; (但是子項目還是會被加密喔)
@@ -96,6 +98,7 @@
 
 
 
+      ;; TODO each keywords means
       (setq org-todo-keywords
             (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)" "|" "NEXT(n)")
                     (sequence "HOLD(h)" "WAITING(w@/!)" "SOMEDAY(S)"  "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)")
@@ -109,9 +112,11 @@
       (setq org-clock-in-switch-to-state "STARTED")
       (setq org-clock-into-drawer t)
       ;; Removes clocked tasks with 0:00 duration
-      (setq org-clock-out-remove-zero-time-clocks t) ;; Show the clocked-in task - if any - in the header line
+      ;; (setq org-clock-out-remove-zero-time-clocks t)
+      ;; Show the clocked-in task - if any - in the header line
       (setq org-clock-persist 'history)
       (org-clock-persistence-insinuate)
+      ;; TODO
       (setq org-tags-match-list-sublevels nil)
 
       ;; http://wenshanren.org/?p=327
@@ -255,11 +260,8 @@
          (C . t)
          (ditaa . t)))
 
-      (setq org-agenda-file-note (expand-file-name "notes.org" org-note-dir))
-      (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
-      (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
-      (setq org-default-notes-file (expand-file-name "gtd.org" org-agenda-dir))
-      (setq org-agenda-files (quote ("~/org-notes/gtd.org" "~/org-notes/notes.org")))
+      (setq org-agenda-refile (expand-file-name "refile.org" org-note-dir))
+      (setq org-agenda-files (quote ("~/org-notes/personal" "~/org-notes/project" "~/org-notes/business" "~/org-notes/schedule.org" "~/org-notes/refile.org")))
 
 
       (with-eval-after-load 'org-agenda
@@ -274,32 +276,52 @@
       ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
       ;;add multi-file journal
       (setq org-capture-templates
-            '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
-               "* TODO [#B] %?\n  %i\n%U"
-               :empty-lines 1)
-              ("n" "notes" entry (file+headline org-agenda-file-note "Quick notes")
-               "* TODO [#C] %?\n  %i\n %U"
-               :empty-lines 1)
-              ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
-               "* TODO [#B] %?\n  %i\n %U"
-               :empty-lines 1)
-              ("w" "work" entry (file+headline org-agenda-file-gtd "tenx")
-               "* TODO [#A] %?\n  %i\n %U"
-               :empty-lines 1)
-              ("c" "Chrome" entry (file+headline org-default-notes-file "Quick notes")
-               "* TODO [#C] %?\n %(tinysong/retrieve-chrome-current-tab-url)\n %i\n %U"
-               :empty-lines 1)
-              ("l" "links" entry (file+headline org-default-notes-file "Quick notes")
-               "* TODO [#C] %?\n  %i\n %a \n %U"
-               :empty-lines 1)
-              ("L" "CodeLine" entry (file+headline org-agenda-file-gtd "CodeTask")
-               "* TODO [#B] %?\n  %(ts-org/position-to-kill-ring)\n %a \n %U"
-               :empty-lines 1)
-              ;; ("j" "Journal Entry"
-              ;;  entry (file+datetree org-agenda-file-journal)
-              ;;  "* %?"
+            '(
+              ("t"  "Quick Task" entry (file+headline "~/org-notes/refile.org" "QuickTask")
+               "* TODO %?  %i \n%U"
+               )
+
+              ("T"  "Task" entry (file+headline "~/org-notes/refile.org" "Task")
+               "* TODO %?  %i \n%U"
+               )
+              ;; soloved client something
+              ("u" "Urgency event" entry (file+headline "~/org-notes/refile.org" "Urgency")
+               "* TODO %?\n SCHEDULED: %t\n%U\n"
+               )
+              ;; soloved client something
+              ("w" "WORK" entry (file+headline "~/org-notes/refile.org" "Tenxcloud")
+               "* TODO %?\n SCHEDULED: %t\n%U\n"
+               )
+              ("i" "ideas" entry (file+headline "~/org-notes/refile.org" "Ideas")
+               "* %? :Idea: %i \n%U"
+               )
+
+              ("p" "Project" entry (file+headline "~/org-notes/refile.org" "Project")
+               "* %? :Project: %i\n%U"
+               )
+
+
+              ("m" "Meeting" entry (file+headline "~/org-notes/refile.org" "Meeting")
+               "* MEETING with %? :MEETING:\n%U" :clock-in t
+               )
+              ("s" "Schedule" entry (file+headline "~/org-notes/refile.org" "Schedule")
+               "* %? :Schedule: \n %U\n"
+               )
+              ("w" "org-protocol" entry (file+headline "~/org-notes/refile.org" )
+               "* TODO Review %c\n%U\n" :immediate-finish t)
+
+              ("n" "notes" entry (file+headline "~/org-notes/refile.org" "Notes")
+               "* %? :NOTE:\n%U\n%a\n"
+               )
+              ;; ("n" "notes" entry (file+headline org-agenda-refile "notes")
+              ;;  "* TODO [#C] %?\n  %i\n %U"
               ;;  :empty-lines 1)
-              ))
+
+              ;; ("w" "work" entry (file+headline org-agenda-refile "tenx")
+              ;;  "* TODO [#A] %?\n  %i\n %U"
+              ;;  :empty-lines 1)
+              )
+            )
 
       ;;An entry without a cookie is treated just like priority ' B '.
       ;;So when create new task, they are default 重要且紧急
@@ -318,48 +340,6 @@
                 (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
                 ))))
 
-      (defvar tinysong-website-html-preamble
-        "<div class='nav'>
-<ul>
-<li><a href='http://tinysong.com'>博客</a></li>
-<li><a href='/index.html'>Wiki目录</a></li>
-</ul>
-</div>")
-      (defvar tinysong-website-html-blog-head
-        " <link rel='stylesheet' href='css/site.css' type='text/css'/> \n
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>")
-      (setq org-publish-project-alist
-            `(
-              ("blog-notes"
-               :base-directory "~/org-notes"
-               :base-extension "org"
-               :publishing-directory "~/org-notes/public_html/"
-
-               :recursive t
-               :html-head , tinysong-website-html-blog-head
-               :publishing-function org-html-publish-to-html
-               :headline-levels 4       ; Just the default for this project.
-               :auto-preamble t
-               :exclude "gtd.org"
-               :exclude-tags ("ol" "noexport")
-               :section-numbers nil
-               :html-preamble ,tinysong-website-html-preamble
-               :author "tinysong"
-               :email "tinysong1226@gmail.com"
-               :auto-sitemap t          ; Generate sitemap.org automagically...
-               :sitemap-filename "index.org" ; ... call it sitemap.org (it's the default)...
-               :sitemap-title "我的wiki"     ; ... with title 'Sitemap'.
-               :sitemap-sort-files anti-chronologically
-               :sitemap-file-entry-format "%t" ; %d to output date, we don't need date here
-               )
-              ("blog-static"
-               :base-directory "~/org-notes"
-               :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-               :publishing-directory "~/org-notes/public_html/"
-               :recursive t
-               :publishing-function org-publish-attachment
-               )
-              ("blog" :components ("blog-notes" "blog-static"))))
 
       (defun org-summary-todo (n-done n-not-done)
         "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -412,11 +392,19 @@
       (define-key org-mode-map (kbd "s-p") 'org-priority)
       (define-key global-map (kbd "<f9>") 'org-capture)
       (global-set-key (kbd "C-c b") 'org-iswitchb)
+
+      ;; org refile
+      (setq org-reverse-note-order t)
+      (setq org-refile-allow-creating-parent-nodes 'confirm)
+      ;; Use full outline paths for refile targets - we file directly with IDO
+      (setq org-refile-use-outline-path 'file)
+      (setq org-refile-targets
+            '((nil :maxlevel . 4)
+              (org-agenda-files :maxlevel . 4)))
       (define-key evil-normal-state-map (kbd "C-c C-w") 'org-refile)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "owh" 'plain-org-wiki-helm
-        )
-      (setq org-mobile-directory "~/org-notes/org")
+
+      ;; org mobile
+      (setq org-mobile-directory "~/org-notes/mobile")
       )))
 
 
@@ -426,58 +414,6 @@
     :defer t
     :config))
 
-
-(defun ts-org/init-easy-hugo ()
-  (use-package easy-hugo
-    :init
-    :config
-    (setq easy-hugo-basedir "~/hugo-blog/")
-    (setq easy-hugo-url "https://tinysong.githug.io")
-    (setq easy-hugo-sshdomain "blogdomain")
-    (setq easy-hugo-root "~/hugo-blog/")
-    (setq easy-hugo-postdir "org-blog/")
-    (setq easy-hugo-previewtime "300")
-    (setq easy-hugo-default-ext ".org")
-    ;; "Keymap for easy-hugo major mode."
-    (progn
-      (evilified-state-evilify-map easy-hugo-mode-map
-        :mode easy-hugo-mode
-        :bindings
-        "." 'easy-hugo-next-postdir
-        "," 'easy-hugo-previous-postdir
-        "+" 'easy-hugo-next-postdir
-        "-" 'easy-hugo-previous-postdir
-        "n" 'easy-hugo-newpost
-        "a" 'ts-org/easy-hugo-ag
-        "c" 'easy-hugo-open-config
-        "p" 'easy-hugo-preview
-        "P" 'ts-org/easy-hugo-publish
-        "T" 'easy-hugo-publish-timer
-        "t" 'easy-hugo-cancel-publish-timer
-        "o" 'easy-hugo-open
-        "O" 'easy-hugo-open-basedir
-        "R" 'easy-hugo-rename
-        "d" 'easy-hugo-delete
-        "N" 'easy-hugo-no-help
-        "j" 'easy-hugo-next-line
-        "k" 'easy-hugo-previous-line
-        "h" 'easy-hugo-backward-char
-        "l" 'easy-hugo-forward-char
-        "v" 'easy-hugo-view
-        "r" 'easy-hugo-refresh
-        "g" 'easy-hugo-refresh
-
-        "s" 'easy-hugo-sort-char
-        "G" 'easy-hugo-github-deploy
-        "H" 'easy-hugo-github-deploy-timer
-        "b" 'easy-hugo-cancel-github-deploy-timer
-        "D" 'easy-hugo-list-draft
-        "u" 'easy-hugo-undraft
-        "q" 'easy-hugo-quit
-        "<" 'easy-hugo-previous-blog
-        ">" 'easy-hugo-next-blog
-        ))
-    ))
 
 (defun ts-org/init-cnfonts ()
   (use-package cnfonts

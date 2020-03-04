@@ -49,6 +49,29 @@
     (format "[[%s][%s]]" (s-chop-suffix "\"" (s-chop-prefix "\"" result)) title)))
 
 
+(defun tinysong/insert-chrome-current-tab-title ()
+  (interactive)
+  (insert (tinysong/retrieve-chrome-current-table-title))
+  )
+
+(defun tinysong/retrieve-chrome-current-table-title ()
+  "Get the tile of chrome first window"
+  (interactive)
+  (let
+      ((title (do-applescript
+               (concat
+                "set frontmostApplication to path to frontmost application\n"
+                "tell application \"Google Chrome\"\n"
+                "set theTitle to get title of active tab of first window\n"
+                "set theResult to (get theTitle) \n"
+                "end tell\n"
+                "activate application (frontmostApplication as text)\n"
+                "set links to {}\n"
+                "copy theResult to the end of links\n"
+                "return links as string\n"
+                ))))
+    (format "%s" title))
+  )
 ;; remove all the duplicated emplies in current buffer
 (defun tinysong/single-lines-only ()
   "replace multiple blank lines with a single one"
@@ -94,8 +117,8 @@
 
 (defun tinysong/comment-box (b e)
   "Draw a box comment around the region but arrange for the region
-to extend to at least the fill column. Place the point after the
-comment box."
+  to extend to at least the fill column. Place the point after the
+  comment box."
   (interactive "r")
   (let ((e (copy-marker e t)))
     (goto-char b)
@@ -108,7 +131,7 @@ comment box."
 ;;http://emacsredux.com/blog/2013/03/26/smarter-open-line/
 (defun smart-open-line ()
   "Insert an empty line after the current line.
-Position the cursor at its beginning, according to the current mode. Bind S-RET"
+  Position the cursor at its beginning, according to the current mode. Bind S-RET"
   (interactive)
   (move-end-of-line nil)
   (newline-and-indent))
@@ -139,15 +162,15 @@ Position the cursor at its beginning, according to the current mode. Bind S-RET"
 
 (defun tinysong/word-count-for-chinese ()
   "「較精確地」統計中/日/英文字數。
-- 文章中的註解不算在字數內。
-- 平假名與片假名亦包含在「中日文字數」內，每個平/片假名都算單獨一個字（但片假
-  名不含連音「ー」）。
-- 英文只計算「單字數」，不含標點。
-- 韓文不包含在內。
+  - 文章中的註解不算在字數內。
+  - 平假名與片假名亦包含在「中日文字數」內，每個平/片假名都算單獨一個字（但片假
+                                                                         名不含連音「ー」）。
+  - 英文只計算「單字數」，不含標點。
+  - 韓文不包含在內。
 
-※計算標準太多種了，例如英文標點是否算入、以及可能有不太常用的標點符號沒算入等
-。且中日文標點的計算標準要看 Emacs 如何定義特殊標點符號如ヴァランタン・アルカン
-中間的點也被 Emacs 算為一個字而不是標點符號。"
+  ※計算標準太多種了，例如英文標點是否算入、以及可能有不太常用的標點符號沒算入等
+  。且中日文標點的計算標準要看 Emacs 如何定義特殊標點符號如ヴァランタン・アルカン
+  中間的點也被 Emacs 算為一個字而不是標點符號。"
   (interactive)
   (let* ((v-buffer-string
           (progn
@@ -178,10 +201,10 @@ Position the cursor at its beginning, according to the current mode. Bind S-RET"
     (setq chinese-char (- chinese-char-and-punc chinese-punc))
     (message
      (format "中日文字數（不含標點）：%s
-中日文字數（包含標點）：%s
-英文字數（不含標點）：%s
-=======================
-中英文合計（不含標點）：%s"
+  中日文字數（包含標點）：%s
+  英文字數（不含標點）：%s
+  =======================
+  中英文合計（不含標點）：%s"
              chinese-char chinese-char-and-punc english-word
              (+ chinese-char english-word)))))
 
@@ -240,7 +263,7 @@ Position the cursor at its beginning, according to the current mode. Bind S-RET"
 
 (defun tinysong/today ()
   "Insert string for today's date nicely formatted in American style,
-e.g. Sunday, September 17, 2000."
+  e.g. Sunday, September 17, 2000."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%A, %B %e, %Y")))
 
@@ -291,14 +314,14 @@ e.g. Sunday, September 17, 2000."
 
 (defun tinysong/run-current-file ()
   "Execute the current file.
-For example, if the current buffer is the file x.py, then it'll call 「python x.py」 in a shell.
-The file can be emacs lisp, php, perl, python, ruby, javascript, bash, ocaml, Visual Basic.
-File suffix is used to determine what program to run.
+  For example, if the current buffer is the file x.py, then it'll call 「python x.py」 in a shell.
+  The file can be emacs lisp, php, perl, python, ruby, javascript, bash, ocaml, Visual Basic.
+  File suffix is used to determine what program to run.
 
-If the file is modified, ask if you want to save first.
+  If the file is modified, ask if you want to save first.
 
-URL `http://ergoemacs.org/emacs/elisp_run_current_file.html'
-version 2015-08-21"
+  URL `http://ergoemacs.org/emacs/elisp_run_current_file.html'
+  version 2015-08-21"
   (interactive)
   (let* (
          (ξsuffix-map
@@ -338,7 +361,7 @@ version 2015-08-21"
 ;; "http://xuchunyang.me/Opening-iTerm-From-an-Emacs-Buffer/"
 (defun tinysong/iterm-shell-command (command &optional prefix)
   "cd to `default-directory' then run COMMAND in iTerm.
-With PREFIX, cd to project root."
+  With PREFIX, cd to project root."
   (interactive (list (read-shell-command
                       "iTerm Shell Command: ")
                      current-prefix-arg))
@@ -346,9 +369,9 @@ With PREFIX, cd to project root."
                 default-directory))
          ;; if COMMAND is empty, just change directory ;
          (cmd (format "cd %s ;%s" dir command)))
-    (do-applescript
-     (format
-      "
+  (do-applescript
+   (format
+    "
   tell application \"iTerm\"
        activate
        set _session to current session of current terminal
