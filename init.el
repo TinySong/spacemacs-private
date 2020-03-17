@@ -170,7 +170,6 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    solarized-theme
                                     chinese-wbim
                                     chinese-pyim
                                     )
@@ -304,7 +303,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-themes '(
                          spacemacs-dark
                          monokai
-                         gruvbox
+                         spacemacs-light
+                         solarized-dark
                          )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -587,7 +587,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; ss proxy. But it will cause anacond-mode failed.
   ;; TODO: set a variable, when enable, connect melpa by socks-server
   ;; (setq url-gateway-method 'socks)
-  ;; (setq socks-server '("Default server" "127.0.0.1" 1086 5))
+  (setq socks-server '("Default server" "127.0.0.1" 1081 5))
   (setq evil-shift-round nil)
   (setq byte-compile-warnings '(not obsolete))
 

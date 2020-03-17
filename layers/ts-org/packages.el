@@ -57,7 +57,8 @@
       (setq org-stuck-projects
             '("TODO={.+}/-DONE" nil nil "SCHEDULED:\\|DEADLINE:"))
 
-      (global-set-key (kbd "<f12>") 'org-agenda)
+      (define-key global-map (kbd "<f12>") 'org-agenda)
+
 
 
       (setq org-agenda-inhibit-startup t)       ;; ~50x speedup
@@ -285,41 +286,33 @@
                "* TODO %?  %i \n%U"
                )
               ;; soloved client something
-              ("u" "Urgency event" entry (file+headline "~/org-notes/refile.org" "Urgency")
-               "* TODO %?\n SCHEDULED: %t\n%U\n"
+              ("w" "work" entry (file+olp+datetree "~/org-notes/refile.org" "Work")
+               "* TODO [#A] %? :Work: \n SCHEDULED: %t\n%U\n"
                )
-              ;; soloved client something
-              ("w" "WORK" entry (file+headline "~/org-notes/refile.org" "Tenxcloud")
-               "* TODO %?\n SCHEDULED: %t\n%U\n"
+
+              ("i" "iterative summary" entry (file+olp+datetree "~/org-notes/refile.org" "Iterative summary")
+               "* TODO [#A] %? :Work: \n SCHEDULED: %t\n%U\n"
                )
-              ("i" "ideas" entry (file+headline "~/org-notes/refile.org" "Ideas")
+
+              ("W" "week summary" entry (file+olp+datetree "~/org-notes/refile.org" "Week Summary")
                "* %? :Idea: %i \n%U"
                )
 
-              ("p" "Project" entry (file+headline "~/org-notes/refile.org" "Project")
-               "* %? :Project: %i\n%U"
+              ("s" "stand meeting" entry (file+olp+datetree "~/org-notes/refile.org" "Stand Meeting")
+               "* %? :MEETING: %i \n%U"
                )
 
+              ("p" "Project" entry (file+headline "~/org-notes/refile.org" "Project")
+               "* TODO [#B] %? :Project: %i\n%U"
+               )
 
               ("m" "Meeting" entry (file+headline "~/org-notes/refile.org" "Meeting")
                "* MEETING with %? :MEETING:\n%U" :clock-in t
                )
-              ("s" "Schedule" entry (file+headline "~/org-notes/refile.org" "Schedule")
-               "* %? :Schedule: \n %U\n"
-               )
-              ("w" "org-protocol" entry (file+headline "~/org-notes/refile.org" )
-               "* TODO Review %c\n%U\n" :immediate-finish t)
 
               ("n" "notes" entry (file+headline "~/org-notes/refile.org" "Notes")
                "* %? :NOTE:\n%U\n%a\n"
                )
-              ;; ("n" "notes" entry (file+headline org-agenda-refile "notes")
-              ;;  "* TODO [#C] %?\n  %i\n %U"
-              ;;  :empty-lines 1)
-
-              ;; ("w" "work" entry (file+headline org-agenda-refile "tenx")
-              ;;  "* TODO [#A] %?\n  %i\n %U"
-              ;;  :empty-lines 1)
               )
             )
 
